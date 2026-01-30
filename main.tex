@@ -11,7 +11,7 @@
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage{rotating}
-\graphicspath{{./Bilder/}}
+\graphicspath{{bilder/}}
 \usepackage{url}
 \usepackage{tabularx}
 \usepackage{longtable}
@@ -30,6 +30,8 @@
 \frontmatter
 \include{titel/titel}
 \include{kapitel/abstract_deu}
+\include{frontmatter/abkuerzungen}
+\include{frontmatter/glossary}
 
 \onehalfspacing
 \tableofcontents
@@ -40,24 +42,27 @@
 
 % -----------------------------------
 \mainmatter
-\input{kapitel/01_einleitung}
-\input{kapitel/02_praxispartner}
-\input{kapitel/03_projektdesign}
-\input{kapitel/04_evaluation_rag}
-\input{kapitel/05_weiterentwicklung}
-\input{kapitel/06_ergebnisse}
-\input{kapitel/07_diskussion}
-\input{kapitel/08_implikationen}
-\input{kapitel/09_fazit}
+\input{kapitel/01_einleitung.tex}
+\input{kapitel/02_praxispartner.tex}
+\input{kapitel/03_projektdesign.tex}
+\input{kapitel/04_evaluation_rag.tex}
+\input{kapitel/05_weiterentwicklung.tex}
+\input{kapitel/06_ergebnisse.tex}
+\input{kapitel/07_diskussion.tex}
+\input{kapitel/08_implikationen.tex}
+\input{kapitel/09_fazit.tex}
 
 % -----------------------------------
 \backmatter
+
 \appendix
+\addcontentsline{toc}{chapter}{Anhang}
 \input{kapitel/anhang}
 
 \bibliographystyle{apacite}
 \bibliography{literatur/quellen}
 
+\backmatter
 \input{kapitel/erklaerung}
 
 \end{document}
