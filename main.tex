@@ -1,0 +1,63 @@
+\documentclass[12pt,oneside,paper=a4,headings=small]{scrbook}
+
+% -----------------------------------
+% Packages
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{mathptmx}
+
+\usepackage{apacite}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{rotating}
+\graphicspath{{./Bilder/}}
+\usepackage{url}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{listings}
+\usepackage{setspace}
+\usepackage{lscape}
+
+\newtheorem{mydef}{Key Point}
+\newtheorem{bsp}{Example}
+
+\usepackage{hyperref}
+
+% -----------------------------------
+\begin{document}
+
+\frontmatter
+\include{Titel/titel}
+\include{Kapitel/abstract_deu}
+
+\onehalfspacing
+\tableofcontents
+\addcontentsline{toc}{chapter}{Abbildungsverzeichnis}
+\listoffigures
+\addcontentsline{toc}{chapter}{Tabellenverzeichnis}
+\listoftables
+
+% -----------------------------------
+\mainmatter
+\input{Kapitel/01_einleitung}
+\input{Kapitel/02_praxispartner}
+\input{Kapitel/03_projektdesign}
+\input{Kapitel/04_evaluation_rag}
+\input{Kapitel/05_weiterentwicklung}
+\input{Kapitel/06_ergebnisse}
+\input{Kapitel/07_diskussion}
+\input{Kapitel/08_implikationen}
+\input{Kapitel/09_fazit}
+
+% -----------------------------------
+\backmatter
+\appendix
+\input{Kapitel/Anhang}
+
+\bibliographystyle{apacite}
+\bibliography{Literatur/quellen}
+
+\input{Kapitel/erklaerung}
+
+\end{document}

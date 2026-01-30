@@ -1,0 +1,16 @@
+name: Build LaTeX PDF
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: xu-cheng/latex-action@v3
+        with:
+          root_file: main.tex
+      - uses: actions/upload-artifact@v4
+        with:
+          name: abschlussbericht-pdf
+          path: main.pdf
