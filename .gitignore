@@ -17,5 +17,4 @@
 # OS / Editor
 .DS_Store
 Thumbs.db
-.vscode/*
-!.vscode/settings.json
+.vscode/
