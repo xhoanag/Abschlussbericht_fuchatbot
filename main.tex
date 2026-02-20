@@ -1,18 +1,19 @@
 \documentclass[12pt,oneside,paper=a4,headings=small]{scrbook}
 
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+
 % -----------------------------------
 % Packages
 \usepackage[T1]{fontenc}
 \usepackage[ngerman]{babel}
 \usepackage{mathptmx}
 
-\usepackage{apacite}
 \usepackage{amsmath}
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage{rotating}
 \graphicspath{{bilder/}}
-\usepackage{url}
 \usepackage{tabularx}
 \usepackage{longtable}
 \usepackage{listings}
@@ -22,34 +23,40 @@
 \newtheorem{mydef}{Key Point}
 \newtheorem{bsp}{Example}
 
-\usepackage{hyperref}
+% hyperref BEFORE apacite to avoid cite/link breakage
+\usepackage[unicode]{hyperref}
+
+% Bibliography package AFTER hyperref
+\usepackage{apacite}
 
 % -----------------------------------
 \begin{document}
 
 \frontmatter
 \include{titel/titel}
-\include{kapitel/abstract_deu}
+\include{frontmatter/abstract_deu}
 \include{frontmatter/abkuerzungen}
 \include{frontmatter/glossary}
 
 \onehalfspacing
 \tableofcontents
+
 \addcontentsline{toc}{chapter}{Abbildungsverzeichnis}
 \listoffigures
+
 \addcontentsline{toc}{chapter}{Tabellenverzeichnis}
 \listoftables
 
 % -----------------------------------
 \mainmatter
-\input{kapitel/01_einleitung.tex}
-\input{kapitel/02_kic.tex}
-\input{kapitel/03_projektdesign.tex}
-\input{kapitel/04_methodik.tex}
-\input{kapitel/05_ergebnisse.tex}
-\input{kapitel/06_diskussion.tex}
-\input{kapitel/07_implikationen.tex}
-\input{kapitel/08_fazit.tex}
+\input{kapitel/01_einleitung}
+\input{kapitel/02_kic}
+\input{kapitel/03_projektdesign}
+\input{kapitel/04_methodik}
+\input{kapitel/05_ergebnisse}
+\input{kapitel/06_diskussion}
+\input{kapitel/07_implikationen}
+\input{kapitel/08_fazit}
 
 % -----------------------------------
 \backmatter
@@ -60,7 +67,6 @@
 \bibliographystyle{apacite}
 \bibliography{literatur/quellen}
 
-\backmatter
 \input{kapitel/erklaerung}
 
 \end{document}

@@ -1,11 +1,48 @@
 \chapter{Daten und Methodik der Evaluation}
 
-\section{Identifizieren von Use Cases }
+\section{Identifizierung von Use Cases}
 
-\section{Evaluation eines Retrieval Augmented Generation Chatbots }
+\section{Evaluation eines Retrieval-Augmented-Generation-Chatbots}
+
 \subsection{Stand der Forschung}
+
 \subsection{Evaluationskonzept}
 
-\section{Weiterentwicklung eines Retrieval Augmented Generation Chatbots }
-\subsection{Requirements Engineering }
-\subsection{KTechnische Umsetzung}
+\subsubsection{Umsetzung RAGAS}
+
+\textbf{Methodischer Rahmen}
+
+Zur automatisierten Evaluation des Retrieval-Augmented-Generation-Systems wurde das Framework RAGAS in der Version 0.3.8 eingesetzt. RAGAS ist ein referenzfreies Evaluationsframework für RAG-Systeme, das verschiedene Qualitätsdimensionen automatisiert bewertet \cite{es2025ragas}. Es ermöglicht die quantitative Bewertung von Antwort- und Retrieval-Qualität, ohne dass manuell erstellte Referenzantworten erforderlich sind.
+
+Die Evaluation wurde als Single-Turn-Setting umgesetzt. Jede Frage wurde unabhängig von vorherigen Interaktionen bewertet, um eine kontrollierte und vergleichbare Analyse der Systemleistung zu gewährleisten. Dieses Vorgehen ist mit der Dokumentation von RAGAS konsistent \cite{ragasdocs}.
+
+Die Evaluationsfragen wurden kuratiert und nicht zufällig generiert. Ziel war es, typische Nutzungsszenarien der Plattform systematisch abzubilden. Die 60 Fragen decken Wissensfragen zu KI-Inhalten, kursbezogene Anfragen, technische Supportfragen sowie Fragen zur Plattformfunktionalität ab.
+
+\bigskip
+\textbf{Technische Implementierung und Metrikdefinition}
+
+Die Implementierung orientiert sich an der von RAGAS vorgesehenen Struktur \texttt{SingleTurnSample} \cite{ragasdocs}. Für jede Evaluationsinstanz werden die Nutzerfrage, die generierte Antwort sowie die tatsächlich verwendeten Kontextsegmente an das Framework übergeben.
+
+Als Metriken wurden \textit{Answer Relevancy}, \textit{Context Relevance} und \textit{Faithfulness} eingesetzt \cite{es2025ragas}.
+
+\textit{Answer Relevancy} misst die inhaltliche Passung zwischen Frage und Antwort.  
+\textit{Context Relevance} bewertet die Qualität des Retrievals.  
+\textit{Faithfulness} überprüft, ob die Antwort durch die bereitgestellten Kontexte gestützt ist.
+
+Die Bewertung erfolgte mit \texttt{gpt-4o} über den \texttt{LangchainLLMWrapper}. Für semantische Ähnlichkeitsberechnungen wurden Embeddings des Modells \texttt{text-embedding-3-small} verwendet. Die Temperatur wurde auf 0 gesetzt.
+
+\bigskip
+\textbf{Evaluation der bestehenden und der neuen Version}
+
+In der bestehenden Version basiert die RAG-Pipeline auf einer linearen Architektur. Die extrahierten Kontexte wurden gemeinsam mit der generierten Antwort an RAGAS übergeben.
+
+Die neue Version verwendet eine Klassifikation der Anfrage sowie Single-Hop- oder Multi-Hop-Verfahren. Komplexe Anfragen werden in Teilfragen zerlegt, parallel verarbeitet und anschließend dedupliziert und rerankt.
+
+In beiden Versionen wurden ausschließlich die final ausgewählten Kontexte als \texttt{retrieved\_contexts} an RAGAS übergeben.
+
+\bigskip
+\textbf{Mehrfachausführung und Datenaggregation}
+
+Jede Frage wurde fünfmal beantwortet und bewertet. Die Metrikwerte wurden gespeichert und zu Durchschnittswerten aggregiert.
+
+Alle Evaluationsdaten wurden in einer strukturierten JSON-Datei dokumentiert. Ergänzend wurde ein Prüfmechanismus implementiert, der potenziell ungestützte Antworten identifiziert.

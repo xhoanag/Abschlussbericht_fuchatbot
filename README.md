@@ -16,11 +16,15 @@ macOS: MacTeX
 
 -Install the VS Code extension “LaTeX Workshop”
 
+-Install Strawberry Perl 64bit
 
-Building the PDF
+Run the following commands in the project root to compile the PDF:
 
-Ctrl + Alt + B builds the PDF
+pdflatex main.tex
+bibtex main
+pdflatex main.tex
+pdflatex main.tex
 
-Ctrl + Alt + V opens the PDF
+This generates:
 
-The PDF is automatically built via GitHub Actions.
+main.pdf
