@@ -24,6 +24,47 @@ Zusammenfassend lässt sich der Forschungsstand in drei Entwicklungslinien bünd
 
 \subsection{Evaluationskonzept}
 
+\subsubsection{Blindtest: Experten}
+
+Zur vergleichenden Evaluation der beiden RAG-Systeme wurde ein expertenbasierter Blindtest im A/B-Design durchgeführt. Methodisch orientiert sich das Vorgehen am Arena-Prinzip, bei dem zwei Systemantworten auf denselben Prompt parallel präsentiert werden, ohne dass die Bewertenden wissen, welches System welche Antwort erzeugt hat. Dieses Design reduziert Erwartungs- und Confirmation-Bias und ist insbesondere für generative Systeme geeignet, deren Qualität nicht ausschließlich anhand einer eindeutig definierten Ground Truth beurteilt werden kann. Während automatisierte Metriken wie \emph{Faithfulness} oder faktische Korrektheit die kontextuelle Stützung und inhaltliche Konsistenz quantifizieren \cite{Roychowdhury2024RAGAS}, erlaubt ein Blindvergleich die Bewertung wahrgenommener Gesamtqualität im direkten Systemvergleich.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{arena_screenshot.png}
+    \caption{Arena-Setup im Experten-Blindtest: Zwei Systemantworten (A/B) werden parallel im identischen Interface dargestellt.}
+    \label{fig:arena}
+\end{figure}
+
+Die Untersuchung wurde als moderiertes Einzelinterview durchgeführt (30--60 Minuten pro Person). Insgesamt nahmen 14 Expert*innen teil, darunter Autor*innen von E-Learning-Inhalten, Lehrkräfte sowie Fachpersonen aus dem KI-Campus-Umfeld, aus der angewandten Forschung (Fraunhofer) und aus dem universitären Kontext (Freie Universität Berlin). Diese Zusammensetzung gewährleistet sowohl fachliche als auch didaktische Expertise und erlaubt eine fundierte Beurteilung inhaltlicher Korrektheit, Kontextintegration und Lernförderlichkeit. Die Relevanz solcher mehrdimensionaler Qualitätskriterien im Bildungskontext wird auch in der Literatur zu RAG in Educational Settings hervorgehoben \cite{Li2025RAGEducationSurvey,Swacha2025RAGEducation}. Zudem zeigen Studien zur Nutzung generativer KI im Unterricht, dass didaktische Angemessenheit und die Förderung kritischer Bewertungskompetenz zentrale Qualitätsdimensionen darstellen \cite{Oates2025ChatGPTClassroom}.
+
+\textbf{Bewertungsinstrument}
+
+Die Evaluation erfolgte mittels standardisiertem Fragebogen (Likert-Skala, 1 = trifft nicht zu, 5 = trifft voll zu) sowie begleitender Think-Aloud-Methode. Die Bewertungsdimensionen wurden wie folgt operationalisiert:
+
+\begin{table}[h]
+\centering
+\caption{Bewertungsdimensionen des Experten-Blindtests}
+\label{tab:experten_kriterien}
+\begin{tabular}{p{1cm} p{3.5cm} p{7cm}}
+\hline
+\textbf{Kürzel} & \textbf{Dimension} & \textbf{Bewertungsstatement} \\
+\hline
+I1 & Inhaltliche Korrektheit & Die Antwort ist fachlich korrekt und enthält keine sachlichen Fehler. \\
+I2 & Vollständigkeit & Die Antwort deckt die wesentlichen Aspekte der Frage vollständig ab. \\
+I3 & Relevanz & Die Antwort geht präzise auf die gestellte Frage ein und enthält keine irrelevanten Informationen. \\
+I4 & Kontextintegration / Kohärenz & Die Antwort integriert relevante Kontextinformationen schlüssig und ist in sich konsistent. \\
+I5 & Verständlichkeit / Struktur & Die Antwort ist klar strukturiert, gut verständlich formuliert und sprachlich angemessen. \\
+I6 & Lernförderlichkeit / Didaktik & Die Antwort unterstützt das Verständnis des Themas und fördert den Lernprozess. \\
+\hline
+\end{tabular}
+\end{table}
+
+Die Kombination aus quantitativer Skalenbewertung und qualitativer Think-Aloud-Methode ermöglicht eine differenzierte Analyse. Während die Likert-Skalen systematische Vergleiche der beiden Systeme über mehrere Qualitätsdimensionen hinweg erlauben, liefert die verbale Begleitreflexion Einblick in Entscheidungslogiken, Unsicherheiten und Bewertungsmaßstäbe der Expert*innen. Gerade im Bildungskontext ist diese Kombination bedeutsam, da generative KI-Systeme nicht allein anhand faktischer Richtigkeit bewertet werden, sondern insbesondere hinsichtlich ihrer didaktischen Angemessenheit, Strukturierungsleistung und Unterstützung reflektierter Wissensaneignung \cite{Oates2025ChatGPTClassroom,Neumann2024MoodleBot}.
+
+Der Experten-Blindtest ergänzt somit automatisierte RAG-Metriken um eine fachlich-didaktische Validierungsebene. Während quantitative Scores Aussagen über Kontexttreue und faktische Konsistenz erlauben \cite{Roychowdhury2024RAGAS}, erfasst das Arena-Design die wahrgenommene Gesamtqualität im direkten Vergleich – eine zentrale Voraussetzung für die Bewertung konkurrierender RAG-Systeme im Bildungsbereich.
+
+
+
 \subsubsection{Umsetzung RAGAS}
 
 \textbf{Methodischer Rahmen}
