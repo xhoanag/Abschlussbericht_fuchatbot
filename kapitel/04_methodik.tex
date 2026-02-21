@@ -46,3 +46,78 @@ In beiden Versionen wurden ausschließlich die final ausgewählten Kontexte als 
 Jede Frage wurde fünfmal beantwortet und bewertet. Die Metrikwerte wurden gespeichert und zu Durchschnittswerten aggregiert.
 
 Alle Evaluationsdaten wurden in einer strukturierten JSON-Datei dokumentiert. Ergänzend wurde ein Prüfmechanismus implementiert, der potenziell ungestützte Antworten identifiziert.
+
+\section{Weiterentwicklung eines Retrieval-Augmented-Generation-Chatbots}
+
+\subsection{Anforderungsanlyse}
+Die Weiterentwicklung eines RAG-basierten Chatbots ist ebenso wie dessen Evaluation keine triviale Aufgabe. Um eine zielgerichtete Arbeit sicherzustellen, bedarf es einer systematischen Erfassung der Anforderungen, sodass darauf aufbauend konkrete technische Implementierungsschritte definiert und umgesetzt werden können. In diesem Abschnitt wird die Anforderungsanalyse beschrieben, die als Grundlage für die Weiterentwicklung des Chatbots dient. Zuerst werden allgemeine Anforderungen an RAG-basierte Chatbots auf Basis einer Literaturrecherche identifiziert. Der Fokus liegt hier bereits auf dem Bildungskontext. Darauffolgend werden spezifische Anforderungen für die Weiterentwicklung des Chatbots auf Basis der zentralen Stakeholder definiert. Dazu gehören die Nutzer der Plattform, die den Chatbot verwenden, sowie der KI-Campus als Betreiber der Plattform. Damit wird sichergestellt, dass die Weiterentwicklung des Chatbots nicht nur auf theoretischen Überlegungen basiert, sondern auch die praktischen Bedürfnisse und Erwartungen der Nutzer und des Betreibers berücksichtigt.
+
+\subsubsection{Stand der Forschung}
+??
+
+\subsubsection{Stakeholder}
+Der Einbezug der Stakeholder erfolgt primär durch das Auswerten einer ersten Phase von User Test. Diese wurden im Februar 2025 nach X jährigen Bestehen des Chatbots druchgeführt.
+INFOS ZU USER TEST ERFRAGEN
+Die Ergebnisse der User Tests ist in Tabelle \ref{tab:usertests}
+
+\begin{table}[htbp]
+\centering
+\renewcommand{\arraystretch}{1.2}
+
+\begin{tabular}{|>{\raggedright\arraybackslash}m{0.3\textwidth}|>{\raggedright\arraybackslash}m{0.3\textwidth}|>{\raggedright\arraybackslash}m{0.3\textwidth}|}
+\hline
+\multicolumn{1}{|c|}{\textbf{Hoch}} &
+\multicolumn{1}{c|}{\textbf{Mittel}} &
+\multicolumn{1}{c|}{\textbf{Niedrig}} \\
+\hline
+Langsames Antworten & Abbrechen von  Chatanfragen fehlt & Simples Interface \\
+\hline
+Ausbaufähiges Zitieren & Keine personalisierten Antworten & Level der User unbeachtet \\
+\hline
+Antwortgenauigkeit \& -qualität & Editieren von Chatanfragen fehlt & Zwei Antworten generieren (siehe ChatGPT)? \\
+\hline
+Mehrsprachiger Support unzureichend & Keine informellen Lernabfragen & Rolle des Chatbots klar benennen \\
+\hline
+Unzureichende Persistenz der Konversationen & Beispiele und Use Cases in Antwort einbinden & Kein Hinweis auf Funktionalität Chatbots \\
+\hline
+User Feedback einbinden (RLHF) & Schlechte No-Answer Logik & Keine Exportfunktion der Chats \\
+\hline
+Größere Wissensbasis für Antwort & Schwache Outputformatierung & Antworten teils generisch und nicht kontextgetreu \\
+\hline
+Oberflächliche Zusammenfassungen & Multimodale Informationen nicht eingebunden & Keine KIC Community Info im Chatkontext \\
+\hline
+Follow-up Fragen fehlen &  &  \\
+\hline
+\end{tabular}
+\caption{Festgestellte Schwachstellen nach Relevanz}
+\label{tab:usertests}
+\end{table}
+
+\subsubsection{Identifizierte Systemanforderungen}
+Auf Basis der durchgeführten Anforderungsanalyse wurden die in Abbildung \ref{fig:systemanforderungen} dargestellten Systemanforderungen für die Weiterentwicklung des RAG-basierten Chatbots identifiziert.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{systemanforderungen.png}
+    \caption{Identifizierte Systemanforderungen}
+    \label{fig:systemanforderungen}
+\end{figure}
+
+\subsection{Technische Umsetzung}
+
+\subsubsection{Codeanalyse}
+
+\subsubsection{Erweiterung der Ingestion-Pipeline}
+Veit
+
+\subsubsection{Umstellung der Logik}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\textwidth]{workflow_neu.png}
+    \caption{Neuer Workflow des RAG-basierten Chatbots in LangGraph}
+    \label{fig:worklow_neu}
+\end{figure}
+
+\subsubsection{Spezifische Anpassungen}
+
+\subsubsection{Begründung ausgelassener Anforderungen}
