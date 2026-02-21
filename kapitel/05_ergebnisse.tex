@@ -6,4 +6,61 @@
 
 \section{Expertenbasierte Blindtest}
 
+\section{Ergebnisse der Expertenevaluation}
+
+Die Expertenevaluation liefert ein differenziertes Gesamtbild der beiden Systemvarianten (V1 und V2). Während die quantitativen Fragebogendaten signifikante Unterschiede in einzelnen Use Cases zeigen, erlaubt insbesondere die Think-Aloud-Analyse eine vertiefte Interpretation der zugrunde liegenden Qualitätswahrnehmungen. Im Folgenden werden beide Perspektiven integriert dargestellt.
+
+\paragraph{Quantitative Ergebnisse (Fragebogen)}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{Ergebnisse Fragebogen – Use Case Vergleich.png}
+    \caption{Mittelwerte, 95\%-Konfidenzintervalle, Standardabweichungen und Signifikanztests für Technischer Support, Fachliche Fragen und Lernmodus.}
+    \label{fig:fragebogen_usecases}
+\end{figure}
+
+Im Use Case \emph{Technischer Support} zeigt sich eine signifikante Verschlechterung von V2 gegenüber V1 ($p = 0.002$). Expert*innen bewerteten V1 hier als überlegen, was insbesondere auf die wahrgenommene höhere Reaktionsgeschwindigkeit zurückgeführt wurde. Geschwindigkeit fungiert im Support-Kontext als dominantes Qualitätskriterium, wodurch kleinere inhaltliche Unterschiede weniger stark ins Gewicht fallen.
+
+Im Bereich \emph{Fachliche Fragen} zeigt sich eine leichte, signifikante Verbesserung zugunsten von V2 ($p = 0.036$). Der Effekt ist moderat, deutet jedoch darauf hin, dass V2 komplexere fachliche Anfragen strukturierter verarbeitet und kontextbezogener beantwortet.
+
+Am deutlichsten fällt die Verbesserung im \emph{Lernmodus} aus ($p < 0.001$). Hier wird V2 signifikant besser bewertet. Dies deutet bereits quantitativ auf eine qualitative Verschiebung in Richtung didaktischer Unterstützung hin.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{Ergebnisse Fragebogen - Gesamtvergleich.png}
+    \caption{Gesamtvergleich beider Versionen (bereinigt), inklusive Mittelwerte und Signifikanztests.}
+    \label{fig:fragebogen_gesamt}
+\end{figure}
+
+Der bereinigte Gesamtvergleich bestätigt insgesamt eine leichte, aber signifikante Verbesserung zugunsten von V2. Die Qualitätssteigerung ist somit statistisch nachweisbar, variiert jedoch je nach Nutzungskontext.
+
+\paragraph{Qualitative Ergebnisse (Think-Aloud-Analyse)}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{Ergebnisse Think Aloud.png}
+    \caption{Ergebnisse der Think-Aloud-Analyse im Experten-Blindtest. Legende: ++ = deutlich überwiegend positive Bewertung; + = überwiegend positive Bewertung; $\pm$ = ausgeglichene Bewertung; - = überwiegend negative Bewertung.}
+    \label{fig:thinkaloud_tabelle}
+\end{figure}
+
+Die Think-Aloud-Daten liefern entscheidende Hinweise darauf, warum bestimmte Bewertungen zustande kamen. Anders als die Likert-Skalen erfassen sie Bewertungslogiken, Wahrnehmungsprozesse und implizite Qualitätsmaßstäbe der Expert*innen.
+
+Im Bereich \textbf{Didaktik} wurde V2 deutlich positiver wahrgenommen. Expert*innen beschrieben V2 als stärker lernunterstützend und teilweise als „sokratischen Lernassistenten“. Hinweise auf Metakognition zeigen, dass V2 nicht nur Informationen bereitstellt, sondern stärker strukturierend und reflexionsanregend wirkt. Diese qualitative Verschiebung erklärt die signifikante Verbesserung im Lernmodus.
+
+Im Bereich \textbf{UX und Transparenz} (Streaming, Fußnoten, Darstellung) wurde insbesondere die verbesserte Linkdarstellung und das sichtbare Streaming positiv hervorgehoben. Dass sich der Text während der Generierung verändert und „zeigt, dass noch gerechnet wird“, wurde als Transparenzsignal interpretiert. Transparenz scheint hier Vertrauen zu stärken und die wahrgenommene Systemintelligenz zu erhöhen.
+
+Hinsichtlich der \textbf{Antwortqualität} wurde V1 teilweise als liefernd „High-Level-Antworten“ beschrieben, während V2 stärker kursbezogenen Kontext integriert. Der Unterschied wurde weniger als richtig versus falsch wahrgenommen, sondern als Differenz im Abstraktionsniveau und in der Kontexttiefe. Die Systemverbesserung betrifft somit primär die Kontextintegration.
+
+Im Bereich \textbf{Sprache} wurde V2 teilweise kritisch gesehen. Englische Promptstrukturen führten zu wahrgenommener Inkonsistenz und „Verunsicherung“. Sprachliche Kohärenz erweist sich hier als sensibler Qualitätsindikator, der im quantitativen Rating weniger stark differenziert, qualitativ jedoch klar sichtbar wird.
+
+Bei den \textbf{Referenzen} wurden beide Systeme als vergleichbar souverän eingeschätzt. Es ergab sich kein klarer qualitativer Vorsprung.
+
+Die \textbf{Latenz} wurde hingegen konsistent zugunsten von V1 bewertet. V1 wurde als schneller wahrgenommen, was die signifikante Verschlechterung von V2 im Support-Use-Case erklärt und den Zielkonflikt zwischen didaktischer Ausarbeitung und Reaktionsgeschwindigkeit verdeutlicht.
+
+\paragraph{Einordnung}
+
+Die Think-Aloud-Analyse zeigt, dass die Weiterentwicklung von V1 zu V2 nicht primär eine Verbesserung der faktischen Richtigkeit darstellt, sondern eine qualitative Verschiebung hin zu stärkerer Didaktisierung, Kontextintegration und Transparenz. Gleichzeitig entstehen funktionale Trade-offs, insbesondere hinsichtlich Geschwindigkeit und sprachlicher Konsistenz.
+
+Die signifikanten Effekte im Fragebogen sind somit nicht isoliert zu interpretieren: Die quantitative Verbesserung im Lernmodus ist qualitativ klar erklärbar, während die Verschlechterung im Support-Kontext funktional bedingt ist. Die Expertenevaluation macht damit nicht nur Unterschiede in Scores sichtbar, sondern legt die zugrunde liegenden Qualitätsdimensionen offen – ein zentraler Mehrwert der kombinierten quantitativen und qualitativen Methodik.
+
 \section{Kosten}
