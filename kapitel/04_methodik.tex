@@ -23,6 +23,7 @@ Neben Qualitäts- und Akzeptanzdimensionen gewinnt zunehmend auch die wirtschaft
 Zusammenfassend lässt sich der Forschungsstand in drei Entwicklungslinien bündeln: Erstens die Ausdifferenzierung technischer Metriken entlang von Retrieval- und Generationsdimensionen mit Fokus auf Kontexttreue und Robustheit \cite{Yu2025SurveyRAG}. Zweitens die Etablierung automatisierter, LLM-gestützter Evaluationsframeworks wie RAGAS zur skalierbaren Qualitätsmessung, deren Ergebnisse jedoch domänenspezifisch validiert werden müssen \cite{Es2023RAGAS,Roychowdhury2024RAGAS}. Drittens die Integration menschlicher Urteile – sowohl nutzer- als auch expertengestützt – sowie die Berücksichtigung ökonomischer Faktoren im Anwendungskontext \cite{Neumann2024MoodleBot}. Vor diesem Hintergrund ist eine kombinierte Evaluationsstrategie, die automatisierte Metriken, Blindtests und wirtschaftliche Analysen zusammenführt, methodisch gut begründet und entspricht dem aktuellen Stand der Forschung.
 
 \subsection{Evaluationskonzept}
+\label{sec:evalkonzept}
 
 \subsubsection{Blindtest: Experten}
 
@@ -111,11 +112,16 @@ Die Weiterentwicklung eines RAG-basierten Chatbots ist ebenso wie dessen Evaluat
 
 \subsubsection{Stand der Forschung}
 ??
+Single Hop und Multi Hop erklären
+Hybrides Retrieval erklären
+Reranker erklären
+?Sokratischer Lernassistent?
 
 \subsubsection{Stakeholder}
-Der Einbezug der Stakeholder erfolgt primär durch das Auswerten einer ersten Phase von User Test. Diese wurden im Februar 2025 nach X jährigen Bestehen des Chatbots druchgeführt.
-INFOS ZU USER TEST ERFRAGEN
-Die Ergebnisse der User Tests ist in Tabelle \ref{tab:usertests}
+INFO ZU USER TESTS ERFRAGEN
+
+Bevor der Durchführung des in Kapitel \ref{sec:evalkonzept} beschriebenen Evaluationskonzepts, erfolgt der Einbezug der Stakeholder primär durch das Auswerten einer ersten Phase von User Tests. Diese wurden im Februar 2025 durch den KI-Campus durchgeführt und folgten den Think-Aloud Protokoll bei Nutzung des Chatbots. Final gesammelt wurden dabei die Defizite der aktuellen Chatbotversion, welche nach Relevanz kategorisiert wurden. Diese Erkenntnisse wurden durch die Autoren in Oberkategorien synthetisiert und diese Ergebnisse sind in Tabelle \ref{tab:usertests} ersichtlich. Im Bereich hoher Relevanz dominieren funkionale Defizite, wie die Antwortlatenz, die Qualität der zurückgegebenen Antworten sowie die Persistenz der Konversationen. Darüber hinaus gibt es Schwierigkeiten im Bereich der Mehrsprachigkeit sowie Bedenken über eine unzureichende Wissensbasis, die eventuell auf externe Wissensquellen durch das Model Context Protocol (MCP) zugreifen sollte. Des weiteren werden Möglichkeiten des Reinforcement Learning from Human Feedback (RLHF) nicht genutzt. Defizite mittlerer Relevanz betreffen vor allem die Bearbeitbarkeit von Chatanfragen, mangelnde Unterstützung informeller Lernprozesse und die fehlende Fähigkeit für Smalltalk. Zudem fehlen multimodale Integrationen. Im Bereich niedriger Relevanz werden neben einem zu simplen Interface, das nicht klar die Funktionalität des Chatbots kommuniziert, vor allem das Fehlen erweiterter Funktionen wie eine Exportfunkiuon oder das Einbeziehen von Community-Informationen kritisiert.
+Zu den relevanten Defiziten zählen damit die Kernfunktionalität, Antwortqualität und Kontextverarbeitung, während Erweiterungsfunktionen und Interface-Aspekte eine geringere Priorität aufweisen.
 
 \begin{table}[htbp]
 \centering
@@ -139,42 +145,71 @@ Unzureichende Persistenz der Konversationen & Beispiele und Use Cases in Antwort
 \hline
 User Feedback einbinden (RLHF) & Schlechte No-Answer Logik & Keine Exportfunktion der Chats \\
 \hline
-Größere Wissensbasis für Antwort & Schwache Outputformatierung & Antworten teils generisch und nicht kontextgetreu \\
+Größere Wissensbasis für Antwort (MCP?) & Schwache Outputformatierung & Antworten teils generisch und nicht kontextgetreu \\
 \hline
 Oberflächliche Zusammenfassungen & Multimodale Informationen nicht eingebunden & Keine KIC Community Info im Chatkontext \\
 \hline
 Follow-up Fragen fehlen &  &  \\
 \hline
 \end{tabular}
-\caption{Festgestellte Schwachstellen nach Relevanz}
+\caption{Festgestellte Defizite nach Relevanz}
 \label{tab:usertests}
 \end{table}
 
 \subsubsection{Identifizierte Systemanforderungen}
-Auf Basis der durchgeführten Anforderungsanalyse wurden die in Abbildung \ref{fig:systemanforderungen} dargestellten Systemanforderungen für die Weiterentwicklung des RAG-basierten Chatbots identifiziert.
+\label{sec:ident_systemanforderungen}
+Abbildung \ref{fig:systemanforderungen} systematisiert die aus der Anforderungsanalyse abgeleiteten Verbesserungspotenziale und stellt konkrete Handlungsdimensionen für die Weiterentwicklung des RAG-basierten Chatbots dar. Dazu gehören die Wissensbasis, Vertrauen, Konversationsqualität und Technische Performance. Die Wissensbasis umfasst die Erweiterung des verfügbaren Kontexts des RAG-Systems mittels einen Ausbau der Vektordatenbank und die Erweiterung um multimodale Inhalte sowie das Integrieren von Feedback-Mechanismen (bspw. RLHF). Vertrauen umfasst den im Bildungskontext besonders relevanten Aspekt der Transparenz, der eine nachvollziehbare Zitation und eine klare Rollenbeschreibung des Systems beinhaltet. Die Konversationsqualität umfasst vor allem die Verbesserung der Antwortqualität und der Interaktionsfähigkeit des Chatbots. Hierbei geht es nicht nur darum das einfache "Questions an Answers" (Q\&A) zu verbessern, sondern auch eine stärkere Kontextintegration, die Fähigkeit zu Follow-up-Fragen und die Einbindung von Beispielen und Use Cases als auch die Möglichkeit korrekt zu Smalltalk zu reagieren. Die technische Performance umfasst drei wichtige Kategorien. Die Antwortgeschwindigkeit, die technisch korrekte Funktion des Chatbots, wozu Konversationsperistenz sowie mehrspracheriger Support gehören, und die Verbesserung der User Experience (UX), die vor allem mit einer Verbesserung des User Interface (UI) korrepsondiert. Diese identifizerten Systemanforderungen bilden die Grundlage für die technische Umsetzung der Weiternentwicklung, welche in Kapitel \ref{sec:technische_umsetzung} beschrieben wird.
+
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.8\textwidth]{systemanforderungen.png}
+    \includegraphics[width=0.9\textwidth]{systemanforderungen.png}
     \caption{Identifizierte Systemanforderungen}
     \label{fig:systemanforderungen}
 \end{figure}
 
-\subsection{Technische Umsetzung}
+\subsection{Auswahl der Implementierungen}
+Aufgrund der zeitlichen Begrenzung der Projektarbeit konnten nicht alle identifizierten Systemanforderungen auch mittels technischer Implementierungen umgesetzt werden. In diesem Kapitel wird beschrieben, welche Anforderungen technisch umgestzt wurden und welche nicht.
+Grundlage jedlicher Implementierungen ist stets die bestehende Codebasis, welche im GitHub Repository \textit{kic-web-assistant} \cite{kic_version1} nachvollzogen werden kann. Im Folgenden wird der Code und der dazugehörige Chatbot als Version 1 (V1) bezeichnet. Um bestehende Schwächen sowie Ansatzpunkte für das Umsetzen der Systemanforderungen zu identifizieren, wurde der vorliegende Code analysiert. Zentral ist hierbei nicht die Architektur, welche in Kapitel \ref{sec:kic} bereits beschrieben ist, sondern um die eigentlichen Codezeilen. Hierbei fällt direkt auf, dass Version 1 keine standardisierten Frameworks für die Implementierung nutzt. Jegliche Abläufe sind eigenständig codiert, was die Flexibilität erhöht, aber auch die Wartbarkeit und Erweiterbarkeit erschwert. Zudem sorgt dies auch dafür, dass die aktuelle Persistenz komplett im Frontend der Anwendung liegt und es keine Mechanismen für Persistenz im Backend gibt. Ein weiterer auffälliger Punkt ist die limitierte Ingestion-Pipeline, die nur einen Bruchteil der vorhandenen textbasierten Daten in Moodle verarbeitet. Des Weiteren sind viele der Systemprompts veraltet und beinhalten keine bildungsspezifischen Anweisungen. Die kritisierte No-Answer Logik ist zudem keine Schwäche des verwendeten LLM, sondern hardcodiert in den Workflow des Chatbots. Für eine multimodale Verarbeitung fehlen ebenfalls jegliche Schnittstellen, sodass Kommunikation auf Text limitiert ist. Schließlich konnten verschiedene kleinere Bugs identifiziert werden, die im Laufe der Implementierungen behoben werden können.
 
-\subsubsection{Codeanalyse}
+Abbildung \ref{fig:auswahl_implementierungen} stellt aus den identifizierten Systemanforderungen ausgewählten Implementierungen dar. Bezüglich der Wissensbasis wird der Ausbau der Vektordatenbank vorangetrieben. In der Codeanalyse wurde die limitierte Vektordatenbank erkannt und soll im Rahmen der Implementierungen erweitert werden. Dafür sollen zum einen deutlich mehr textbasierte Daten eingelesen werden. Zudem wird ein multimodaler Support eingebaut, der vorerst nur Audiodateien umfasst. Eine breitere Verarbeitung von Bildern und Videos ist technisch aufwendig und wurde im Rahmen dieses Projekts nicht priorisiert. Dies gilt auch für das Einbinden von Feedback, was für die unmittelbar folgende Implementierung erstmal keinen Mehrwert bietet und daher ebenfalls nicht priorisiert wurde. Für die Vertrauensdimension spielt die Zitation eine zentrale Rolle. Diese wird vor allem in Blick auf die Transparenz verbessert, während eine Umstellung der Logik die Rollen des Chatbots klarer kommuniziert. In Bezug auf die Konversationsqualität soll vor allem die Umstellung der Logik die identifizierten Systemanforderungen erfüllen, wobei auch das Anpassen der Systemprompts eine wichtige, wenn auch untergeordnete, Rolle spielt. Im Bezug auf die technische Performance soll die Antwortgeschwindigkeit durch die Implementierung von Streaming verbessert werden. Streaming bedeutet, dass die Antwort bereits während der Generierung an den Nutzer zurückgegeben wird, anstatt erst nach vollständiger Generierung. Dies kann die wahrgenommene Antwortlatenz erheblich reduzieren. Die Persistenz im Backend soll durch die Umstellung der Logik sichergestellt werden. Der mehrsprachige Support, obwohl für eine europäische Organisation wie den KI-Campus sehr wichtig, wurde in Absprache mit diesem erstmal nicht priorisiert, unter anderem auch weil die meisten Nutzer der Plattform Deutsch sprechen. Schließlich wurden Änderungen am User Interface weggelassen, weil das Frontend durch einen weiteren Serviceanbieter (LOOM GmbH) verwaltet wird, die nicht Teil des Projekts sind.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\textwidth]{auswahl_implementierungen.png}
+    \caption{Darstellung der ausgewählten Systemanforderungen mit konkreter Umsetzung (Auswahl fett markiert)}
+    \label{fig:auswahl_implementierungen}
+\end{figure}
+
+\subsection{Technische Umsetzung}
+\label{sec:technische_umsetzung}
 
 \subsubsection{Erweiterung der Ingestion-Pipeline}
 Veit
 
 \subsubsection{Umstellung der Logik}
+Die Umstellung der Logik des Chatbots von dem in Kapitel \ref{sec:kic} dargestellten Prompt Chaining hin zu den in Abbildung \ref{fig:worklow_neu} dargestellten Routing-Ansatz stellt die größte Implementierung der Autoren dar. Relevant ist neben der architektonischen Änderungen hier auch das Nutzen der standardisierten Bibliothek LangGraph. Diese erlaubt das einfache Modellieren komplexer Workflows mittels Knoten, in denen die eigentliche Logik codiert ist, und Kanten, die die Verbindungen zwischen den Knoten darstellen. In jedem Knoten wird der State einer Anfrage verändert, welche durch das Durchlaufen aller Knoten komplett verarbeitet wird. Dies ermöglicht eine deutlich leichter erweiterbare und wartbare Architektur und hat eine built-in Funktion für die Persistenz der Konversationen. In Bezug auf Abbildung \ref{fig:worklow_neu} erkennt man leicht, warum der Ansatz Routing genannt wird. Je nach Anfrage werden verschiedene Pfade durch den Workflow genommen, was eine deutlich flexiblere Verarbeitung von Anfragen ermöglicht. Die möglichst optimale Verarbeitung jeder Anfrage ist die Grundlage des Routings. Der Workflow bestimmt dabei auch die Rolle des Chatbots, welche dann eindeutig mit dem Nutzer kommuniziert werden kann. Die ersten beiden Schritte jeder Anfrage sind identisch. Zuerst wird die Anfrage klassifiziert, um zu bestimmen, welcher Workflow genutzt werden sollte. Darauf folgt die bekannte Kontextualisierung. Ab hier gibt es die Aufteilung. Der \textit{Path ohne Retrieval} wird für einfache Anfragen genutzt, die ohne zusätzlichen Kontext beantwortet werden können. Hierzu zählt Smalltalk aber auch die Verarbeitung von sinnlosen Anfragen. Was zuvor mittels der starren No-Answer Logik gelöst wurde, wird nun durch flexible, kontextgetreue Antworten ersetzt. Damit wird schlussendlich auch Kosten gespart, weil unnötige Retrievals vermieden werden. \textit{Single- und Multi Hop} sind die Erweiterung des ursprünglichen linearen Workflows. Einfache Anfragen entsprechen dem Single Hop, weil diese nur eine Single Source of Truth benötigen. Multi Hop sind komplexere Anfragen, die mehrere Kontextquellen benötigen. Hierfür werden Anfragen in mehrere kleinere Teilfragen zerlegt, die parallel als Single Hop verarbeitet werden. Das semantische Retrieval wird zudem durch das hybride Retreival ersetzt. Im Multi Hop Workflow werden hier die zeitgleich retrievden Kontexte dedupliziert. Anschließend kommen alle retrievden Kontexte in einen Reranker, um die Qualität dieser sicherzustellen. Erst danach werden die finalen Kontexte an das LLM übergeben, um die Antwort zu generieren. Die größte Implementierung bei der Umstellung der Logik ist das Einführen des \textit{Sokratischen Lernassistenten}. Dieser wird durch einen hardcodierten Satz (\"Ich möchte etwas Lernen") aktiviert und dient vor allem der Umstellung von einem einfachen Q\&A Chatbot hin zu einer interaktiven Lernunterstützung. 
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.9\textwidth]{workflow_neu.png}
-    \caption{Neuer Workflow des RAG-basierten Chatbots in LangGraph}
+    \caption{Neuer Workflow (Routing) des RAG-basierten Chatbots in LangGraph}
     \label{fig:worklow_neu}
 \end{figure}
 
-\subsubsection{Spezifische Anpassungen}
+Der schematische Ablauf des sokratischen Lernassistenten ist in Abbildung \ref{fig:socratic} dargestellt. Dieser besteht aus sechs Modi die teilweise linear und teilweise iterativ durchlaufen werden. Nach der Aktivierung durch den Nutzer beginnt der Lernassistent mit dem \textit{Socratic Contracting}. Dies ist ein fester Prompt der den Sinn des Lernmodus kommuniziert und die Regeln der Interaktion festlegt. Der Nutzer wird aufgefordert das Thema zu nennen, das er lernen möchte. Darauf folgt die \textit{Socratic Diagnose}. Dieser Schritt hat das Ziel die Lernziele des Nutzers festzustellen. Man spricht nach Abschluss dieser Stufe von einem entstandenen sokratischen Vertrag, der durch die folgenden Schritte iterativ abgearbeitet wird, sodass der Nutzer am Ende das gewünschte Thema gelernt hat. Diese iterative Stufe ist der \textit{Socratic Core}. In diesem werden stets die sokratischen Fragen gestellt, die die Grundlage des sokratischen Lernens darstellen. Im Idealfall bringt dies den Nutzer dazu das gewünschte Wissen im Dialog durch Follow-up Fragen, informelle Wissensabfrage und Beispiele eigenständig zu erarbeiten. Wenn der Lernassistent den Lernerfolg erkennt, folgt das \textit{Socratic Feedback}, also das Einordnen der Lernleistung, was den Abschluss des Lernmodus darstellt. Sollte der Nutzer feststecken, kann der Lernassistent durch \textit{Socratic Hinting} Hinweise bekommen oder einfach eine Erklärung per \textit{Socratic Explain} erhalten, die beide zum Socratic Core gezählt werden. Der Lernmodus kann dabei nach Abschluss neu gestartet werden oder jederzeit mit oder ohne Erklärung verlassen werden. Die Entscheidungen im Socratic Core werden per Router (Klassifikation) getroffen, während die anderen Schritte hardcodierte Abfolgen sind.
 
-\subsubsection{Begründung ausgelassener Anforderungen}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\textwidth]{socratic.png}
+    \caption{Schematischer Ablauf des sokratischen Lernassistenten}
+    \label{fig:socratic}
+\end{figure}
+
+\subsubsection{Weitere Anpassungen}
+Neben der Erweiterung der Ingestion-Pipeline und der Umstellung der Logik wurden drei weitere, kleinere Anpassungen durchgeführt, die an dieser Stelle kurz beschrieben werden.
+
+Dies ist zum einen die \textbf{Anpassung der Systemprompts} Max?!
+
+Zum anderen gibt es ein \textbf{Anpassen der Zitation} mit dem Hauptziel die verwendeten Quellen transparenter darzustellen. Anstatt in der Antwort einfach nur eine Zahl stehen zu haben (\textit{[1]}) wird der Titel es jeweiligen Moodle-Moduls angezeigt (\textit{[Titel der Quelle]}). Besonders durch den starken Anstieg der eingelesenen Module und damit verbunden deutlich mehr möglichen Quellen ermöglicht dies bereits in der Antwort abschätzen zu können, ob eine Quelle sinnvoll ist und nicht erst dem verfügbaren Link folgen zu müssen. Der implementierte Reranker sorgt zudem dafür, dass die Qualität der zurückgegebenen Quellen verbessert wird, was die Zitation zusätzlich verbessert.
+
+Abschließend wurde die \textbf{Implementierung von Streaming} durchgeführt. Hierfür wird jeder Token direkt bei der Generierung an das Frontend zurückgegeben und damit direkt für den Nutzer sichtbar gemacht. Nach Abschluss der Antwortgenerierung greift das Postprocessing trotzdem und erstellt wie gehabt die verwendeten Quellen, um diese am Ende der Antwort anzuzeigen.
