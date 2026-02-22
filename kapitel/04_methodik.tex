@@ -24,6 +24,104 @@ Zusammenfassend lässt sich der Forschungsstand in drei Entwicklungslinien bünd
 
 \subsection{Evaluationskonzept}
 
+\subsubsection{RAGAS}
+
+\textbf{Zielsetzung und methodischer Rahmen}
+
+Zur automatisierten Evaluation des Retrieval-Augmented-Generation (RAG)-Systems wurde das Framework RAGAS in der Version 0.3.8 eingesetzt. RAGAS ist eine spezialisierte Evaluationsbibliothek für RAG-Systeme und ermöglicht die quantitative Bewertung zentraler Qualitätsdimensionen, ohne dass manuell erstellte Referenzantworten erforderlich sind \cite{es2025ragas}. Dadurch eignet sich das Framework insbesondere für Anwendungsszenarien, in denen reale Systemantworten unter praxisnahen Bedingungen analysiert werden sollen.
+
+Die Evaluationsfragen wurden kuratiert und nicht zufällig generiert. Ziel war es, typische Nutzungsszenarien der Plattform systematisch abzubilden. Die insgesamt 60 Fragen umfassen Wissensfragen zu KI-Inhalten, kursbezogene Anfragen, technische Supportfragen sowie Fragen zur Plattformfunktionalität. Grundlage bildeten bestehende Nutzungsmuster des Chatbots sowie eine inhaltliche Analyse ausgewählter Kursmaterialien. 
+
+\textbf{Technische Integration und verwendete Metriken}
+
+Der projektspezifische Ablauf der automatisierten RAGAS-Evaluation ist in Abbildung~\ref{fig:ragas-eval} dargestellt.
+
+\begin{figure}[t]
+\centering
+\resizebox{0.9\textwidth}{!}{
+\begin{tikzpicture}[
+  node distance=8mm and 12mm,
+  font=\small,
+  >=stealth,
+  block/.style={draw, rounded corners, align=center, minimum width=9.2cm, minimum height=8mm},
+  smallblock/.style={draw, rounded corners, align=center, minimum width=4.4cm, minimum height=8mm},
+  note/.style={draw, dashed, rounded corners, align=left, inner sep=5pt, text width=9.2cm},
+  arrow/.style={->, line width=0.5pt}
+]
+
+\node[block] (q) {Kuratierte Evaluationsfrage \\ ($n=60$)};
+
+\node[smallblock, below left=of q] (v1) {Systemversion A \\ (linear)};
+\node[smallblock, below right=of q] (v2) {Systemversion B \\ (routingbasiert)};
+
+\draw[arrow] (q) -- (v1);
+\draw[arrow] (q) -- (v2);
+
+\node[block, below=12mm of q] (gen) {Antwortgenerierung durch RAG-System};
+
+\draw[arrow] (v1) -- (gen);
+\draw[arrow] (v2) -- (gen);
+
+\node[block, below=of gen] (ctx) {Extraktion der tatsächlich verwendeten \\ \texttt{retrieved\_contexts} (final ausgewählte Kontexte)};
+
+\draw[arrow] (gen) -- (ctx);
+
+\node[block, below=of ctx] (sts) {\texttt{SingleTurnSample} \\ (Frage, Antwort, \texttt{retrieved\_contexts})};
+
+\draw[arrow] (ctx) -- (sts);
+
+\node[block, below=of sts] (eval) {LLM-basierte Bewertung (separates Evaluationsmodell) \\ \texttt{gpt-4o}, Temperatur $=0$};
+
+\draw[arrow] (sts) -- (eval);
+
+\node[block, below=of eval] (metrics) {Berechnung der Metriken \\ \textit{Answer Relevancy} \quad \textit{Context Relevance} \quad \textit{Faithfulness}};
+
+\draw[arrow] (eval) -- (metrics);
+
+\node[block, below=of metrics] (repeat) {Mehrfachausführung: $5$ Wiederholungen je Frage \\ Speicherung der Einzelwerte};
+
+\draw[arrow] (metrics) -- (repeat);
+
+\node[block, below=of repeat] (agg) {Aggregation \\ (Mittelwerte pro Frage und globale Mittelwerte)};
+
+\draw[arrow] (repeat) -- (agg);
+
+\node[block, below=of agg] (out) {Strukturierte Dokumentation der Evaluationsdaten \\ (JSON-Datei)};
+
+\draw[arrow] (agg) -- (out);
+
+\node[note, below=8mm of out] (note) {\textbf{Methodischer Hinweis:} Bewertet werden ausschließlich jene Kontextsegmente, die tatsächlich in die Antwortgenerierung eingeflossen sind. Die Mehrfachausführung reduziert zufällige Schwankungen und erhöht die Stabilität der aggregierten Kennzahlen.};
+
+\end{tikzpicture}
+}
+\caption{Schematische Darstellung des projektspezifischen Evaluationsprozesses mit RAGAS im Single-Turn-Setting.}
+\label{fig:ragas-eval}
+\end{figure}
+
+Die technische Implementierung orientiert sich an der von RAGAS vorgesehenen Struktur \texttt{SingleTurnSample} \cite{ragasdocs}. Für jede Evaluationsinstanz werden die Nutzerfrage, die generierte Antwort sowie die tatsächlich verwendeten Kontextsegmente an das Framework übergeben (vgl. Abbildung~\ref{fig:ragas-eval}). Dadurch wird sichergestellt, dass ausschließlich jener Kontext bewertet wird, der tatsächlich in die Antwortgenerierung eingeflossen ist. Die Evaluation bildet somit den realen Antwortprozess des Systems präzise ab.
+
+Als Metriken wurden \textit{Answer Relevancy}, \textit{Context Relevance} und \textit{Faithfulness} eingesetzt. Die Metrik \textit{Answer Relevancy} misst die inhaltliche Passung zwischen Frage und generierter Antwort. \textit{Context Relevance} bewertet die Qualität des Retrievals, indem geprüft wird, inwieweit die abgerufenen Kontexte zur Beantwortung der Frage geeignet sind. \textit{Faithfulness} untersucht, ob die generierte Antwort durch die bereitgestellten Kontexte gestützt ist und somit keine inhaltlich unbegründeten Aussagen enthält. \cite{es2025ragas} Auf Ground-Truth-basierte Metriken wurde bewusst verzichtet, da im Anwendungskontext keine standardisierten Referenzantworten in ausreichender Breite verfügbar waren und der Fokus auf der Bewertung realer Systemantworten lag.
+
+Die Bewertung erfolgte durch ein separates Evaluationsmodell. Verwendet wurde \texttt{gpt-4o} über den \texttt{LangchainLLMWrapper}. Für semantische Ähnlichkeitsberechnungen innerhalb der Metrik \textit{Answer Relevancy} wurden Embeddings des Modells \texttt{text-embedding-3-small} genutzt. Die Temperatur des Evaluationsmodells wurde auf 0 gesetzt, um eine möglichst deterministische Bewertung zu gewährleisten. Gleichwohl ist zu berücksichtigen, dass LLM-basierte Evaluationsmetriken selbst modellabhängig sind, sodass eine gewisse Bewertungsunsicherheit grundsätzlich bestehen bleibt.
+
+Ergänzend wurde ein Prüfmechanismus implementiert, der potenziell ungestützte Antworten identifiziert. Liegt eine hohe \textit{Answer Relevancy} bei gleichzeitig niedriger \textit{Context Relevance} vor, kann dies darauf hindeuten, dass eine Antwort zwar inhaltlich plausibel erscheint, jedoch nicht ausreichend durch die abgerufenen Kontexte gestützt ist. Solche Fälle wurden gesondert markiert und dienen der vertiefenden qualitativen Analyse.
+
+Zur Reduktion zufälliger Schwankungen wurde jede Frage fünfmal beantwortet und bewertet. Die Anzahl von fünf Wiederholungen stellt einen pragmatischen Kompromiss zwischen statistischer Stabilisierung der Ergebnisse und vertretbarem Rechen- sowie Kostenaufwand dar. Die Metrikwerte wurden pro Durchlauf gespeichert und anschließend zu Durchschnittswerten pro Frage sowie zu globalen Durchschnittswerten aggregiert. Alle Evaluationsdaten wurden automatisiert in einer strukturierten JSON-Datei dokumentiert, um einen systematischen Vergleich zwischen der bestehenden und der neuen Version des Chatbots zu ermöglichen.
+
+\textbf{Evaluation der bestehenden und der neuen Systemversion}
+
+In der bestehenden Version basiert die RAG-Pipeline auf einer linearen Architektur. Der Retriever identifiziert relevante Textsegmente, die unmittelbar an das Sprachmodell zur Antwortgenerierung übergeben werden. Für die Evaluation wurden exakt diese Kontexte extrahiert und gemeinsam mit der generierten Antwort an RAGAS übergeben. Dadurch entspricht die Bewertungsgrundlage dem tatsächlichen Systemverhalten.
+
+Die neue Version weist eine komplexere Architektur auf. Vor dem Retrieval erfolgt eine Klassifikation der Anfrage, um zwischen einfachen und komplexen Fragestellungen zu unterscheiden. Abhängig von dieser Einordnung wird entweder ein Single-Hop-Verfahren oder ein Multi-Hop-Ansatz eingesetzt. Bei komplexen Anfragen wird die ursprüngliche Frage in Teilfragen zerlegt, parallel verarbeitet und anschließend zusammengeführt. Die resultierenden Kontexte werden dedupliziert und rerankt. Auch bei einfachen Anfragen erfolgt ein Reranking, um die relevantesten Segmente auszuwählen.
+
+In beiden Versionen wurden ausschließlich die final ausgewählten Kontexte als \texttt{retrieved\_contexts} an RAGAS übergeben. Damit wird sichergestellt, dass die Evaluation jeweils die tatsächlich verwendeten Kontextinformationen berücksichtigt und die Systemarchitektur adäquat abbildet. Unabhängig von der internen Pipeline-Logik beider Versionen bleibt das evaluative Single-Turn-Setting identisch, sodass die Vergleichbarkeit der Ergebnisse gewährleistet ist.
+
+% Warum wurden genau fünf Wiederholungen pro Frage gewählt?
+% Wurden API-Rate-Limits, Timeouts oder fehlgeschlagene Calls kontrolliert oder geloggt?
+% Bewertet hier ein LLM ein anderes LLM?
+% Ist ein Single-Turn-Setting ausreichend für die Bewertung eines Lern-Chatbots?
+% Würde eine Multi-Turn-Evaluation zu anderen Ergebnissen führen?
+
 \subsubsection{Blindtest: Experten}
 
 Zur vergleichenden Evaluation der beiden RAG-Systeme wurde ein expertenbasierter Blindtest im A/B-Design durchgeführt. Methodisch orientiert sich das Vorgehen am Arena-Prinzip, bei dem zwei Systemantworten auf denselben Prompt parallel präsentiert werden, ohne dass die Bewertenden wissen, welches System welche Antwort erzeugt hat. Dieses Design reduziert Erwartungs- und Confirmation-Bias und ist insbesondere für generative Systeme geeignet, deren Qualität nicht ausschließlich anhand einer eindeutig definierten Ground Truth beurteilt werden kann. Während automatisierte Metriken wie \emph{Faithfulness} oder faktische Korrektheit die kontextuelle Stützung und inhaltliche Konsistenz quantifizieren \cite{Roychowdhury2024RAGAS}, erlaubt ein Blindvergleich die Bewertung wahrgenommener Gesamtqualität im direkten Systemvergleich.
@@ -62,47 +160,6 @@ I6 & Lernförderlichkeit / Didaktik & Die Antwort unterstützt das Verständnis 
 Die Kombination aus quantitativer Skalenbewertung und qualitativer Think-Aloud-Methode ermöglicht eine differenzierte Analyse. Während die Likert-Skalen systematische Vergleiche der beiden Systeme über mehrere Qualitätsdimensionen hinweg erlauben, liefert die verbale Begleitreflexion Einblick in Entscheidungslogiken, Unsicherheiten und Bewertungsmaßstäbe der Expert*innen. Gerade im Bildungskontext ist diese Kombination bedeutsam, da generative KI-Systeme nicht allein anhand faktischer Richtigkeit bewertet werden, sondern insbesondere hinsichtlich ihrer didaktischen Angemessenheit, Strukturierungsleistung und Unterstützung reflektierter Wissensaneignung \cite{Oates2025ChatGPTClassroom,Neumann2024MoodleBot}.
 
 Der Experten-Blindtest ergänzt somit automatisierte RAG-Metriken um eine fachlich-didaktische Validierungsebene. Während quantitative Scores Aussagen über Kontexttreue und faktische Konsistenz erlauben \cite{Roychowdhury2024RAGAS}, erfasst das Arena-Design die wahrgenommene Gesamtqualität im direkten Vergleich – eine zentrale Voraussetzung für die Bewertung konkurrierender RAG-Systeme im Bildungsbereich.
-
-
-
-\subsubsection{Umsetzung RAGAS}
-
-\textbf{Methodischer Rahmen}
-
-Zur automatisierten Evaluation des Retrieval-Augmented-Generation-Systems wurde das Framework RAGAS in der Version 0.3.8 eingesetzt. RAGAS ist ein referenzfreies Evaluationsframework für RAG-Systeme, das verschiedene Qualitätsdimensionen automatisiert bewertet \cite{es2025ragas}. Es ermöglicht die quantitative Bewertung von Antwort- und Retrieval-Qualität, ohne dass manuell erstellte Referenzantworten erforderlich sind.
-
-Die Evaluation wurde als Single-Turn-Setting umgesetzt. Jede Frage wurde unabhängig von vorherigen Interaktionen bewertet, um eine kontrollierte und vergleichbare Analyse der Systemleistung zu gewährleisten. Dieses Vorgehen ist mit der Dokumentation von RAGAS konsistent \cite{ragasdocs}.
-
-Die Evaluationsfragen wurden kuratiert und nicht zufällig generiert. Ziel war es, typische Nutzungsszenarien der Plattform systematisch abzubilden. Die 60 Fragen decken Wissensfragen zu KI-Inhalten, kursbezogene Anfragen, technische Supportfragen sowie Fragen zur Plattformfunktionalität ab.
-
-\bigskip
-\textbf{Technische Implementierung und Metrikdefinition}
-
-Die Implementierung orientiert sich an der von RAGAS vorgesehenen Struktur \texttt{SingleTurnSample} \cite{ragasdocs}. Für jede Evaluationsinstanz werden die Nutzerfrage, die generierte Antwort sowie die tatsächlich verwendeten Kontextsegmente an das Framework übergeben.
-
-Als Metriken wurden \textit{Answer Relevancy}, \textit{Context Relevance} und \textit{Faithfulness} eingesetzt \cite{es2025ragas}.
-
-\textit{Answer Relevancy} misst die inhaltliche Passung zwischen Frage und Antwort.  
-\textit{Context Relevance} bewertet die Qualität des Retrievals.  
-\textit{Faithfulness} überprüft, ob die Antwort durch die bereitgestellten Kontexte gestützt ist.
-
-Die Bewertung erfolgte mit \texttt{gpt-4o} über den \texttt{LangchainLLMWrapper}. Für semantische Ähnlichkeitsberechnungen wurden Embeddings des Modells \texttt{text-embedding-3-small} verwendet. Die Temperatur wurde auf 0 gesetzt.
-
-\bigskip
-\textbf{Evaluation der bestehenden und der neuen Version}
-
-In der bestehenden Version basiert die RAG-Pipeline auf einer linearen Architektur. Die extrahierten Kontexte wurden gemeinsam mit der generierten Antwort an RAGAS übergeben.
-
-Die neue Version verwendet eine Klassifikation der Anfrage sowie Single-Hop- oder Multi-Hop-Verfahren. Komplexe Anfragen werden in Teilfragen zerlegt, parallel verarbeitet und anschließend dedupliziert und rerankt.
-
-In beiden Versionen wurden ausschließlich die final ausgewählten Kontexte als \texttt{retrieved\_contexts} an RAGAS übergeben.
-
-\bigskip
-\textbf{Mehrfachausführung und Datenaggregation}
-
-Jede Frage wurde fünfmal beantwortet und bewertet. Die Metrikwerte wurden gespeichert und zu Durchschnittswerten aggregiert.
-
-Alle Evaluationsdaten wurden in einer strukturierten JSON-Datei dokumentiert. Ergänzend wurde ein Prüfmechanismus implementiert, der potenziell ungestützte Antworten identifiziert.
 
 \section{Weiterentwicklung eines Retrieval-Augmented-Generation-Chatbots}
 
