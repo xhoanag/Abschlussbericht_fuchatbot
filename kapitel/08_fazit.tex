@@ -1,3 +1,31 @@
 \chapter{Fazit}
 
-\section{Limitationen der Arbeit}
+\section{Beantwortung der Forschungsfrage}
+
+Ziel dieser Arbeit war es, die Systemarchitektur eines RAG-basierten Chatbots sowie dessen multimodale Preprocessing-Pipeline im Kontext eines Learning-Management-Systems weiterzuentwickeln und systematisch zu evaluieren. Die zentrale Forschungsfrage lautete, wie architektonische und datenbezogene Anpassungen gestaltet werden können, um die Qualität eines solchen Systems messbar zu verbessern.
+
+Die Ergebnisse zeigen, dass strukturelle Anpassungen der Systemarchitektur einen wesentlichen Einfluss auf die Kontextintegration haben. Insbesondere die Einführung einer routingbasierten Orchestrierung mit differenzierten Verarbeitungspfaden führte zu einer signifikanten Verbesserung der Context Relevance in der automatisierten RAGAS-Evaluation. Diese Ergebnisse belegen, dass die Leistungsfähigkeit von RAG-Systemen nicht nur von der Größe oder Qualität der Wissensbasis abhängt, sondern maßgeblich von der strukturellen Steuerung, die bestimmt, wann und wie Retrieval-Techniken eingesetzt werden.
+
+Die Erweiterung der ETL-Pipeline trug ebenfalls zur Verbesserung der Retrieval-Qualität bei. Die Integration zusätzlicher Dateiformate, Metadaten und multimodaler Inhalte erhöhte die semantische Abdeckung und ermöglichte eine präzisere Kontextualisierung. Diese Erweiterungen belegen, dass die strukturierte Aufbereitung der Daten in Kombination mit einer durchdachten Architektur die Grundlage für ein qualitativ hochwertiges Retrieval darstellt.
+
+Die Einführung des sokratischen Lernassistenten bietet ein vielversprechendes didaktisches Potenzial. Qualitative Rückmeldungen aus der Evaluation zeigten, dass dieser Ansatz positive didaktische Effekte hervorrufen kann, auch wenn die Implementierung noch Optimierungsbedarf hinsichtlich der sprachlichen Stabilität aufweist. Dies verdeutlicht, dass Bildungs-Chatbots zunehmend über reine Informationssysteme hinausgehen und interaktive Lernbegleiter werden können.
+
+Ein zentrales Thema der Arbeit war der Trade-off zwischen Qualitätssteigerung und Ressourceneffizienz. Komplexe Retrieval- und Reranking-Mechanismen erhöhten den Tokenverbrauch und die Antwortzeiten. Gleichzeitig zeigte sich, dass eine kontextsensitive Steuerung Effizienzgewinne ermöglicht, ohne die Qualität der Antworten zu beeinträchtigen. Architekturentscheidungen müssen daher stets im Einklang mit den Anforderungen an Skalierbarkeit und Performance getroffen werden.
+
+Zusammenfassend lässt sich sagen, dass die Weiterentwicklung von RAG-basierten Chatbots eine integrative Systemgestaltung erfordert, bei der Architektur, Datenstruktur und didaktische Konzepte systematisch aufeinander abgestimmt werden. Die Forschung hat gezeigt, dass sowohl technologische als auch didaktische Innovationen notwendig sind, um die Qualität und Nutzererfahrung solcher Systeme langfristig zu verbessern.
+
+\section{Limitationen}
+
+Die Arbeit weist mehrere Einschränkungen auf. Die qualitative Expertenstichprobe ist begrenzt, was die Generalisierbarkeit der Ergebnisse einschränkt. Zudem basieren automatisierte Evaluationsmetriken wie RAGAS auf LLM-basierten Bewertungsmodellen, die auf bestehenden Trainingsdaten beruhen und daher keine eindeutige "Ground Truth" haben. Das bedeutet, dass die Ergebnisse der automatisierten Bewertung durch die Modelle nicht immer die objektive Wahrheit widerspiegeln, sondern von den Trainingsdaten und dem Modell selbst abhängen. Diese Unsicherheit kann die Verlässlichkeit der Bewertungen beeinflussen.
+
+Ein weiteres bedeutendes Einschränkungsmerkmal betrifft die quantitative Evaluation. Aufgrund technischer Schwierigkeiten mit der virtuellen Maschinenumgebung konnten die quantitativen Ergebnisse nicht wie geplant erfasst und ausgewertet werden. Diese Daten werden jedoch im Rahmen einer geplanten Erweiterung des Projekts weiter behandelt und in einer zukünftigen Veröffentlichung detailliert vorgestellt.
+
+Die Evaluation erfolgte in einem spezifischen Anwendungskontext, was bedeutet, dass die Ergebnisse in diesem speziellen Rahmen gut gelten, aber nicht automatisch auf andere Plattformen oder Fachbereiche übertragbar sind. Es muss daher empirisch überprüft werden, ob die Resultate auch in anderen Kontexten oder mit anderen Systemen gültig sind.
+
+Die tatsächliche Lernwirkung wurde nicht experimentell gemessen, sondern anhand qualitativer Einschätzungen beurteilt. Schließlich ist die Kostenanalyse modell- und anbieterspezifisch, sodass Veränderungen in Preisstrukturen oder Modellversionen zu abweichenden Bewertungen führen können.
+
+\section{Ausblick}
+
+Zukünftige Forschung sollte die tatsächliche Lernwirkung experimentell untersuchen, etwa durch kontrollierte oder longitudinale Designs. Ebenso erscheint eine systematische Analyse unterschiedlicher Routing-Strategien unter variierenden Nutzungsszenarien sinnvoll, um kontextspezifische Optimierungsstrategien zu identifizieren. Auch die Weiterentwicklung transparenter und erklärbarer Evaluationsmethoden ist ein wichtiges Forschungsfeld, um die Nachvollziehbarkeit der Ergebnisse zu erhöhen und eine breitere Akzeptanz zu fördern. Zudem sollten ethische und regulatorische Aspekte wie Transparenz, Datenschutz und Verantwortlichkeit stärker in die Konzeption und Evaluation KI-gestützter Assistenzsysteme integriert werden.
+
+Insgesamt liefert die Arbeit eine empirisch fundierte Grundlage für die Weiterentwicklung von RAG-basierten Bildungs-Chatbots und verdeutlicht zugleich zentrale Forschungs- und Entwicklungsbedarfe in diesem Bereich.

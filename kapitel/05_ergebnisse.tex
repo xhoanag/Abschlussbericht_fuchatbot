@@ -2,11 +2,49 @@
 
 \section{RAGAS}
 
+Zur quantitativen Bewertung der beiden Systemversionen (V1 und V2) wurden die drei RAGAS-Metriken \textit{Answer Relevancy}, \textit{Context Relevance} und \textit{Faithfulness} herangezogen. Abbildung~\ref{fig:ragas1} visualisiert für jede Metrik die Mittelwerte, die Standardabweichungen (SD, hell dargestellt) sowie die 95\,\%-Konfidenzintervalle (CI, dunkel dargestellt). Abbildung~\ref{fig:ragas2} zeigt ergänzend die gepaarten Mittelwertsdifferenzen (V2$-$V1) inklusive 95\,\%-CI. Ein Stern kennzeichnet statistisch signifikante Unterschiede ($\alpha = 0{,}05$).
+
+\subsection{Mittelwerte, Streuung und Konfidenzintervalle}
+
+Im Bereich \textit{Answer Relevancy} weist V1 einen höheren Mittelwert (ca.\ 0{,}80) als V2 (ca.\ 0{,}75) auf. Die Standardabweichungen sind in beiden Versionen moderat und vergleichbar. Die 95\,\%-Konfidenzintervalle überlappen nur geringfügig, was auf einen systematischen Unterschied zwischen den Versionen hindeutet. Die visuelle Trennung der Konfidenzintervalle wird im Differenzdiagramm bestätigt.
+
+Für \textit{Context Relevance} zeigt sich ein umgekehrtes Bild: V2 erreicht einen höheren Mittelwert (ca.\ 0{,}81) als V1 (ca.\ 0{,}76). Die Streuung ist bei beiden Versionen etwas größer als bei \textit{Answer Relevancy}, was auf eine stärkere Varianz zwischen einzelnen Fragen hinweist. Die 95\,\%-Konfidenzintervalle überlappen nur minimal, was auf eine statistisch belastbare Verbesserung der Retrieval-Qualität in V2 schließen lässt.
+
+Im Bereich \textit{Faithfulness} liegen die Mittelwerte beider Versionen nahe beieinander (V1 leicht höher). Die Konfidenzintervalle überlappen deutlich. Dies deutet darauf hin, dass beide Systeme eine vergleichbare faktische Kontexttreue aufweisen und keine substanzielle Veränderung durch die Architekturanpassung eingetreten ist.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{ragas1.png}
+\caption{RAGAS-Metriken: Mittelwert mit Standardabweichung (hell) und 95\,\%-Konfidenzintervall (dunkel)}
+\label{fig:ragas1}
+\end{figure}
+
+\subsection{Gepaarte Differenzen und Signifikanz}
+
+Das Differenzdiagramm (Abbildung~\ref{fig:ragas2}) erlaubt eine direkte Interpretation der Effektgrößen. Die y-Achse zeigt die Differenz V2$-$V1. Positive Werte sprechen für V2, negative Werte für V1. Enthält das 95\,\%-Konfidenzintervall die Null nicht, ist der Unterschied statistisch signifikant.
+
+Für \textit{Answer Relevancy} ist die Differenz negativ (ca.\ $-0{,}055$), und das Konfidenzintervall liegt vollständig unterhalb von Null. Der Stern markiert die statistische Signifikanz. Damit ist die geringere Antwortrelevanz von V2 nicht zufällig, sondern systematisch.
+
+Für \textit{Context Relevance} ist die Differenz positiv (ca.\ $+0{,}05$), und das Konfidenzintervall liegt vollständig oberhalb von Null. Auch hier ist der Unterschied signifikant. Dies bestätigt, dass die neue Architektur zu einer messbar besseren Auswahl relevanter Kontextsegmente führt.
+
+Für \textit{Faithfulness} schneidet das Konfidenzintervall die Null. Der beobachtete Unterschied (ca.\ $-0{,}025$) ist daher nicht signifikant. Beide Versionen generieren Antworten, die in vergleichbarem Maß durch die bereitgestellten Kontexte gestützt sind.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{ragas2.png}
+\caption{Paired Difference Plot: Mittelwert der Differenz mit 95\,\%-Konfidenzintervall ($\ast$ = signifikant)}
+\label{fig:ragas2}
+\end{figure}
+
+\subsection{Gesamtinterpretation}
+
+Die Diagramme sind methodisch konsistent und korrekt interpretierbar. Das erste Diagramm zeigt Niveau und Streuung der einzelnen Metriken, während das zweite Diagramm die statistische Absicherung der Unterschiede liefert. Inhaltlich ergibt sich ein differenziertes Bild: Die Weiterentwicklung führt zu einer signifikanten Verbesserung der Retrieval-Qualität (\textit{Context Relevance}), gleichzeitig jedoch zu einer signifikanten Verschlechterung der direkten Frage-Antwort-Passung (\textit{Answer Relevancy}). Die faktische Kontexttreue (\textit{Faithfulness}) bleibt stabil.
+
+Damit spiegeln die Ergebnisse einen strukturellen Trade-off wider: Die komplexere Routing- und Retrieval-Logik erhöht die Kontextangemessenheit, wirkt sich jedoch nicht automatisch positiv auf die unmittelbare Relevanz der generierten Antwort aus.
+
 \section{Nutzerbasierte Blindtest}
 
 \section{Expertenbasierte Blindtest}
-
-\section{Ergebnisse der Expertenevaluation}
 
 Die Expertenevaluation liefert ein differenziertes Gesamtbild der beiden Systemvarianten (V1 und V2). Während die quantitativen Fragebogendaten signifikante Unterschiede in einzelnen Use Cases zeigen, erlaubt insbesondere die Think-Aloud-Analyse eine vertiefte Interpretation der zugrunde liegenden Qualitätswahrnehmungen. Im Folgenden werden beide Perspektiven integriert dargestellt.
 
