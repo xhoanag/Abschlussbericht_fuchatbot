@@ -31,6 +31,30 @@
 \usepackage{apacite}
 \usepackage{tikz}
 \usetikzlibrary{arrows.meta, positioning, shapes.geometric}
+
+% python code formatting
+\usepackage{xcolor}
+
+\lstset{
+    language=Python,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    commentstyle=\color{gray},
+    stringstyle=\color{orange},
+    numbers=left,
+    numberstyle=\tiny,
+    breaklines=true,
+    frame=single,
+    captionpos=b,
+    extendedchars=true,
+    inputencoding=utf8,
+    showstringspaces=false,
+    literate=
+        {ä}{{\"a}}1 {ö}{{\"o}}1 {ü}{{\"u}}1
+        {Ä}{{\"A}}1 {Ö}{{\"O}}1 {Ü}{{\"U}}1
+        {ß}{{\ss}}1
+}
+
 % -----------------------------------
 \begin{document}
 
@@ -61,10 +85,10 @@
 \input{kapitel/08_fazit}
 
 % -----------------------------------
-\backmatter
-
 \appendix
 \input{kapitel/anhang}
+
+\backmatter
 
 \bibliographystyle{apacite}
 \bibliography{literatur/quellen}
