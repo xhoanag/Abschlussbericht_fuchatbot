@@ -2,6 +2,77 @@
 
 \section{Identifizierung von Use Cases}
 
+\section{Ableitung der Use Cases für die Evaluation}
+
+Die Definition der Use Cases für die Evaluation erfolgte datenbasiert auf Grundlage der zuvor beschriebenen Clusteranalyse historischer Prompts aus dem Live-Betrieb des KI-Campus-RAG-Systems. Durch die semantische Einbettung der Nutzeranfragen mittels Embedding-Modell und anschließende lokale Clusterbildung konnten thematische Nutzungsschwerpunkte identifiziert werden. Ziel war es, nicht hypothetische Testszenarien zu konstruieren, sondern reale Nutzungsmuster systematisch zu abstrahieren und in evaluierbare Kategorien zu überführen.
+
+Die Clusteranalyse zeigte drei dominante Interaktionsformen, die sich hinsichtlich Zielsetzung, Kontext und erwarteter Systemleistung klar unterscheiden. Auf dieser Basis wurden drei Use Cases definiert, die zentrale Funktionsdimensionen des RAG-Systems abbilden und zugleich unterschiedliche Anforderungen an Retrieval, Kontextintegration und Generierung stellen.
+
+\paragraph{1. Technischer Support}
+
+Der erste Use Case umfasst allgemeine Plattformfragen, die sich primär auf organisatorische oder strukturelle Aspekte des KI-Campus beziehen. Diese Anfragen stammen überwiegend aus der Drupal-basierten Landingpage und betreffen administrative Informationen, beispielsweise:
+
+\begin{itemize}
+    \item „Wie teuer ist ein Kurs?“
+    \item „Wo finde ich Teilnahmebescheinigungen?“
+    \item „Wer sind die Ansprechpartner?“
+\end{itemize}
+
+Dieser Use Case testet insbesondere die Fähigkeit des Systems, klar strukturierte, faktenbasierte Informationen aus statischen Plattformdaten korrekt abzurufen und präzise bereitzustellen. Die Anforderungen liegen hier weniger in didaktischer Ausgestaltung als in schneller, zuverlässiger Informationsbereitstellung. Performance-Indikatoren sind daher insbesondere Retrieval-Genauigkeit, Referenzkorrektheit und Antwortlatenz. Aufgrund der relativ klar definierbaren Informationsbedarfe fungiert dieser Use Case als funktionaler Baseline-Test für die Systemzuverlässigkeit.
+
+\paragraph{2. Kursbezogene Fragen}
+
+Der zweite Use Case adressiert inhaltliche Anfragen innerhalb einer aktiven Lernsituation in Moodle. Hier befinden sich Nutzer*innen bereits in einem spezifischen Kurskontext, und der Chatbot soll kursbezogene Inhalte erklären oder vertiefen. Beispielhafte Prompts sind:
+
+\begin{itemize}
+    \item „Wie funktioniert ein LLM?“
+    \item „Was ist sklearn?“
+    \item „Wie unterscheiden sich Deep Learning und Machine Learning?“
+\end{itemize}
+
+Im Unterschied zum technischen Support erfordert dieser Use Case eine stärkere Kontextintegration. Das System muss nicht nur allgemeines Wissen abrufen, sondern dieses mit kursinternen Materialien in Beziehung setzen. Dadurch werden insbesondere folgende Aspekte getestet:
+
+\begin{itemize}
+    \item Qualität der semantischen Suche im kursbezogenen Dokumentenraum
+    \item Kontexttreue (Faithfulness) der generierten Antwort
+    \item Kohärenz und inhaltliche Strukturierung
+    \item Angemessenheit der fachlichen Tiefe
+\end{itemize}
+
+Dieser Use Case bildet somit die klassische RAG-Kernfunktion ab: die Kombination aus externer Wissensretrieval-Mechanik und generativer Kontextverarbeitung.
+
+\paragraph{3. Lernmodus}
+
+Der dritte Use Case stellt eine bewusst didaktisch zugespitzte Interaktionsform dar. Hier wurde der Chatbot explizit angewiesen, Wissen aktiv zu vermitteln, um die pädagogischen Fähigkeiten des Systems zu evaluieren. Beispielhafte Prompts sind:
+
+\begin{itemize}
+    \item „Bringe mir etwas bei zum Thema KI-Ethik.“
+\end{itemize}
+
+Dieser Modus geht über reine Informationsbeantwortung hinaus. Er testet, ob das System:
+
+\begin{itemize}
+    \item Inhalte strukturiert aufbereitet
+    \item Lernprozesse unterstützt
+    \item Erklärungen adaptiv und verständlich formuliert
+    \item reflexionsanregende Elemente integriert
+\end{itemize}
+
+Während Use Case 2 primär fachliche Kompetenz und Kontextintegration prüft, fokussiert Use Case 3 die didaktische Qualität und dialogische Lernunterstützung. Damit adressiert er eine zentrale Zielsetzung des KI-Campus-Assistants als Bildungsinstrument.
+
+\paragraph{Funktionale Differenzierung der Use Cases}
+
+Die drei Use Cases unterscheiden sich systematisch entlang zweier Dimensionen:
+
+\begin{enumerate}
+    \item \textbf{Informationsart:} administrativ vs.\ fachlich vs.\ didaktisch-lernorientiert
+    \item \textbf{Komplexität der Generationsanforderung:} faktenbasiert vs.\ kontextintegrierend vs.\ lernprozessunterstützend
+\end{enumerate}
+
+Durch diese Differenzierung wird eine mehrdimensionale Testarchitektur geschaffen, die unterschiedliche Leistungsbereiche des RAG-Systems isoliert analysierbar macht. Gleichzeitig gewährleisten die datenbasiert abgeleiteten Kategorien eine hohe ökologische Validität, da sie reale Nutzungsszenarien aus dem Live-Betrieb repräsentieren.
+
+Die Auswahl der Use Cases ist somit empirisch fundiert und stellt sicher, dass sowohl technische Performance als auch inhaltlich-didaktische Qualität systematisch geprüft werden können.
+
 \section{Evaluation eines Retrieval-Augmented-Generation-Chatbots}
 
 \subsection{Stand der Forschung}
