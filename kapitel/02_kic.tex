@@ -1,2 +1,62 @@
 \chapter{Systemarchitektur des KI-Campus-Chatbots}
 \label{sec:kic}
+
+\section{Systemueberblick und Architekturprinzip}
+
+Der KI-Campus-Chatbot ist ein dialogisches Assistenzsystem, das in die Moodle-basierte Lernplattform sowie in die Drupal-Website integriert ist. Er dient als Schnittstelle zwischen Nutzerinteraktion und Wissensbasis.
+
+Architektonisch basiert das System auf Retrieval-Augmented Generation. Ein semantisches Retrieval-Modul wird mit einem generativen Sprachmodell kombiniert, sodass Antworten nicht ausschliesslich auf Trainingswissen beruhen, sondern auf abgerufenen domaenenspezifischen Inhalten. Die Trennung zwischen Vektordatenbank (Wissensspeicher) und LLM (Generierung) bildet ein zentrales Architekturprinzip.
+
+Die Orchestrierung erfolgt ueber ein REST-basiertes Backend mit modularer Struktur, wodurch Datenverarbeitung, Retrieval, Generierung und Monitoring klar voneinander getrennt sind.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{workflow_kic_org.png}
+    \caption{Konzeptioneller Workflow des KI-Campus-Chatbots.}
+    \label{fig:kic-workflow}
+\end{figure}
+
+\section{Datenquellen und Wissensbasis}
+
+Die Wissensbasis speist sich aus zwei zentralen Quellen: dem Moodle-Lernmanagementsystem und dem Drupal-Content-Management-System.
+
+Aus Moodle werden kursbezogene Inhalte wie Beschreibungen, Materialien und strukturierte Modulelemente extrahiert. Drupal liefert ergaenzende Inhalte wie Landingpages, Blogbeitraege und allgemeine Plattformtexte. Die Daten sind heterogen, umfassen strukturierte und unstrukturierte Textformate und liegen teilweise mehrsprachig vor. Diese Vielfalt erfordert eine systematische Vorverarbeitung.
+
+\section{ETL-Prozess}
+
+Zur Integration der Inhalte wird eine mehrstufige ETL-Pipeline eingesetzt.
+
+Im \textit{Extract}-Schritt werden Inhalte mittels Parser aus Moodle und Drupal extrahiert. Im \textit{Transform}-Schritt erfolgt Textbereinigung, Chunking sowie die Generierung semantischer Embeddings. Im \textit{Load}-Schritt werden die Embeddings in einer Vektordatenbank gespeichert, waehrend persistente Systemdaten in einer relationalen PostgreSQL-Datenbank abgelegt werden.
+
+Die Qualitaet der Pipeline beeinflusst unmittelbar die Leistungsfaehigkeit des Retrieval-Mechanismus.
+
+\section{Vektordatenbank und Retrieval}
+
+Fuer die Speicherung der Embeddings wird Qdrant verwendet. Die Suche erfolgt ueber Approximate-Nearest-Neighbor-Verfahren auf Basis von HNSW-Graphstrukturen, wodurch semantisch aehnliche Dokumente effizient identifiziert werden koennen.
+
+Bei einer Nutzeranfrage wird ein Embedding der Eingabe generiert und mit den gespeicherten Vektoren verglichen. Die relevantesten Textsegmente werden als Kontext an das Sprachmodell uebergeben. Zum Projektstart erfolgt das Retrieval als Single-Hop-Suche ohne zusaetzliche Reranking-Mechanismen oder adaptive Routing-Logik.
+
+\section{Generierungskomponente}
+
+Die Generierung erfolgt primaer ueber ein auf GWDG-Servern betriebenes LLM, ergaenzt durch ein Fallback-Modell (GPT-4o ueber Azure OpenAI). Die Modell-Eingabe besteht aus Systemprompt, abgerufenem Kontext und Nutzeranfrage.
+
+Ein Postprocessing-Schritt uebernimmt Formatierung und Quellenangabe. Bei fehlendem Retrieval wird eine standardisierte Fallback-Antwort ausgegeben.
+
+\section{Infrastruktur und Integration}
+
+Das Backend basiert auf FastAPI und wird in einer Azure-WebApp betrieben. Die Infrastruktur umfasst Azure Key Vault, Azure PostgreSQL und Application Insights. Prompts und Antworten werden protokolliert, wodurch Monitoring und spaetere Evaluation unterstuetzt werden.
+
+Der Interaktionsablauf folgt einem klaren Muster: Nutzeranfrage $\rightarrow$ Embedding $\rightarrow$ Retrieval $\rightarrow$ Generierung $\rightarrow$ Ausgabe im Frontend.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{systemarchitektur_kic.png}
+    \caption{Systemarchitektur des KI-Campus-Chatbots mit Datenquellen, Retrieval-System und Frontends.}
+    \label{fig:kic-architektur}
+\end{figure}
+
+\section{Identifizierte strukturelle Limitationen}
+
+Zum Projektstart wurden mehrere strukturelle und funktionale Limitationen der bestehenden Architektur festgestellt. Dazu zaehlen eine teilweise eingeschraenkte Kontextsensitivitaet, eine starre No-Answer-Logik sowie eine begrenzte Sprachrobustheit. Darueber hinaus zeigte sich, dass die Datenpipeline nicht alle verfuegbaren Inhalte vollstaendig oder konsistent verarbeitete.
+
+Diese strukturellen Eigenschaften bildeten den Ausgangspunkt fuer die im weiteren Verlauf des Projekts entwickelte Weiterentwicklung und Evaluation des Systems.

@@ -1,6 +1,30 @@
 \chapter{Projekt- und Studiendesign}
-
+\label{sec:projektdesign}
 
 \section{Projektziele}
+
+Das Projekt verfolgt das uebergeordnete Ziel, einen produktiv eingesetzten RAG-basierten Chatbot im Bildungskontext systematisch zu evaluieren und gezielt zu verbessern. Dabei werden sowohl technische Leistungsaspekte als auch nutzerbezogene Qualitaetsdimensionen beruecksichtigt.
+
+Ein erstes Ziel besteht in der Entwicklung einer wissenschaftlich fundierten Evaluationsmethodik zur Messung der Antwortqualitaet von RAG-Systemen. Da bislang kein allgemein akzeptierter Standard fuer die Evaluation solcher Systeme existiert, kombiniert das Projekt verschiedene Ansaetze aus der Forschung. Hierzu zaehlen automatisierte Qualitaetsmetriken, statistische Signifikanztests sowie qualitative Bewertungen durch Expertinnen und Experten. Fuer die automatische Evaluation wird insbesondere das RAGAS-Framework genutzt, das die Dimensionen \textit{Faithfulness}, \textit{Answer Relevance} und \textit{Context Relevance} ohne Referenzantworten bewertet \cite{Es2023RAGAS}.
+
+Das zweite Ziel besteht in der messbaren Verbesserung des bestehenden Chatbots auf Grundlage der entwickelten Evaluationsmethodik. Technische Anpassungen, Optimierungen der Datenpipeline sowie funktionale Erweiterungen sollen zu einer nachweisbaren Steigerung der Antwortqualitaet und Nutzererfahrung fuehren.
+
 \section{Forschungsfrage}
-\section{Projektablauf}
+
+Ausgehend von diesen Zielen wird folgende Forschungsfrage untersucht:
+
+\begin{quote}
+Wie kann die Systemarchitektur eines RAG-basierten Chatbots sowie die multimodale Preprocessing-Pipeline im Kontext eines Lernmanagementsystems verbessert und evaluiert werden?
+\end{quote}
+
+Die Forschungsfrage verbindet technische und methodische Perspektiven. Sie adressiert sowohl die Weiterentwicklung der Systemarchitektur als auch die wissenschaftliche Bewertung der resultierenden Qualitaetsveraenderungen.
+
+\section{Projektdesign}
+
+Das Projekt folgt einem strukturierten, iterativen Vorgehen, das Analyse, Entwicklung, Evaluation und Reflexion kombiniert. Zunaechst wurde eine Anwendungsanalyse durchgefuehrt, bei der reale Chatinteraktionen ausgewertet und typische Nutzungsszenarien identifiziert wurden. Dabei zeigte sich eine Diskrepanz zwischen geplanter und tatsaechlicher Nutzung des Chatbots. Auf Basis dieser Erkenntnisse wurden repraesentative Use Cases definiert, die als Grundlage fuer die Evaluation dienten.
+
+Die Weiterentwicklung des Systems umfasste sowohl strukturelle als auch funktionale Anpassungen, darunter Erweiterungen der Datenpipeline, Verbesserungen der Retrieval- und Generierungslogik sowie Anpassungen der Systemprompts. Ziel war es, die Wissensbasis zu verbreitern, die Kontextualisierung zu verbessern und die Interaktionsqualitaet zu erhoehen.
+
+Zur Evaluation wurde ein mehrdimensionales Design gewaehlt, das automatische, qualitative und quantitative Methoden kombiniert. Zunaechst erfolgt eine automatisierte Bewertung der Antwortqualitaet mittels RAGAS. Ergaenzend wird eine Expertenevaluation durchgefuehrt, bei der beide Systemversionen in einer neutralen Testumgebung verglichen werden. Die Bewertung erfolgt ueber strukturierte Frageboegen sowie verbale Analysen nach der Think-Aloud-Methode. Zusaetzlich werden quantitative Nutzertests nach dem Prinzip der \textit{lmsys.org Chatbot Arena} durchgefuehrt, bei der zwei Chatbot-Antworten zur selben Frage gegenuebergestellt werden und die Nutzenden die subjektiv bessere Antwort auswaehlen.
+
+Dieses kombinierte Evaluationsdesign erlaubt eine ganzheitliche Betrachtung der Systemqualitaet, indem sowohl technische Leistungsmetriken als auch subjektive Nutzerwahrnehmungen einbezogen werden. Dadurch wird eine fundierte Grundlage geschaffen, um die Wirksamkeit der vorgenommenen Systemverbesserungen zu beurteilen.
