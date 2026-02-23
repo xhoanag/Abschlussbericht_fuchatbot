@@ -1,6 +1,16 @@
 \chapter{Diskussion der Ergebnisse}
 
-\section{Auswirkungen der Änderungen}
-\section{Methodenreflexion}
+\section{Einfluss der Implementierungen}
+In diesem Kapitel soll diskutiert werden, welche Auswirkungen die verschiedenen Implementierungen auf die Ergebnisse der Evaluierung hatten. Die größere Vektordatenbank durch die Erweiterung der Ingestion-Pipeline sowie das hybride Retrieval und der Reranker führten zu einem starken Kontextbezug der zweiten Chatbotverseion (V2). Dies ziegt sich zum einen in der signifikant verbesserten Context Relevancy in RAGAS als auch dem Expertenblindtest, bei der sowohl der Fragebogen als auch die Kommentare eine bessere Kontextfundierung bestätigen. Die Ingestion-Pipeline macht deutlich mehr Dokumente zugänglich, sodass die Wahrscheinlichkeit steigt, dass relevante Informationen gefunden werden und dass der retrievde Kontext nicht mit UNNÖTIGEN Chunks befüllt werden muss. Das hybride Retrieval ermöglicht es, sowohl klassische Suchmethoden als auch moderne Ansätze zu nutzen, um relevante Dokumente zu identifizieren. Der Reranker verbessert die Auswahl der Dokumente, indem er die Relevanz der gefundenen Informationen bewertet und priorisiert. Damit konnte das Retrieval, wenn auch durch höhere Kosten, die zu einem späteren Zeitpunkt diskutiert werden, signifikant verbessert werden. Bei der Generation zeigt sich ein differenzierteres Bild. Die Umstellung der Logik sowie das Anpassen der Systemprompts sind hierbei die zentralen Änderungen. Dabei lassen sich die Ergebnisse gut nach Workflow unterteilen.
 
+\begin{itemize}
+    \item Haben wir Auswertung Path ohne Retrieval?
+    \item Simple und Multi Hop ist zu viel
+    \item Sokratischer Lernansatz gut aber nicht produktionsreif
+    \item --> Diskussion über Trade-off Qualität vs. Kosten
+    \item Überarbeitung der
+\end{itemize}
+
+\section{Methodenreflexion}
+\label{sec:methodrefl}
 
