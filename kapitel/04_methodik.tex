@@ -115,6 +115,7 @@ Zusammenfassend lässt sich der Forschungsstand in drei Entwicklungslinien bünd
 \label{sec:evalkonzept}
 
 \subsubsection{RAGAS}
+\label{sec:methodik_ragas}
 
 \textbf{Zielsetzung und methodischer Rahmen}
 
@@ -141,16 +142,16 @@ Der projektspezifische Ablauf der automatisierten RAGAS-Evaluation ist in Abbild
 
 \node[block] (q) {Kuratierte Evaluationsfrage \\ ($n=60$)};
 
-\node[smallblock, below left=of q] (v1) {Systemversion A \\ (linear)};
-\node[smallblock, below right=of q] (v2) {Systemversion B \\ (routingbasiert)};
+\node[smallblock, below left=of q] (V1) {Systemversion A \\ (linear)};
+\node[smallblock, below right=of q] (V2) {Systemversion B \\ (routingbasiert)};
 
-\draw[arrow] (q) -- (v1);
-\draw[arrow] (q) -- (v2);
+\draw[arrow] (q) -- (V1);
+\draw[arrow] (q) -- (V2);
 
 \node[block, below=12mm of q] (gen) {Antwortgenerierung durch RAG-System};
 
-\draw[arrow] (v1) -- (gen);
-\draw[arrow] (v2) -- (gen);
+\draw[arrow] (V1) -- (gen);
+\draw[arrow] (V2) -- (gen);
 
 \node[block, below=of gen] (ctx) {Extraktion der tatsächlich verwendeten \\ \texttt{retrieved\_contexts} (final ausgewählte Kontexte)};
 
@@ -254,8 +255,9 @@ Die Kombination aus quantitativer Skalenbewertung und qualitativer Think-Aloud-M
 Der Experten-Blindtest ergänzt somit automatisierte RAG-Metriken um eine fachlich-didaktische Validierungsebene. Während quantitative Scores Aussagen über Kontexttreue und faktische Konsistenz erlauben \cite{Roychowdhury2024RAGAS}, erfasst das Arena-Design die wahrgenommene Gesamtqualität im direkten Vergleich – eine zentrale Voraussetzung für die Bewertung konkurrierender RAG-Systeme im Bildungsbereich.
 
 \subsubsection{Kosten}
+\label{sec:methodik_kosten}
 
-Die Kostenmessung umfasste Latenzzeit und Tokenverbrauch (Input/Output) beider Chatbot-Versionen (v1, v2) während der RAGAS-Evaluation. Jede der 60 Fragen wurde fünfmal gestellt; Durchschnittswerte pro Frage und anschließend global aggregiert. Bei v2 wurden Zeiten und Token je Pipeline-Stage (u. a. Reranking) separat erfasst, v1 umfasste nur eine Pipeline-Stage. Das einheitlich genutzte Modell gpt-4o (Azure, swedencentral, Version 2024-05-13) wurde mit 4,18621 €/Mio. Input-Token und 13,8145 €/Mio. Output-Token bepreist\footnote{\href{https://azure.microsoft.com/en-us/pricing/details/azure-openai/\#pricing}{Azure OpenAI pricing}, swedencentral, GPT-4o-2024-0513 US/EU – Data Zones; Abgerufen am 11.02.2026}. Dies ermöglichte präzisen Vergleich der Ressourceneffizienz.
+Die Kostenmessung umfasste Latenzzeit (Time-To-First-Token und Gesamtzeit) und Tokenverbrauch (Input/Output) beider Chatbot-Versionen (V1, V2) während der RAGAS-Evaluation (vgl. \ref{sec:methodik_ragas}). Jede der 60 Fragen wurde fünfmal gestellt; Durchschnittswerte pro Frage und anschließend global aggregiert. Bei V2 wurden Zeiten und Token je Pipeline-Stage (u. a. Reranking) separat erfasst, V1 umfasste nur eine Pipeline-Stage. Das einheitlich genutzte Modell gpt-4o (Azure, swedencentral, Version 2024-05-13) wurde mit 4,18621 €/Mio. Input-Token und 13,8145 €/Mio. Output-Token bepreist\footnote{\href{https://azure.microsoft.com/en-us/pricing/details/azure-openai/\#pricing}{Azure OpenAI pricing}, swedencentral, GPT-4o-2024-0513 US/EU – Data Zones; Abgerufen am 11.02.2026}. Dies ermöglichte präzisen Vergleich der Ressourceneffizienz.
 
 \section{Weiterentwicklung eines Retrieval-Augmented-Generation-Chatbots}
 
