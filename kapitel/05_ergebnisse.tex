@@ -1,6 +1,7 @@
 \chapter{Ergebnisse der Evaluation}
 
 \section{RAGAS}
+\label{sec:ergebnisse_ragas}
 
 Zur quantitativen Bewertung der beiden Systemversionen (V1 und V2) wurden die drei RAGAS-Metriken \textit{Answer Relevancy}, \textit{Context Relevance} und \textit{Faithfulness} herangezogen. Abbildung~\ref{fig:ragas1} visualisiert für jede Metrik die Mittelwerte, die Standardabweichungen (SD, hell dargestellt) sowie die 95\,\%-Konfidenzintervalle (CI, dunkel dargestellt). Abbildung~\ref{fig:ragas2} zeigt ergänzend die gepaarten Mittelwertsdifferenzen (V2$-$V1) inklusive 95\,\%-CI. Ein Stern kennzeichnet statistisch signifikante Unterschiede ($\alpha = 0{,}05$).
 
@@ -104,3 +105,50 @@ Die Think-Aloud-Analyse zeigt, dass die Weiterentwicklung von V1 zu V2 nicht pri
 Die signifikanten Effekte im Fragebogen sind somit nicht isoliert zu interpretieren: Die quantitative Verbesserung im Lernmodus ist qualitativ klar erklärbar, während die Verschlechterung im Support-Kontext funktional bedingt ist. Die Expertenevaluation macht damit nicht nur Unterschiede in Scores sichtbar, sondern legt die zugrunde liegenden Qualitätsdimensionen offen – ein zentraler Mehrwert der kombinierten quantitativen und qualitativen Methodik.
 
 \section{Kosten}
+
+
+Die RAGAS-Evaluation (vgl. \autoref{sec:ergebnisse_ragas}) diente nicht nur der Qualitätsbewertung, sondern ermöglichte parallel eine präzise Erfassung der Betriebskosten beider Chatbot-Versionen. Gemessen wurden Latenzzeiten (Time-to-First-Token, TTFT; Gesamtzeit) sowie Tokenverbrauch (Input/Output), aggregiert über 60 Fragen à fünf Wiederholungen. Die monetäre Bewertung basierte auf den Azure-Preisen für gpt-4o (2024-05-13): 4,18621 €/Mio. Input-Token und 13,8145 €/Mio. Output-Token (vgl. \autoref{sec:methodik_kosten}).
+
+\begin{table}[h] 
+
+\centering 
+
+\caption{Vergleich der aggregierten Kennzahlen} 
+
+\label{tab:Kostenanalyse} 
+
+\begin{tabular}{p{5cm} p{2cm} p{2cm} p{2cm}} 
+
+\hline 
+
+\textbf{Metrik} & \textbf{V1} & \textbf{V2} & \textbf{Delta V2/V1} \\ 
+
+\hline 
+
+TTFT (s) & 3,24 & 5,77 & + 78\%\\ 
+
+Gesamtzeit (s) & 3,24 & 6,21 & +92\% \\ 
+
+Input-Token & 2.928 & 10.803 & +269\% \\
+
+Output-Token & 79 & 162 & +105\% \\
+
+Reranking-Zeit (s) & - & 1,93 & neu \\
+
+Reranking-Input-Token & - & 6.330 & neu \\
+
+Reranking-Output-Token & - & 58 & neu \\
+
+\hline 
+
+\end{tabular}
+\end{table}
+
+\autoref{fig:cost_analysis_result} visualisiert diese Ergebnisse und hebt das neu eingeführte Reranking in V2 hervor. Während V1 eine effiziente Latenz von 3,24 Sekunden bei moderatem Tokenverbrauch aufweist, führt die erweiterte Pipeline in V2 – insbesondere das Reranking via gpt-4o-API – zu signifikanten Mehrkosten. Während in V2 ein Anstieg der Gesamtzeit bis zu einer vollständigen Antwort um 92\% zu verzeichnen ist, konnte dieser Anstieg durch die Einführung des Token-Streaming etwas relativiert werden, die Zeit bis zum ersten Token stieg nur noch um ca. 78\%. Die Zeit bis zum ersten Token (TTFT) ist für den Anwender maßgeblich, da schon beim ersten Token anfangen werden kann zu lesen.  Der Input-Token-Anstieg (+269\%) ist primär auf Reranking (6.330 Token) und die komplexere Multi-Hop-Verarbeitung zurückzuführen.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1.1\textwidth]{cost_analysis_result.png}
+    \caption{Ergebnisse der Kostenanalyse}
+    \label{fig:cost_analysis_result}
+\end{figure}
