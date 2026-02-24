@@ -3,45 +3,51 @@
 \section{RAGAS}
 \label{sec:ergebnisse_ragas}
 
-Zur quantitativen Bewertung der beiden Systemversionen (V1 und V2) wurden die drei RAGAS-Metriken \textit{Answer Relevancy}, \textit{Context Relevance} und \textit{Faithfulness} herangezogen. Abbildung~\ref{fig:ragas1} visualisiert für jede Metrik die Mittelwerte, die Standardabweichungen (SD, hell dargestellt) sowie die 95\,\%-Konfidenzintervalle (CI, dunkel dargestellt). Abbildung~\ref{fig:ragas2} zeigt ergänzend die gepaarten Mittelwertsdifferenzen (V2$-$V1) inklusive 95\,\%-CI. Ein Stern kennzeichnet statistisch signifikante Unterschiede ($\alpha = 0{,}05$).
+Zur quantitativen Bewertung der beiden Systemversionen (V1 und V2) wurden die drei RAGAS-Metriken \textit{Answer Relevancy}, \textit{Context Relevance} und \textit{Faithfulness} herangezogen. Die Analyse basiert auf 60 kuratierten Evaluationsfragen ($n = 60$), wobei jede Frage fünfmal ausgeführt und anschließend aggregiert wurde. Die Signifikanzprüfung erfolgte mittels einseitigem gepaartem t-Test sowie ergänzendem Wilcoxon-Test auf einem Signifikanzniveau von $\alpha = 0{,}05$.
 
-\subsection{Mittelwerte, Streuung und Konfidenzintervalle}
+\paragraph{Deskriptive Ergebnisse}
 
-Im Bereich \textit{Answer Relevancy} weist V1 einen höheren Mittelwert (ca.\ 0{,}80) als V2 (ca.\ 0{,}75) auf. Die Standardabweichungen sind in beiden Versionen moderat und vergleichbar. Die 95\,\%-Konfidenzintervalle überlappen nur geringfügig, was auf einen systematischen Unterschied zwischen den Versionen hindeutet. Die visuelle Trennung der Konfidenzintervalle wird im Differenzdiagramm bestätigt.
+Abbildung~\ref{fig:ragas1} zeigt die aggregierten Mittelwerte, Standardabweichungen sowie 95\,\%-Konfidenzintervalle beider Versionen. Die Punkte markieren die jeweiligen Mittelwerte ($\mu$). Die hell dargestellten vertikalen Balken repräsentieren die Standardabweichung (SD), die dunklen Balken das 95\,\%-Konfidenzintervall (CI).
 
-Für \textit{Context Relevance} zeigt sich ein umgekehrtes Bild: V2 erreicht einen höheren Mittelwert (ca.\ 0{,}81) als V1 (ca.\ 0{,}76). Die Streuung ist bei beiden Versionen etwas größer als bei \textit{Answer Relevancy}, was auf eine stärkere Varianz zwischen einzelnen Fragen hinweist. Die 95\,\%-Konfidenzintervalle überlappen nur minimal, was auf eine statistisch belastbare Verbesserung der Retrieval-Qualität in V2 schließen lässt.
+Für \textit{Answer Relevancy} erzielt V1 einen höheren Mittelwert ($\mu = 0{,}805$, $\sigma = 0{,}138$) als V2 ($\mu = 0{,}750$, $\sigma = 0{,}119$). Die Konfidenzintervalle liegen klar getrennt.
 
-Im Bereich \textit{Faithfulness} liegen die Mittelwerte beider Versionen nahe beieinander (V1 leicht höher). Die Konfidenzintervalle überlappen deutlich. Dies deutet darauf hin, dass beide Systeme eine vergleichbare faktische Kontexttreue aufweisen und keine substanzielle Veränderung durch die Architekturanpassung eingetreten ist.
+Im Bereich \textit{Context Relevance} ergibt sich ein umgekehrtes Muster: V2 erreicht einen höheren Mittelwert ($\mu = 0{,}812$, $\sigma = 0{,}336$) als V1 ($\mu = 0{,}758$, $\sigma = 0{,}373$). Die Streuung fällt in beiden Versionen höher aus als bei \textit{Answer Relevancy}.
+
+Für \textit{Faithfulness} liegen die Mittelwerte nahe beieinander (V1: $\mu = 0{,}880$, $\sigma = 0{,}203$; V2: $\mu = 0{,}855$, $\sigma = 0{,}228$). Die Konfidenzintervalle überlappen deutlich.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth]{ragas1.png}
+\includegraphics[width=\textwidth]{ragas1.jpg}
 \caption{RAGAS-Metriken: Mittelwert mit Standardabweichung (hell) und 95\,\%-Konfidenzintervall (dunkel)}
 \label{fig:ragas1}
+
+\vspace{2mm}
+\textbf{Legende:} Orange Markierungen repräsentieren Version~1 (V1), blaue Markierungen Version~2 (V2). Punkte kennzeichnen die Mittelwerte ($\mu$). Helle Balken zeigen die Standardabweichung (SD), dunkle Balken das 95\,\%-Konfidenzintervall (CI).
 \end{figure}
 
-\subsection{Gepaarte Differenzen und Signifikanz}
+\paragraph{Gepaarte Differenzen und Signifikanztests}
 
-Das Differenzdiagramm (Abbildung~\ref{fig:ragas2}) erlaubt eine direkte Interpretation der Effektgrößen. Die y-Achse zeigt die Differenz V2$-$V1. Positive Werte sprechen für V2, negative Werte für V1. Enthält das 95\,\%-Konfidenzintervall die Null nicht, ist der Unterschied statistisch signifikant.
+Abbildung~\ref{fig:ragas2} stellt die gepaarten Mittelwertsdifferenzen (V2$-$V1) dar. Positive Werte sprechen für V2, negative Werte für V1. Die vertikalen Balken zeigen das 95\,\%-Konfidenzintervall der Differenz; die horizontale Linie bei Null markiert das Ausbleiben eines Effekts. Ein Stern kennzeichnet statistisch signifikante Unterschiede.
 
-Für \textit{Answer Relevancy} ist die Differenz negativ (ca.\ $-0{,}055$), und das Konfidenzintervall liegt vollständig unterhalb von Null. Der Stern markiert die statistische Signifikanz. Damit ist die geringere Antwortrelevanz von V2 nicht zufällig, sondern systematisch.
+Für \textit{Answer Relevancy} beträgt die mittlere Differenz $-0{,}055$. Das Konfidenzintervall liegt vollständig unterhalb von Null. Der Unterschied ist signifikant (einseitiger gepaarter t-Test: $t = 4{,}285$, $p < 0{,}001$; Wilcoxon-Test ebenfalls signifikant). V2 weist somit signifikant niedrigere Werte in der \textit{Answer Relevancy} auf.
 
-Für \textit{Context Relevance} ist die Differenz positiv (ca.\ $+0{,}05$), und das Konfidenzintervall liegt vollständig oberhalb von Null. Auch hier ist der Unterschied signifikant. Dies bestätigt, dass die neue Architektur zu einer messbar besseren Auswahl relevanter Kontextsegmente führt.
+Für \textit{Context Relevance} ergibt sich eine mittlere Differenz von $+0{,}053$. Das Konfidenzintervall liegt vollständig oberhalb von Null. Der Unterschied ist signifikant ($t = 2{,}088$, $p = 0{,}021$; Wilcoxon-Test signifikant). V2 erzielt in dieser Dimension höhere Werte in der \textit{Context Relevance}.
 
-Für \textit{Faithfulness} schneidet das Konfidenzintervall die Null. Der beobachtete Unterschied (ca.\ $-0{,}025$) ist daher nicht signifikant. Beide Versionen generieren Antworten, die in vergleichbarem Maß durch die bereitgestellten Kontexte gestützt sind.
+Für \textit{Faithfulness} beträgt die Differenz $-0{,}025$. Das Konfidenzintervall schneidet die Null, und der Unterschied ist nicht signifikant ($t = 1{,}031$, $p = 0{,}153$; Wilcoxon-Test nicht signifikant).
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{ragas2.png}
-\caption{Paired Difference Plot: Mittelwert der Differenz mit 95\,\%-Konfidenzintervall ($\ast$ = signifikant)}
+\caption{Paired Difference Plot: Mittelwert der Differenz (V2--V1) mit 95\,\%-Konfidenz\-intervall ($\ast$ = signifikant, $\alpha = 0{,}05$, $n = 60$)}
 \label{fig:ragas2}
+
+\vspace{2mm}
+\textbf{Legende:} Punkte markieren die gepaarte Mittelwertsdifferenz je Metrik. Vertikale Balken zeigen das 95\,\%-Konfidenzintervall. Die horizontale Linie bei 0 kennzeichnet die Null-Differenz. Ein Stern (*) markiert signifikante Unterschiede gemäß einseitigem gepaartem t-Test und Wilcoxon-Test.
 \end{figure}
 
-\subsection{Gesamtinterpretation}
+\paragraph{Zusammenfassende Einordnung}
 
-Die Diagramme sind methodisch konsistent und korrekt interpretierbar. Das erste Diagramm zeigt Niveau und Streuung der einzelnen Metriken, während das zweite Diagramm die statistische Absicherung der Unterschiede liefert. Inhaltlich ergibt sich ein differenziertes Bild: Die Weiterentwicklung führt zu einer signifikanten Verbesserung der Retrieval-Qualität (\textit{Context Relevance}), gleichzeitig jedoch zu einer signifikanten Verschlechterung der direkten Frage-Antwort-Passung (\textit{Answer Relevancy}). Die faktische Kontexttreue (\textit{Faithfulness}) bleibt stabil.
-
-Damit spiegeln die Ergebnisse einen strukturellen Trade-off wider: Die komplexere Routing- und Retrieval-Logik erhöht die Kontextangemessenheit, wirkt sich jedoch nicht automatisch positiv auf die unmittelbare Relevanz der generierten Antwort aus.
+Zusammenfassend zeigt sich eine gegenläufige Entwicklung zwischen \textit{Answer Relevancy} und \textit{Context Relevance}: V2 erzielt signifikant höhere Werte in der \textit{Context Relevance}, während V1 signifikant höhere Werte in der \textit{Answer Relevancy} aufweist. Hinsichtlich \textit{Faithfulness} ergibt sich kein statistisch signifikanter Unterschied. Die Ergebnisse deuten somit auf eine Verschiebung der Leistungscharakteristik zwischen Retrieval-Relevanz und Antwortpassung hin, ohne dass sich Unterschiede in der kontextuellen Stützung der generierten Aussagen statistisch belegen lassen.
 
 \section{Nutzerbasierte Blindtest}
 

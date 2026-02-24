@@ -12,7 +12,7 @@ Das Clustering ergab 69 thematisch kohärente Cluster mit einer Mindestgröße v
 
 Zur Übersicht und Ableitung übergeordneter Usecases erfolgte eine manuelle Sichtung und Aggregation der 69 Cluster in sieben Überkategorien: \glqq Technischer Support\grqq, \glqq Troll/Allerlei\grqq, \glqq Negatives Feedback\grqq, \glqq Kursmodalitäten (Zertifikate, ECTS, Termine, Kosten etc.)\grqq, \glqq Anfragen zur Chatbotfunktion\grqq, \glqq Wissen allgemein \& kursbezogen\grqq\ sowie \glqq Höflichkeitsfloskeln\grqq. Diese Kategorisierung beruhte auf thematischer Ähnlichkeit und Relevanz für den Bildungskontext des KI-Campus. Die prozentuale Verteilung der Prompts pro Überkategorie ist in \autoref{fig:clustering_result} dargestellt. Dominierend waren \glqq Technischer Support\grqq\ mit 40\%, gefolgt von \glqq Wissen allgemein \& kursbezogen\grqq\ mit 31\% und \glqq Kursmodalitäten\grqq\ mit 20\%. \glqq Anfragen zur Chatbotfunktion\grqq\ machten 9\% aus, während \glqq Negatives Feedback\grqq\ (4\%), \glqq Troll/Allerlei\grqq\ (2\%) und \glqq Höflichkeitsfloskeln\grqq\ (2\%) geringere Anteile aufwiesen. Beispiele illustrieren die Cluster: Im \glqq Technischer Support\grqq\ finden sich Prompts wie \glqq Kann man sehen welche Kurse man schon bearbeitet hat?\grqq, die administrative Prozesse anfragen.
 
-\begin{figure}[H]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.95\textwidth]{clustering_result.png}
     \caption{Ergebnis des Clustering-Prozesses}
@@ -117,13 +117,13 @@ Zusammenfassend lässt sich der Forschungsstand in drei Entwicklungslinien bünd
 \subsubsection{RAGAS}
 \label{sec:methodik_ragas}
 
-\textbf{Zielsetzung und methodischer Rahmen}
+\paragraph{Zielsetzung und methodischer Rahmen}
 
 Zur automatisierten Evaluation des Retrieval-Augmented-Generation (RAG)-Systems wurde das Framework RAGAS in der Version 0.3.8 eingesetzt. RAGAS ist eine spezialisierte Evaluationsbibliothek für RAG-Systeme und ermöglicht die quantitative Bewertung zentraler Qualitätsdimensionen, ohne dass manuell erstellte Referenzantworten erforderlich sind \cite{es2025ragas}. Dadurch eignet sich das Framework insbesondere für Anwendungsszenarien, in denen reale Systemantworten unter praxisnahen Bedingungen analysiert werden sollen.
 
-Die Evaluationsfragen wurden kuratiert und nicht zufällig generiert. Ziel war es, typische Nutzungsszenarien der Plattform systematisch abzubilden. Die insgesamt 60 Fragen umfassen Wissensfragen zu KI-Inhalten, kursbezogene Anfragen, technische Supportfragen sowie Fragen zur Plattformfunktionalität. Grundlage bildeten bestehende Nutzungsmuster des Chatbots sowie eine inhaltliche Analyse ausgewählter Kursmaterialien. 
+Die Evaluationsfragen wurden kuratiert und nicht zufällig generiert. Ziel war es, typische Nutzungsszenarien der Plattform systematisch abzubilden und die RAGAS-Evaluation eng an den zuvor abgeleiteten Use Cases auszurichten. Die insgesamt 60 Fragen wurden entlang der drei Use Cases (Technischer Support, kursbezogene Fragen, Lernmodus) zusammengestellt und umfassen Wissensfragen zu KI-Inhalten, kursbezogene Anfragen, technische Supportfragen sowie Fragen zur Plattformfunktionalität. Grundlage der Formulierung bildeten die aus dem bestehenden System abgeleiteten und im Rahmen der Clusteranalyse identifizierten Nutzungsmuster des Chatbots (vgl. Abschnitt zur Use-Case-Ableitung).
 
-\textbf{Technische Integration und verwendete Metriken}
+\paragraph{Technische Integration und verwendete Metriken}
 
 Der projektspezifische Ablauf der automatisierten RAGAS-Evaluation ist in Abbildung~\ref{fig:ragas-eval} dargestellt.
 
@@ -199,19 +199,16 @@ Ergänzend wurde ein Prüfmechanismus implementiert, der potenziell ungestützte
 
 Zur Reduktion zufälliger Schwankungen wurde jede Frage fünfmal beantwortet und bewertet. Die Anzahl von fünf Wiederholungen stellt einen pragmatischen Kompromiss zwischen statistischer Stabilisierung der Ergebnisse und vertretbarem Rechen- sowie Kostenaufwand dar. Die Metrikwerte wurden pro Durchlauf gespeichert und anschließend zu Durchschnittswerten pro Frage sowie zu globalen Durchschnittswerten aggregiert. Alle Evaluationsdaten wurden automatisiert in einer strukturierten JSON-Datei dokumentiert, um einen systematischen Vergleich zwischen der bestehenden und der neuen Version des Chatbots zu ermöglichen.
 
-\textbf{Evaluation der bestehenden und der neuen Systemversion}
+\paragraph{Evaluation der bestehenden und der neuen Systemversion}
 
 In der bestehenden Version basiert die RAG-Pipeline auf einer linearen Architektur. Der Retriever identifiziert relevante Textsegmente, die unmittelbar an das Sprachmodell zur Antwortgenerierung übergeben werden. Für die Evaluation wurden exakt diese Kontexte extrahiert und gemeinsam mit der generierten Antwort an RAGAS übergeben. Dadurch entspricht die Bewertungsgrundlage dem tatsächlichen Systemverhalten.
 
 Die neue Version weist eine komplexere Architektur auf. Vor dem Retrieval erfolgt eine Klassifikation der Anfrage, um zwischen einfachen und komplexen Fragestellungen zu unterscheiden. Abhängig von dieser Einordnung wird entweder ein Single-Hop-Verfahren oder ein Multi-Hop-Ansatz eingesetzt. Bei komplexen Anfragen wird die ursprüngliche Frage in Teilfragen zerlegt, parallel verarbeitet und anschließend zusammengeführt. Die resultierenden Kontexte werden dedupliziert und rerankt. Auch bei einfachen Anfragen erfolgt ein Reranking, um die relevantesten Segmente auszuwählen.
 
-In beiden Versionen wurden ausschließlich die final ausgewählten Kontexte als \texttt{retrieved\_contexts} an RAGAS übergeben. Damit wird sichergestellt, dass die Evaluation jeweils die tatsächlich verwendeten Kontextinformationen berücksichtigt und die Systemarchitektur adäquat abbildet. Unabhängig von der internen Pipeline-Logik beider Versionen bleibt das evaluative Single-Turn-Setting identisch, sodass die Vergleichbarkeit der Ergebnisse gewährleistet ist.
+In beiden Versionen wurden ausschließlich die final ausgewählten Kontexte als \textit{retrieved\_\allowbreak contexts} an RAGAS übergeben. Damit wird sichergestellt, dass die Evaluation jeweils die tatsächlich verwendeten Kontextinformationen berücksichtigt und die Systemarchitektur adäquat abbildet. Unabhängig von der internen Pipeline-Logik beider Versionen bleibt das evaluative Single-Turn-Setting identisch, sodass die Vergleichbarkeit der Ergebnisse gewährleistet ist.
 
 % Warum wurden genau fünf Wiederholungen pro Frage gewählt?
-% Wurden API-Rate-Limits, Timeouts oder fehlgeschlagene Calls kontrolliert oder geloggt?
-% Bewertet hier ein LLM ein anderes LLM?
-% Ist ein Single-Turn-Setting ausreichend für die Bewertung eines Lern-Chatbots?
-% Würde eine Multi-Turn-Evaluation zu anderen Ergebnissen führen?
+% LLM as a judge
 
 \subsubsection{Blindtest: Nutzer}
 
@@ -219,7 +216,7 @@ In beiden Versionen wurden ausschließlich die final ausgewählten Kontexte als 
 
 Zur vergleichenden Evaluation der beiden RAG-Systeme wurde ein expertenbasierter Blindtest im A/B-Design durchgeführt. Methodisch orientiert sich das Vorgehen am Arena-Prinzip, bei dem zwei Systemantworten auf denselben Prompt parallel präsentiert werden, ohne dass die Bewertenden wissen, welches System welche Antwort erzeugt hat. Dieses Design reduziert Erwartungs- und Confirmation-Bias und ist insbesondere für generative Systeme geeignet, deren Qualität nicht ausschließlich anhand einer eindeutig definierten Ground Truth beurteilt werden kann. Während automatisierte Metriken wie \emph{Faithfulness} oder faktische Korrektheit die kontextuelle Stützung und inhaltliche Konsistenz quantifizieren \cite{Roychowdhury2024RAGAS}, erlaubt ein Blindvergleich die Bewertung wahrgenommener Gesamtqualität im direkten Systemvergleich.
 
-\begin{figure}[h]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.9\textwidth]{bilder/UI der Testumgebung.jpg}
     \caption{Arena-Setup im Experten-Blindtest: Zwei Systemantworten (A/B) werden parallel im identischen Interface dargestellt.}
@@ -232,7 +229,7 @@ Die Untersuchung wurde als moderiertes Einzelinterview durchgeführt (30--60 Min
 
 Die Evaluation erfolgte mittels standardisiertem Fragebogen (Likert-Skala, 1 = trifft nicht zu, 5 = trifft voll zu) sowie begleitender Think-Aloud-Methode. Die Bewertungsdimensionen wurden wie folgt operationalisiert:
 
-\begin{table}[h]
+\begin{table}[htbp]
 \centering
 \caption{Bewertungsdimensionen des Experten-Blindtests}
 \label{tab:experten_kriterien}
@@ -305,7 +302,7 @@ Follow-up Fragen fehlen &  &  \\
 \label{sec:ident_systemanforderungen}
 Abbildung \ref{fig:systemanforderungen} systematisiert die aus der Anforderungsanalyse abgeleiteten Verbesserungspotenziale und stellt konkrete Handlungsdimensionen für die Weiterentwicklung des RAG-basierten Chatbots dar. Dazu gehören die Wissensbasis, Vertrauen, Konversationsqualität und Technische Performance. Die Wissensbasis umfasst die Erweiterung des verfügbaren Kontexts des RAG-Systems mittels einen Ausbau der Vektordatenbank und die Erweiterung um multimodale Inhalte sowie das Integrieren von Feedback-Mechanismen (bspw. RLHF). Vertrauen umfasst den im Bildungskontext besonders relevanten Aspekt der Transparenz, der eine nachvollziehbare Zitation und eine klare Rollenbeschreibung des Systems beinhaltet. Die Konversationsqualität umfasst vor allem die Verbesserung der Antwortqualität und der Interaktionsfähigkeit des Chatbots. Hierbei geht es nicht nur darum das einfache "Questions an Answers" (Q\&A) zu verbessern, sondern auch eine stärkere Kontextintegration, die Fähigkeit zu Follow-up-Fragen und die Einbindung von Beispielen und Use Cases als auch die Möglichkeit korrekt zu Smalltalk zu reagieren. Die technische Performance umfasst drei wichtige Kategorien. Die Antwortgeschwindigkeit, die technisch korrekte Funktion des Chatbots, wozu Konversationsperistenz sowie mehrspracheriger Support gehören, und die Verbesserung der User Experience (UX), die vor allem mit einer Verbesserung des User Interface (UI) korrepsondiert. Diese identifizerten Systemanforderungen bilden die Grundlage für die technische Umsetzung der Weiternentwicklung, welche in Kapitel \ref{sec:technische_umsetzung} beschrieben wird.
 
-\begin{figure}[h]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.9\textwidth]{systemanforderungen.png}
     \caption{Identifizierte Systemanforderungen}
@@ -319,7 +316,7 @@ Grundlage jedlicher Implementierungen ist stets die bestehende Codebasis, welche
 Abbildung \ref{fig:auswahl_implementierungen} stellt aus den identifizierten Systemanforderungen ausgewählten Implementierungen dar. Eine Änderung der jeweiligen Modelle (LLM und Embedding) wird außer Acht gelassen, um eine Vergleichbarkeit der zwei Versionen bezüglich der getätigten Implementierungen zuzulassen. Bezüglich der Wissensbasis wird der Ausbau der Vektordatenbank vorangetrieben. In der Codeanalyse wurde die limitierte Vektordatenbank erkannt und soll im Rahmen der Implementierungen erweitert werden. Dafür sollen zum einen deutlich mehr textbasierte Daten eingelesen werden. Zudem wird ein multimodaler Support eingebaut, der vorerst nur Audiodateien umfasst. Eine breitere Verarbeitung von Bildern und Videos ist technisch aufwendig und wurde im Rahmen dieses Projekts nicht priorisiert. Dies gilt auch für das Einbinden von Feedback, was für die unmittelbar folgende Implementierung erstmal keinen Mehrwert bietet und daher ebenfalls nicht priorisiert wurde. Für die Vertrauensdimension spielt die Zitation eine zentrale Rolle. Diese wird vor allem in Blick auf die Transparenz verbessert, während eine Umstellung der Logik die Rollen des Chatbots klarer kommuniziert. In Bezug auf die Konversationsqualität soll vor allem die Umstellung der Logik die identifizierten Systemanforderungen erfüllen, wobei auch das Anpassen der Systemprompts eine wichtige, wenn auch untergeordnete, Rolle spielt. Im Bezug auf die technische Performance soll die Antwortgeschwindigkeit durch die Implementierung von Streaming verbessert werden. Streaming bedeutet, dass die Antwort bereits während der Generierung an den Nutzer zurückgegeben wird, anstatt erst nach vollständiger Generierung. Dies kann die wahrgenommene Antwortlatenz erheblich reduzieren. Die Persistenz im Backend soll durch die Umstellung der Logik sichergestellt werden. Der mehrsprachige Support, obwohl für eine europäische Organisation wie den KI-Campus sehr wichtig, wurde in Absprache mit diesem erstmal nicht priorisiert, unter anderem auch weil die meisten Nutzer der Plattform Deutsch sprechen. Schließlich wurden Änderungen am User Interface weggelassen, weil das Frontend durch einen weiteren Serviceanbieter (LOOM GmbH) verwaltet wird, die nicht Teil des Projekts sind.
 Der Stand der Implementierungen zu Projektabschluss kann im GitHub Repository \textit{FU\_Chatbot} \cite{kic_version2} nachvollzogen werden, welches die Version 2 (V2) des Chatbots beinhaltet.
 
-\begin{figure}[h]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.9\textwidth]{auswahl_implementierungen.png}
     \caption{Darstellung der ausgewählten Systemanforderungen mit konkreter Umsetzung (Auswahl fett markiert)}
@@ -347,7 +344,7 @@ Zusammenfassend transformiert die erweiterte Pipeline das RAG-System von einem r
 \subsubsection{Umstellung der Logik}
 Die Umstellung der Logik des Chatbots von dem in Kapitel \ref{sec:kic} dargestellten Prompt Chaining hin zu den in Abbildung \ref{fig:worklow_neu} dargestellten Routing-Ansatz stellt die größte Implementierung der Autoren dar. Relevant ist neben der architektonischen Änderungen hier auch das Nutzen der standardisierten Bibliothek LangGraph. Diese erlaubt das einfache Modellieren komplexer Workflows mittels Knoten, in denen die eigentliche Logik codiert ist, und Kanten, die die Verbindungen zwischen den Knoten darstellen. In jedem Knoten wird der State einer Anfrage verändert, welche durch das Durchlaufen aller Knoten komplett verarbeitet wird. Dies ermöglicht eine deutlich leichter erweiterbare und wartbare Architektur und hat eine built-in Funktion für die Persistenz der Konversationen. In Bezug auf Abbildung \ref{fig:worklow_neu} erkennt man leicht, warum der Ansatz Routing genannt wird. Je nach Anfrage werden verschiedene Pfade durch den Workflow genommen, was eine deutlich flexiblere Verarbeitung von Anfragen ermöglicht. Die möglichst optimale Verarbeitung jeder Anfrage ist die Grundlage des Routings. Der Workflow bestimmt dabei auch die Rolle des Chatbots, welche dann eindeutig mit dem Nutzer kommuniziert werden kann. Die ersten beiden Schritte jeder Anfrage sind identisch. Zuerst wird die Anfrage klassifiziert, um zu bestimmen, welcher Workflow genutzt werden sollte. Darauf folgt die bekannte Kontextualisierung. Ab hier gibt es die Aufteilung. Der \textit{Path ohne Retrieval} wird für einfache Anfragen genutzt, die ohne zusätzlichen Kontext beantwortet werden können. Hierzu zählt Smalltalk aber auch die Verarbeitung von sinnlosen Anfragen. Was zuvor mittels der starren No-Answer Logik gelöst wurde, wird nun durch flexible, kontextgetreue Antworten ersetzt. Damit wird schlussendlich auch Kosten gespart, weil unnötige Retrievals vermieden werden. \textit{Single- und Multi Hop} sind die Erweiterung des ursprünglichen linearen Workflows. Einfache Anfragen entsprechen dem Single Hop, weil diese nur eine Single Source of Truth benötigen. Multi Hop sind komplexere Anfragen, die mehrere Kontextquellen benötigen. Hierfür werden Anfragen in mehrere kleinere Teilfragen zerlegt, die parallel als Single Hop verarbeitet werden. Das semantische Retrieval wird zudem durch das hybride Retreival ersetzt. Im Multi Hop Workflow werden hier die zeitgleich retrievden Kontexte dedupliziert. Anschließend kommen alle retrievden Kontexte in einen Reranker, um die Qualität dieser sicherzustellen. Erst danach werden die finalen Kontexte an das LLM übergeben, um die Antwort zu generieren. Die größte Implementierung bei der Umstellung der Logik ist das Einführen des \textit{Sokratischen Lernassistenten}. Dieser wird durch einen hardcodierten Satz (\glqq Ich möchte etwas Lernen\grqq) aktiviert und dient vor allem der Umstellung von einem einfachen Q\&A Chatbot hin zu einer interaktiven Lernunterstützung. Wenn man den alten Workflow (Abbildung \ref{fig:kic-workflow}) mit dem neuen Workflow (Abbildung \ref{fig:worklow_neu}) vergleicht, erkennt man einen deutlichen Komplexitätsanstieg, was widerum einen Trade-off darstellt. Die erhoffte verbesserte Konversationsqualität führt zu mehr Schritten, die wiederum API-Calls darstellen und somit Kosten verursachen, welche die technische Performance negativ beeinflussen können. Wie sich dieses Spannungsfeld ausspielt muss die Evaluation zeigen.
 
-\begin{figure}[h]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.9\textwidth]{workflow_neu.png}
     \caption{Neuer Workflow (Routing) des RAG-basierten Chatbots in LangGraph}
@@ -356,7 +353,7 @@ Die Umstellung der Logik des Chatbots von dem in Kapitel \ref{sec:kic} dargestel
 
 Der schematische Ablauf des sokratischen Lernassistenten ist in Abbildung \ref{fig:socratic} dargestellt. Dieser besteht aus sechs Modi die teilweise linear und teilweise iterativ durchlaufen werden. Nach der Aktivierung durch den Nutzer beginnt der Lernassistent mit dem \textit{Socratic Contracting}. Dies ist ein fester Prompt der den Sinn des Lernmodus kommuniziert und die Regeln der Interaktion festlegt. Der Nutzer wird aufgefordert das Thema zu nennen, das er lernen möchte. Darauf folgt die \textit{Socratic Diagnose}. Dieser Schritt hat das Ziel die Lernziele des Nutzers festzustellen. Man spricht nach Abschluss dieser Stufe von einem entstandenen sokratischen Vertrag, der durch die folgenden Schritte iterativ abgearbeitet wird, sodass der Nutzer am Ende das gewünschte Thema gelernt hat. Diese iterative Stufe ist der \textit{Socratic Core}. In diesem werden stets die sokratischen Fragen gestellt, die die Grundlage des sokratischen Lernens darstellen. Im Idealfall bringt dies den Nutzer dazu das gewünschte Wissen im Dialog durch Follow-up Fragen, informelle Wissensabfrage und Beispiele eigenständig zu erarbeiten. Wenn der Lernassistent den Lernerfolg erkennt, folgt das \textit{Socratic Feedback}, also das Einordnen der Lernleistung, was den Abschluss des Lernmodus darstellt. Sollte der Nutzer feststecken, kann der Lernassistent durch \textit{Socratic Hinting} Hinweise bekommen oder einfach eine Erklärung per \textit{Socratic Explain} erhalten, die beide zum Socratic Core gezählt werden. Der Lernmodus kann dabei nach Abschluss neu gestartet werden oder jederzeit mit oder ohne Erklärung verlassen werden. Die Entscheidungen im Socratic Core werden per Router (Klassifikation) getroffen, während die anderen Schritte hardcodierte Abfolgen sind.
 
-\begin{figure}[h]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.9\textwidth]{socratic.png}
     \caption{Schematischer Ablauf des sokratischen Lernassistenten}
