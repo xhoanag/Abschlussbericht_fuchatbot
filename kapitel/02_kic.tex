@@ -1,9 +1,16 @@
 \chapter{Systemarchitektur des KI-Campus-Chatbots}
 \label{sec:kic}
+%Das Kapitel hat zu viele Unterkapitel; ein Unterkapitel für 6 Sätze ist overkill. Wie wäre die Struktur:
+% 2. Der KI-Campus-Chatbot
+% 2.1. Systemarchtiektur des KI-Campus-Chatbots
+% 2.2. Workflow des Retrieval-Augmented Generation Systems
+
+% Abbildungen und Tabellen sollten im Text mindestens einmal referenziert und beschrieben werden
 
 \section{Systemueberblick und Architekturprinzip}
 
 Der KI-Campus-Chatbot ist ein dialogisches Assistenzsystem, das in die Moodle-basierte Lernplattform sowie in die Drupal-Website integriert ist. Er dient als Schnittstelle zwischen Nutzerinteraktion und Wissensbasis.
+% Wenn man hier schon auf Moodle und Drupal eingeht, ergibt es dann nicht mehr Sinn erst die Architektur zu beschreiben und dann auf den Workflow einzugehen?
 
 Architektonisch basiert das System auf Retrieval-Augmented Generation. Ein semantisches Retrieval-Modul wird mit einem generativen Sprachmodell kombiniert, sodass Antworten nicht ausschliesslich auf Trainingswissen beruhen, sondern auf abgerufenen domaenenspezifischen Inhalten. Die Trennung zwischen Vektordatenbank (Wissensspeicher) und LLM (Generierung) bildet ein zentrales Architekturprinzip.
 
@@ -26,6 +33,7 @@ Aus Moodle werden kursbezogene Inhalte wie Beschreibungen, Materialien und struk
 
 Zur Integration der Inhalte wird eine mehrstufige ETL-Pipeline eingesetzt.
 
+% Bei der Architektur weniger technisch, dafür beim Workflow die einzelnen Schritte genauer beschreiben (beziehe mich da später drauf)
 Im \textit{Extract}-Schritt werden Inhalte mittels Parser aus Moodle und Drupal extrahiert. Im \textit{Transform}-Schritt erfolgt Textbereinigung, Chunking sowie die Generierung semantischer Embeddings. Im \textit{Load}-Schritt werden die Embeddings in einer Vektordatenbank gespeichert, waehrend persistente Systemdaten in einer relationalen PostgreSQL-Datenbank abgelegt werden.
 
 Die Qualitaet der Pipeline beeinflusst unmittelbar die Leistungsfaehigkeit des Retrieval-Mechanismus.
@@ -55,6 +63,8 @@ Der Interaktionsablauf folgt einem klaren Muster: Nutzeranfrage $\rightarrow$ Em
     \label{fig:kic-architektur}
 \end{figure}
 
+
+% Die Section gehört in meinen Teil! Eventuell einfach einen letzten Absatz, dass KI-Campus unzufrieden mit bestehender Funktion ist und auf mein Kapitel verweisen?
 \section{Identifizierte strukturelle Limitationen}
 
 Zum Projektstart wurden mehrere strukturelle und funktionale Limitationen der bestehenden Architektur festgestellt. Dazu zaehlen eine teilweise eingeschraenkte Kontextsensitivitaet, eine starre No-Answer-Logik sowie eine begrenzte Sprachrobustheit. Darueber hinaus zeigte sich, dass die Datenpipeline nicht alle verfuegbaren Inhalte vollstaendig oder konsistent verarbeitete.
