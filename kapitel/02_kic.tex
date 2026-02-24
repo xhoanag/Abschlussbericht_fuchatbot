@@ -31,7 +31,7 @@ Aus Moodle werden kursbezogene Inhalte wie Beschreibungen, Materialien und struk
 
 \section{ETL-Prozess}
 
-Zur Integration der Inhalte wird eine mehrstufige ETL-Pipeline eingesetzt.
+Zur Integration der Inhalte wird eine mehrstufige ETL-Pipeline (Extract, Transform, Load) eingesetzt.
 
 % Bei der Architektur weniger technisch, dafür beim Workflow die einzelnen Schritte genauer beschreiben (beziehe mich da später drauf)
 Im \textit{Extract}-Schritt werden Inhalte mittels Parser aus Moodle und Drupal extrahiert. Im \textit{Transform}-Schritt erfolgt Textbereinigung, Chunking sowie die Generierung semantischer Embeddings. Im \textit{Load}-Schritt werden die Embeddings in einer Vektordatenbank gespeichert, waehrend persistente Systemdaten in einer relationalen PostgreSQL-Datenbank abgelegt werden.
