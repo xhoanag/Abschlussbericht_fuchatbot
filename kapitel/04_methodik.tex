@@ -255,6 +255,8 @@ Der Experten-Blindtest ergänzt somit automatisierte RAG-Metriken um eine fachli
 
 \subsubsection{Kosten}
 
+Die Kostenmessung umfasste Latenzzeit und Tokenverbrauch (Input/Output) beider Chatbot-Versionen (v1, v2) während der RAGAS-Evaluation. Jede der 60 Fragen wurde fünfmal gestellt; Durchschnittswerte pro Frage und anschließend global aggregiert. Bei v2 wurden Zeiten und Token je Pipeline-Stage (u. a. Reranking) separat erfasst, v1 umfasste nur eine Pipeline-Stage. Das einheitlich genutzte Modell gpt-4o (Azure, swedencentral, Version 2024-05-13) wurde mit 4,18621 €/Mio. Input-Token und 13,8145 €/Mio. Output-Token bepreist\footnote{\href{https://azure.microsoft.com/en-us/pricing/details/azure-openai/\#pricing}{Azure OpenAI pricing}, swedencentral, GPT-4o-2024-0513 US/EU – Data Zones; Abgerufen am 11.02.2026}. Dies ermöglichte präzisen Vergleich der Ressourceneffizienz.
+
 \section{Weiterentwicklung eines Retrieval-Augmented-Generation-Chatbots}
 
 \subsection{Anforderungsanlyse}
