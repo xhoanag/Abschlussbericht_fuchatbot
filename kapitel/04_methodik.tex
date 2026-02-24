@@ -370,7 +370,28 @@ Der schematische Ablauf des sokratischen Lernassistenten ist in Abbildung \ref{f
 \subsubsection{Weitere Anpassungen}
 Neben der Erweiterung der Ingestion-Pipeline und der Umstellung der Logik wurden drei weitere, kleinere Anpassungen durchgeführt, die an dieser Stelle kurz beschrieben werden.
 
-Dies ist zum einen die \textbf{Anpassung der Systemprompts} Max?!
+Dies ist zum einen die \textbf{Anpassung der Systemprompts}: Diese orientierte sich an einem standardisierten Prompt-Engineering-Framework, das zentrale, in der Hochschulforschung etablierte Strukturprinzipien integriert (vgl. Lee \& Palmer, \cite{Lee2025PromptEngineering}). Ziel war es, keine isolierten Einzelprompts zu formulieren, sondern ein konsistentes, modular anpassbares Prompt-Design zu implementieren.
+
+Das zugrunde liegende Framework umfasste fünf im Wesentlichen fünf Kernkomponenten:
+
+\begin{enumerate}
+    \item \textbf{Rollenfestlegung (Role Assignment):} 
+    Jede Systeminstanz erhielt eine explizite funktionale Rolle (z.\,B. informationsorientierter Assistent oder sokratischer Lernbegleiter). Die Rollenbeschreibung definierte Tonalität, Interaktionsstil und Zielprioritäten.
+    
+    \item \textbf{Kontext- und Scope-Definition (Context Control):} 
+    Der relevante Kontext (z.\,B. Retrieval-Passagen, Kursumgebung oder didaktischer Modus) wurde strukturiert eingeführt. Gleichzeitig wurden klare Grenzen formuliert, insbesondere zur Vermeidung von Halluzinationen und Spekulationen außerhalb des bereitgestellten Materials.
+    
+    \item \textbf{Ziel- und Qualitätskriterien (Objective Specification):} 
+    Die Prompts enthielten explizite Qualitätsanforderungen wie Präzision, Nachvollziehbarkeit, strukturierte Darstellung oder – im Lernmodus – Förderung von Reflexion und Metakognition.
+    
+    \item \textbf{Output-Formatierung (Output Constraints):} 
+    Formatvorgaben (z.\,B. strukturierte Abschnitte, schrittweise Argumentation oder gezielte Rückfragen statt direkter Lösungen im sokratischen Modus) dienten der Konsistenz und Vergleichbarkeit der Systemantworten.
+    
+    \item \textbf{Iterative Steuerung (Feedback \& Iteration):} 
+    Insbesondere im Lernmodus wurden mehrstufige Prompt-Sequenzen implementiert, die adaptiv auf den Interaktionsstand reagieren. Dieses Prinzip folgt der in der Literatur hervorgehobenen Bedeutung iterativer Promptanpassung und dialogischer Feinsteuerung \cite{Lee2025PromptEngineering}.
+\end{enumerate}
+
+Durch diese standardisierte Struktur konnten sowohl funktionale Betriebsmodi als auch didaktisch orientierte Interaktionsformen innerhalb eines konsistenten Designrahmens realisiert werden. Unterschiede zwischen einzelnen Promptvarianten ergeben sich somit nicht aus ad-hoc-Formulierungen, sondern aus systematisch variierten Parametern innerhalb desselben Frameworks.
 
 Zum anderen gibt es ein \textbf{Anpassen der Zitation} mit dem Hauptziel die verwendeten Quellen transparenter darzustellen. Anstatt in der Antwort einfach nur eine Zahl stehen zu haben (\textit{[1]}) wird der Titel es jeweiligen Moodle-Moduls angezeigt (\textit{[Titel der Quelle]}). Besonders durch den starken Anstieg der eingelesenen Module und damit verbunden deutlich mehr möglichen Quellen ermöglicht dies bereits in der Antwort abschätzen zu können, ob eine Quelle sinnvoll ist und nicht erst dem verfügbaren Link folgen zu müssen. Der implementierte Reranker sorgt zudem dafür, dass die Qualität der zurückgegebenen Quellen verbessert wird, was die Zitation zusätzlich verbessert.
 
