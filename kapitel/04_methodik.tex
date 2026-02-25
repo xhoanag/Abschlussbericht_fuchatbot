@@ -116,6 +116,37 @@ Neben Qualitäts- und Akzeptanzdimensionen gewinnt zunehmend auch die wirtschaft
 
 Zusammenfassend lässt sich der Forschungsstand in drei Entwicklungslinien bündeln: Erstens die Ausdifferenzierung technischer Metriken entlang von Retrieval- und Generationsdimensionen mit Fokus auf Kontexttreue und Robustheit \cite{Yu2025SurveyRAG}. Zweitens die Etablierung automatisierter, LLM-gestützter Evaluationsframeworks wie RAGAS zur skalierbaren Qualitätsmessung, deren Ergebnisse jedoch domänenspezifisch validiert werden müssen \cite{es2025ragas,Roychowdhury2024RAGAS}. Drittens die Integration menschlicher Urteile – sowohl nutzer- als auch expertengestützt – sowie die Berücksichtigung ökonomischer Faktoren im Anwendungskontext \cite{Neumann2024MoodleBot}. Vor diesem Hintergrund ist eine kombinierte Evaluationsstrategie, die automatisierte Metriken, Blindtests und wirtschaftliche Analysen zusammenführt, methodisch gut begründet und entspricht dem aktuellen Stand der Forschung.
 
+\begin{table}[H]
+\centering
+\caption{Übersicht der zitierten Arbeiten zur RAG-Evaluation nach Evaluationsdimensionen}
+\label{tab:rag_eval_literatur}
+\begin{tabular}{p{8cm} p{3.5cm}}
+\hline
+\textbf{Thema und Schwerpunkt} & \textbf{Quelle} \\
+\hline
+\multicolumn{2}{l}{\textbf{I. Technische Metriken und Pipeline-Dimensionen}} \\
+\hline
+RAG-Grundarchitektur und doppelte Evaluationslogik & \cite{Lewis2021RAG} \\
+Pipeline-strukturierte Evaluation & \cite{Yu2025SurveyRAG} \\
+Kontextbezogene Qualitätsdimensionen statt NLG-Metriken & \cite{Roychowdhury2024RAGAS} \\
+\hline
+\multicolumn{2}{l}{\textbf{II. Automatisierte LLM-gestützte Frameworks}} \\
+\hline
+RAGAS-Framework: LLM-as-a-Judge, Faithfulness & \cite{es2025ragas} \\
+Validierung automatisierter Metriken & \cite{Roychowdhury2024RAGAS} \\
+LLM-Evaluatoren vs. menschliche Bewertungen & \cite{Wang2024LLMEvaluation} \\
+\hline
+\multicolumn{2}{l}{\textbf{III. Menschliche Urteile und Anwendungskontext}} \\
+\hline
+RAG im Bildungsbereich & \cite{Swacha2025RAGEducation} \\
+Bildungsspezifische Qualitätsdimensionen & \cite{Li2025RAGEducationSurvey} \\
+Nutzerakzeptanz-Evaluation (TAM) & \cite{Neumann2024MoodleBot} \\
+Paarweise Blindvergleiche (Arena-Prinzip) & (methodisch) \\
+Wirtschaftliche Perspektive und Skalierbarkeit & \cite{Neumann2024MoodleBot} \\
+\hline
+\end{tabular}
+\end{table}
+
 \subsection{Evaluationskonzept}
 \label{sec:evalkonzept}
 % Unterkapitel, das Auswahl der Evaluationsmethoden begründet?
@@ -134,9 +165,9 @@ Die Evaluationsfragen wurden kuratiert und nicht zufällig generiert. Ziel war e
 % Auch bei anderen \refs der Fall
 Der projektspezifische Ablauf der automatisierten RAGAS-Evaluation ist in Abbildung~\ref{fig:ragas-eval} dargestellt.
 
-\begin{figure}[t]
+\begin{figure}[htbp]
 \centering
-\resizebox{0.9\textwidth}{!}{
+\resizebox{0.9\textwidth}{!}{%
 \begin{tikzpicture}[
   node distance=8mm and 12mm,
   font=\small,
