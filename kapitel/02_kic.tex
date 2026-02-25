@@ -6,7 +6,7 @@
 % 2.2. Workflow des Retrieval-Augmented Generation Systems
 
 % Abbildungen und Tabellen sollten im Text mindestens einmal referenziert und beschrieben werden
-
+%äs, ös und üs sind alle ae, oe & ue
 \section{Systemueberblick und Architekturprinzip}
 
 Der KI-Campus-Chatbot ist ein dialogisches Assistenzsystem, das in die Moodle-basierte Lernplattform sowie in die Drupal-Website integriert ist. Er dient als Schnittstelle zwischen Nutzerinteraktion und Wissensbasis.
@@ -56,6 +56,7 @@ Das Backend basiert auf FastAPI und wird in einer Azure-WebApp betrieben. Die In
 
 Der Interaktionsablauf folgt einem klaren Muster: Nutzeranfrage $\rightarrow$ Embedding $\rightarrow$ Retrieval $\rightarrow$ Generierung $\rightarrow$ Ausgabe im Frontend.
 
+% Die Grafik ist gar nicht mehr zu erkennen, nochmal neu exportieren aus miro/der scieneers präsentation?
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{systemarchitektur_kic.png}
