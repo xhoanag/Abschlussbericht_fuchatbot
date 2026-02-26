@@ -291,7 +291,22 @@ In beiden Versionen wurden ausschließlich die final ausgewählten Kontexte als 
 % Warum wurden genau fünf Wiederholungen pro Frage gewählt?
 % LLM as a judge
 
-\subsubsection{Blindtest: Nutzer}
+\subsubsection{Blindtest: Nutzer - Chatbot Arena}
+
+Die Chatbot-Arena wurde als kontrollierte Evaluationsplattform für paarweise Modellvergleiche konzipiert, angelehnt an das Prinzip der LMSYS Chatbot Arena zur Triangulation der Ergebnisse aus den qualitativen Experten-Interviews und der automatisierten Evaluation des Chatbots mittels der RAGAS Library. Ziel des Arena-Konzeptes ist nicht die freie Interaktion, sondern die standardisierte Qualitätsbewertung von Antworten unter gleichen Bedingungen. Methodisch steht dabei ein Blind-A/B-Setup im Vordergrund: Pro Vergleich sehen Teilnehmende zwei Antworten zur identischen Frage und entscheiden zwischen \textit{A}, \textit{B}, \textit{tie} oder \textit{both\_bad}. Dadurch entsteht ein robustes Präferenzsignal, das sich statistisch aggregieren lässt.
+
+Architektonisch besteht das System aus drei Ebenen. Erstens übernimmt ein Nginx-Reverse-Proxy den externen Zugriff (inklusive TLS-Terminierung) und leitet Anfragen intern an API und UI weiter. Zweitens bildet die Arena-API (FastAPI, Port 8001) das Backend für Vergleichserzeugung, Voting, Statistik und Session-bezogene Endpunkte. Drittens stellt die Voting-UI (FastAPI, Port 8002) das Web-Frontend bereit, über das Teilnehmende abstimmen und Ergebnisse einsehen. Die Persistenz erfolgt schlank über JSONL-Dateien (append-orientiert), was für Forschungsprototypen eine transparente und leicht auditierbare Datenhaltung ermöglicht.
+
+Für den quantitativen Massentest wurde ein Korpus vorgegebener Fragen genutzt (RAGAS-Fragenset), dessen Antworten allerdings für jede User-Session neu generiert werden. Durch die Variation der generierten Antworten werden realistische Testbedingungen geschaffen und die Aussagekraft der Ergebnisse im Vergleich zu einer deterministischen Antwortgenerierung erhöht. Jedes Comparison-Objekt enthält unter anderem Frage, Antwort A/B, Modellmetadaten, Subset-Zuordnung und Zeitstempel. Ergänzend wird die Stimmabgabe inklusive Session-Referenz protokolliert, sodass Mehrfachvoten nachvollziehbar bleiben und Auswertungen pro Nutzer-Session möglich sind.
+
+Zur experimentellen Kontrolle wurden 59 Fragen in vier Subsets aufgeteilt. Die Zuweisung erfolgt Round-Robin beziehungsweise balanciert, um Last und Stichprobe gleichmäßig zu verteilen und Ermüdungseffekte zu reduzieren (ca. 15 Fragen pro Person). Zusätzlich wurde ein Shuffling der Position der jeweiligen Chatbot-Antworten (Anzeige links oder rechts) implementiert, um Positionsbias zu verhindern.
+
+Im Betrieb sichern Session-IDs, CSRF-Token, Request-Limits und Validierungen die Integrität der Datenerhebung und bieten Schutz vor externen Störungen wie Bot-Angriffen. Über Statistik-Endpunkte werden Kennzahlen wie Anzahl bewerteter Vergleiche, Verteilung der Vote-Klassen und Win-Rates bereitgestellt; das Dashboard erlaubt Filterung nach Subsets sowie Exportfunktionen. Insgesamt verbindet die Arena damit wissenschaftliche Vergleichbarkeit mit produktionsnaher Web-Architektur und eignet sich gut für belastbare, quantitative Modell-Evaluation im Hochschulkontext.
+
+Für den Betrieb der Arena wurde die Anwendung vollständig containerisiert und als Docker-Stack auf einer dedizierten VM ausgerollt.
+
+\paragraph{Hinweis zur Datengrundlage}
+Entgegen der ursprünglichen Planung ist die aktuelle Instanz zum Zeitpunkt dieses Berichts nur aus dem FU-internen Netz erreichbar und noch nicht wie vorgesehen öffentlich über das Internet verfügbar. Die geplante breite Distribution (unter anderem über KI-Campus-Kanäle wie Newsletter und Banner) konnte daher bislang nicht umgesetzt werden. Entsprechend konnte keine wissenschaftlich belastbare Stichprobenzahl an Teilnehmenden generiert werden. Aus diesem Grund wird im Ergebnisteil dieses Projektberichts auf eine Auswertung der Ergebnisse aus der Chatbot-Arena-Evaluation verzichtet. Die Datenerhebung und Auswertung werden nach Herstellung der Public-Reachability der VM nachgeholt; die Ergebnisse werden in einem anschließenden wissenschaftlichen Paper dokumentiert.
 
 \subsubsection{Blindtest: Experten}
 
