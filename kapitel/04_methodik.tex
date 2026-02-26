@@ -2,36 +2,78 @@
 
 \section{Identifizierung von Use Cases}
 
-Die Optimierung des RAG-Chatbot-Systems basierte auf einer systematischen Analyse realer Nutzungsdaten aus dem Produktivbetrieb des KI-Campus. Hierzu wurden rund 13.000 Prompts aus dem Monitoring-Tool \textit{Langfuse} extrahiert und automatisiert vorverarbeitet. Ziel war es, dominante Nutzungsmuster datenbasiert zu identifizieren und daraus evaluierbare Use Cases abzuleiten.
-
-Die Datenaufbereitung und Analyse erfolgte mehrstufig und ist in Abbildung~\ref{fig:prozessfluss} schematisch dargestellt.
+Die Optimierung des RAG-Chatbot-Systems basierte auf einer systematischen Analyse realer Nutzungsdaten aus dem Produktivbetrieb des KI-Campus. Hierzu wurden rund 13.000 Prompts aus dem Monitoring-Tool \textit{Langfuse} extrahiert und automatisiert vorverarbeitet. Ziel war es, dominante Nutzungsmuster datenbasiert zu identifizieren und daraus evaluierbare Use Cases abzuleiten. Die Datenaufbereitung und Analyse erfolgte mehrstufig und ist in Abbildung~\ref{fig:prozessfluss} schematisch dargestellt. Auf der linken Seite erscheint der jeweilige Prozesschritt, auf der rechten Seite die jeweils verbleibende Datenmenge.
 
 \begin{figure}[htbp]
-    \centering
-    \fbox{
-    \begin{minipage}{0.9\textwidth}
-    \centering
-    \textbf{Rohdaten (13.000 Prompts)}\\
-    $\downarrow$\\
-    Regelbasierte Vorfilterung\\
-    (Meta/Chitchat, Abuse, Empty, $<$10 Zeichen)\\
-    $\downarrow$\\
-    11.778 Content-Kandidaten\\
-    $\downarrow$\\
-    Duplikatentfernung\\
-    $\downarrow$\\
-    Multilinguale Embeddings\\
-    (sentence-transformers/paraphrase-multilingual-mpnet-base-v2)\\
-    $\downarrow$\\
-    Dimensionsreduktion + dichtebasiertes Clustering\\
-    $\downarrow$\\
-    69 Cluster + Outlier\\
-    $\downarrow$\\
-    Manuelle Aggregation zu Use Cases für die Evaluation\\
-    \end{minipage}
-    }
-    \caption{Prozess der datengetriebenen Use-Case-Identifikation}
-    \label{fig:prozessfluss}
+\centering
+
+\begin{tikzpicture}[
+box/.style={
+draw,
+rectangle,
+align=center,
+minimum width=7cm,
+minimum height=1cm
+},
+nlabel/.style={
+align=left
+},
+arrow/.style={
+->,
+thick
+}
+]
+
+% Boxen links
+
+\node[box] (raw)
+{Rohdaten aus Langfuse};
+
+\node[box, below=1.2cm of raw] (filter)
+{Regelbasierte Vorfilterung\\
+\& Duplikatentfernung};
+
+\node[box, below=1.2cm of filter] (embed)
+{Multilinguales Embedding};
+
+\node[box, below=1.2cm of embed] (cluster)
+{Dimensionsreduktion \&\\
+dichtebasiertes Clustering};
+
+\node[box, below=1.2cm of cluster] (manual)
+{Manuelle Aggregation};
+
+
+% Pfeile
+
+\draw[arrow] (raw) -- (filter);
+\draw[arrow] (filter) -- (embed);
+\draw[arrow] (embed) -- (cluster);
+\draw[arrow] (cluster) -- (manual);
+
+
+% Rechte Seite (n-Werte)
+
+\node[nlabel, right=2cm of raw]
+{13\,000 Prompts};
+
+\node[nlabel, right=2cm of filter]
+{11\,778 Prompts};
+
+\node[nlabel, right=2cm of embed]
+{---};
+
+\node[nlabel, right=2cm of cluster]
+{69 Cluster + Outlier};
+
+\node[nlabel, right=2cm of manual]
+{3 Use Case Kategorien};
+
+\end{tikzpicture}
+
+\caption{Prozess der datengetriebenen Use-Case-Identifikation}
+\label{fig:prozessfluss}
+
 \end{figure}
 
 Im Rahmen der Vorfilterung wurden irrelevante oder störende Eingaben entfernt, darunter reine Höflichkeitsfloskeln („Hallo“, „Danke“), Testanfragen („Was kannst du?“), potenziell missbräuchliche Inhalte sowie leere oder sehr kurze Prompts. Nach Eliminierung von Duplikaten verblieben 11.778 inhaltlich relevante Anfragen.
@@ -48,7 +90,7 @@ Die Verteilung zeigte drei dominante Interaktionsbereiche:
 Die empirische Struktur der Anfragen bildet die Grundlage für die Definition der evaluativen Use Cases. Ziel war es, reale Nutzungsmuster systematisch zu abstrahieren und in klar unterscheidbare Testszenarien zu überführen.
 
 \subsection*{Use Case 1: Technischer Support}
-
+% Hier mehr Bezug zu der vorigen Identifizierung herstellen; so wirkt es trotzdem etwas willkürlich gewählt
 Dieser Use Case umfasst organisatorische und strukturelle Plattformfragen. Typische Beispiele sind:
 
 \begin{itemize}
@@ -73,7 +115,7 @@ Im Unterschied zum technischen Support erfordert dieser Use Case eine stärkere 
 
 \subsection*{Use Case 3: Lernpartner / Lernunterstützung}
 
-Der dritte Use Case wurde nicht direkt aus den historischen Prompts abgeleitet, sondern vom Projektpartner strategisch definiert. Hintergrund ist die anvisierte Weiterentwicklung des Chatbots zu einem aktiven Lernbegleiter. Hierbei wird das System explizit als Lernpartner adressiert, mit der Anweisung, Lernprozesse zu unterstützen und Interaktion zu forcieren. Im Fokus steht nicht primär die punktuelle Beantwortung einzelner Fragen (s. Use Case "Technischer Support" und "Kursbezogene Fragen"), sondern die strukturierte Begleitung eines Lernprozesses.
+Der dritte Use Case wurde nicht direkt aus den historischen Prompts abgeleitet, sondern vom Projektpartner strategisch definiert. Hintergrund ist die anvisierte Weiterentwicklung des Chatbots zu einem aktiven Lernbegleiter. Hierbei wird das System explizit als Lernpartner adressiert, mit der Anweisung, Lernprozesse zu unterstützen und Interaktion zu forcieren. Im Fokus steht nicht primär die punktuelle Beantwortung einzelner Fragen wie bei den vorigen beiden Use Cases, sondern die strukturierte Begleitung eines Lernprozesses.
 
 Dieser Use Case prüft insbesondere:
 \begin{itemize}
@@ -83,7 +125,7 @@ Dieser Use Case prüft insbesondere:
 \end{itemize}
 
 \subsection*{Funktionale Differenzierung}
-
+% Welche Funktion hat diese Subsection?
 Die drei Use Cases unterscheiden sich entlang zweier zentraler Dimensionen:
 
 \begin{enumerate}
@@ -98,7 +140,6 @@ Durch die Kombination aus datengetriebener Identifikation realer Nutzungsmuster 
 \section{Evaluation eines Retrieval-Augmented-Generation-Chatbots}
 
 \subsection{Stand der Forschung}
-% Tabelle mit Übersicht über relevante Arbeiten zur RAG-Evaluation (siehe Zwischenpräsentation --> Aufschlüsselung etnlang dieser Dimensionen auch im Text?)
 \label{sec:lit_eval}
 
 Der Stand der Forschung zur Evaluation von RAG ist durch eine zunehmende methodische Ausdifferenzierung geprägt, die technische Qualitätsdimensionen ebenso einbezieht wie nutzerbezogene und domänenspezifische Anforderungen. Ausgangspunkt ist die RAG-Architektur, die parametrisierte Sprachmodelle mit externem, nicht-parametrischem Wissen koppelt, um faktische Genauigkeit zu erhöhen und Halluzinationen zu reduzieren. Diese Hybridität erzwingt eine doppelte Evaluationslogik: Einerseits ist die Qualität des Retrievals zu beurteilen (z.\,B. ob relevante Evidenz gefunden und bereitgestellt wird), andererseits die Generationsleistung unter Nutzung des bereitgestellten Kontexts (z.\,B. ob Antworten korrekt, vollständig und im Kontext verankert sind) \cite{Lewis2021RAG}.
@@ -122,7 +163,7 @@ Zusammenfassend lässt sich der Forschungsstand in drei Entwicklungslinien bünd
 \centering
 \caption{Übersicht der zitierten Arbeiten zur RAG-Evaluation nach Evaluationsdimensionen}
 \label{tab:rag_eval_literatur}
-\begin{tabular}{p{8cm} p{3.5cm}}
+\begin{tabular}{p{10.5cm} p{4cm}}
 \hline
 \textbf{Thema und Schwerpunkt} & \textbf{Quelle} \\
 \hline
@@ -265,8 +306,6 @@ Zur vergleichenden Evaluation der beiden RAG-Systeme wurde ein expertenbasierter
 
 Die Untersuchung wurde als moderiertes Einzelinterview durchgeführt (30--60 Minuten pro Person). Insgesamt nahmen 14 Expert*innen teil, darunter Autor*innen von E-Learning-Inhalten, Lehrkräfte sowie Fachpersonen aus dem KI-Campus-Umfeld, aus der angewandten Forschung (Fraunhofer) und aus dem universitären Kontext (Freie Universität Berlin). Diese Zusammensetzung gewährleistet sowohl fachliche als auch didaktische Expertise und erlaubt eine fundierte Beurteilung inhaltlicher Korrektheit, Kontextintegration und Lernförderlichkeit. Die Relevanz solcher mehrdimensionaler Qualitätskriterien im Bildungskontext wird auch in der Literatur zu RAG in Educational Settings hervorgehoben \cite{Li2025RAGEducationSurvey,Swacha2025RAGEducation}. Zudem zeigen Studien zur Nutzung generativer KI im Unterricht, dass didaktische Angemessenheit und die Förderung kritischer Bewertungskompetenz zentrale Qualitätsdimensionen darstellen \cite{Oates2025ChatGPTClassroom}.
 
-\textbf{Bewertungsinstrument}
-
 Die Evaluation erfolgte mittels standardisiertem Fragebogen (Likert-Skala, 1 = trifft nicht zu, 5 = trifft voll zu) sowie begleitender Think-Aloud-Methode. Die Bewertungsdimensionen wurden wie folgt operationalisiert:
 
 \begin{table}[htbp]
@@ -293,8 +332,8 @@ Der Experten-Blindtest ergänzt somit automatisierte RAG-Metriken um eine fachli
 
 \subsubsection{Kosten}
 \label{sec:methodik_kosten}
-% Sollte das mit einer Fußnote geregelt werden oder das als Quelle anhängen?
-Die Kostenmessung umfasste Latenzzeit (Time-To-First-Token und Gesamtzeit) und Tokenverbrauch (Input/Output) beider Chatbot-Versionen (V1, V2) während der RAGAS-Evaluation (vgl. \ref{sec:methodik_ragas}). Jede der 60 Fragen wurde fünfmal gestellt; Durchschnittswerte pro Frage und anschließend global aggregiert. Bei V2 wurden Zeiten und Token je Pipeline-Stage (u. a. Reranking) separat erfasst, V1 umfasste nur eine Pipeline-Stage. Das einheitlich genutzte Modell gpt-4o (Azure, swedencentral, Version 2024-05-13) wurde mit 4,18621 €/Mio. Input-Token und 13,8145 €/Mio. Output-Token bepreist\footnote{\href{https://azure.microsoft.com/en-us/pricing/details/azure-openai/\#pricing}{Azure OpenAI pricing}, swedencentral, GPT-4o-2024-0513 US/EU – Data Zones; Abgerufen am 11.02.2026}. Dies ermöglichte präzisen Vergleich der Ressourceneffizienz.
+
+Die Kostenmessung umfasste Latenzzeit (Time-To-First-Token und Gesamtzeit) und Tokenverbrauch (Input/Output) beider Chatbot-Versionen (V1, V2) während der RAGAS-Evaluation (vgl. Kapitel \ref{sec:methodik_ragas}). Jede der 60 Fragen wurde fünfmal gestellt, Durchschnittswerte pro Frage berechnet und anschließend global aggregiert. Bei V2 wurden Zeiten und Token je Pipeline-Stage (u. a. Reranking) separat erfasst, V1 umfasste nur eine Pipeline-Stage. Das einheitlich genutzte Modell gpt-4o (Azure, swedencentral, Version 2024-05-13) wurde mit 4,18621 €/Mio. Input-Token und 13,8145 €/Mio. Output-Token bepreist\footnote{\href{https://azure.microsoft.com/en-us/pricing/details/azure-openai/\#pricing}{Azure OpenAI pricing}, swedencentral, GPT-4o-2024-0513 US/EU – Data Zones; Abgerufen am 11.02.2026}. Dies ermöglichte präzisen Vergleich der Ressourceneffizienz.
 
 \section{Weiterentwicklung eines Retrieval-Augmented-Generation-Chatbots}
 
@@ -418,7 +457,7 @@ Die Erweiterungen führten zu einer Ladezeitsteigerung von ca. 2,5 Stunden (V1) 
 Zusammenfassend transformiert die erweiterte Pipeline das RAG-System von einem rudimentären Dokumentenretriever zu einem umfassenden Plattformwissensaggregator. Die gesteigerte Datenvielfalt und Robustheit adressieren zentrale Usecases aus der Clusteranalyse (technischer Support, kursbezogenes Wissen) und legen die Grundlage für präzisere Retrieval-Ergebnisse.
 
 \subsubsection{Umstellung der Logik}
-Die Umstellung der Logik des Chatbots von dem in Kapitel \ref{sec:kic} vorgestellten Prompt Chaining hin zu den in Abbildung \ref{fig:worklow_neu} dargestellten Routing-Ansatz stellt die größte Implementierung der Autoren dar. Schematisch wird sich hierbei auf die Ausführungen von \citeA{OlderSource3}. Eine Agentenstruktur sowie iterative-Retrieval Ansätze wurden aufgrund der Komplexität und der damit verbundenen Kosten nicht implementiert. Auf Basis der Literatur wurde diese Implementierung mittels LangGraph umgestzt, die neben besserer Wart- und Erweiterbarkeit auch eine Persistenz im Backend zulässt. Das Routing ermöglicht zudem das klare Kommunizieren der Rolle des Chatbots, da die Anfrage je nach Workflow unterschiedlich verarbeitet wird. Die ersten beiden Schritte jeder Anfrage sind identisch. Zuerst wird die Anfrage klassifiziert, um zu bestimmen, welcher Workflow genutzt werden sollte. Darauf folgt die bekannte Kontextualisierung. Ab hier unterscheiden sich die Schritte. Der \textit{Path ohne Retrieval} wird für einfache Anfragen genutzt, die ohne zusätzlichen Kontext beantwortet werden können. Hierzu zählt Smalltalk aber auch die Verarbeitung von sinnlosen Anfragen. Was zuvor mittels der starren No-Answer Logik gelöst wurde, wird nun durch flexible, kontextgetreue Antworten ersetzt. Damit werden auch Kosten gespart, weil unnötige Retrievals vermieden werden. \textit{Single- und Multi Hop} sind die Erweiterung des ursprünglichen linearen Workflows. Hiermit folgen die Implementierungen ebenfalls dem Vorbild der Literatur. Für das Multi Hop wird die Query Decomposition genutzt. Zudem wird die Beschaffung des Kontexts um das hybride Retrieval und den Reranker erweitert, was aktuell dem Standard der Literatur entspricht. Der so abgerufene Kontext wird dann an das LLM zur Generation übergeben. Die größte Implementierung bei der Umstellung der Logik ist das Einführen des \textit{Sokratischen Lernassistenten}, durch den das von \citeA{ScalaBot6} beschriebene Potenzial von Chatbots realisiert werden soll. Dieser wird durch einen hardcodierten Satz (\glqq Ich möchte etwas Lernen\grqq) aktiviert und dient vor allem der Umstellung von einem einfachen Q\&A Chatbot hin zu einer interaktiven Lernunterstützung. Beim Vergleich der beiden Versionen wird der in der Literatur beschriebene Trade-off zwischen erhoffter Qualitätssteigerung und erhöhter Latenz deutlich.
+Die Umstellung der Logik des Chatbots von dem in Kapitel \ref{sec:kic} vorgestellten Prompt Chaining hin zu den in Abbildung \ref{fig:worklow_neu} dargestellten Routing-Ansatz stellt die größte Implementierung der Autoren dar. Schematisch wird sich hierbei auf die Ausführungen von \citeA{OlderSource3}. Eine Agentenstruktur sowie iterative-Retrieval Ansätze wurden aufgrund der Komplexität und der damit verbundenen Kosten nicht implementiert. Auf Basis der Literatur wurde diese Implementierung mittels LangGraph umgestzt, die neben besserer Wart- und Erweiterbarkeit auch eine Persistenz im Backend zulässt. Das Routing ermöglicht zudem das klare Kommunizieren der Rolle des Chatbots, da die Anfrage je nach Workflow unterschiedlich verarbeitet wird. Die ersten beiden Schritte jeder Anfrage sind identisch. Zuerst wird die Anfrage klassifiziert, um zu bestimmen, welcher Workflow genutzt werden sollte. Darauf folgt die bekannte Kontextualisierung. Ab hier unterscheiden sich die Schritte. Der \textit{Path ohne Retrieval} wird für einfache Anfragen genutzt, die ohne zusätzlichen Kontext beantwortet werden können. Hierzu zählt Smalltalk aber auch die Verarbeitung von sinnlosen Anfragen. Was zuvor mittels der starren No-Answer Logik gelöst wurde, wird nun durch flexible, kontextgetreue Antworten ersetzt. Damit werden auch Kosten gespart, weil unnötige Retrievals vermieden werden. \textit{Single- und Multi Hop} sind die Erweiterung des ursprünglichen linearen Workflows. Hiermit folgen die Implementierungen ebenfalls dem Vorbild der Literatur. Für das Multi Hop wird die Query Decomposition genutzt. Zudem wird die Beschaffung des Kontexts um das hybride Retrieval und den Reranker erweitert, was aktuell dem Standard der Literatur entspricht. Weil die bereitgestellten Modelle nicht ohne weiteres verändert werden konnten, wird ein LLM als Reranker genutzt. Der so abgerufene Kontext wird dann an das LLM zur Generation übergeben. Die größte Implementierung bei der Umstellung der Logik ist das Einführen des \textit{Sokratischen Lernassistenten}, durch den das von \citeA{ScalaBot6} beschriebene Potenzial von Chatbots realisiert werden soll. Dieser wird durch einen hardcodierten Satz (\glqq Ich möchte etwas Lernen\grqq) aktiviert und dient vor allem der Umstellung von einem einfachen Q\&A Chatbot hin zu einer interaktiven Lernunterstützung. Beim Vergleich der beiden Versionen wird der in der Literatur beschriebene Trade-off zwischen erhoffter Qualitätssteigerung und erhöhter Latenz deutlich.
 
 \begin{figure}[htbp]
     \centering
@@ -439,7 +478,7 @@ Der schematische Ablauf des sokratischen Lernassistenten ist in Abbildung \ref{f
 \subsubsection{Weitere Anpassungen}
 Neben der Erweiterung der Ingestion-Pipeline und der Umstellung der Logik wurden drei weitere, kleinere Anpassungen durchgeführt, die an dieser Stelle kurz beschrieben werden.
 
-Dies ist zum einen die \textbf{Anpassung der Systemprompts}: Diese orientierte sich an einem standardisierten Prompt-Engineering-Framework, das zentrale, in der Hochschulforschung etablierte Strukturprinzipien integriert (vgl. Lee \& Palmer, \cite{Lee2025PromptEngineering}). Ziel war es, keine isolierten Einzelprompts zu formulieren, sondern ein konsistentes, modular anpassbares Prompt-Design zu implementieren.
+Dies ist zum einen die \textbf{Anpassung der Systemprompts}: Diese orientierte sich an einem standardisierten Prompt-Engineering-Framework, das zentrale, in der Hochschulforschung etablierte Strukturprinzipien integriert \cite{Lee2025PromptEngineering}. Ziel war es, keine isolierten Einzelprompts zu formulieren, sondern ein konsistentes, modular anpassbares Prompt-Design zu implementieren.
 
 Das zugrunde liegende Framework umfasste fünf im Wesentlichen fünf Kernkomponenten:
 
