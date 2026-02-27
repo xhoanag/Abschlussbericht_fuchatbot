@@ -124,18 +124,18 @@ Dieser Use Case prüft insbesondere:
     \item dialogische Lernunterstützung.
 \end{itemize}
 
-\subsection*{Funktionale Differenzierung}
+%\subsection*{Funktionale Differenzierung}
 % Welche Funktion hat diese Subsection?
-Die drei Use Cases unterscheiden sich entlang zweier zentraler Dimensionen:
+%Die drei Use Cases unterscheiden sich entlang zweier zentraler Dimensionen:
 
-\begin{enumerate}
-    \item \textbf{Informationsart:} administrativ vs.\ fachlich vs.\ lernprozessunterstützend
-    \item \textbf{Anforderung an die Generierung:} faktisch-präzise vs.\ kontextintegrierend vs.\ didaktisch-strukturierend
-\end{enumerate}
+%\begin{enumerate}
+%    \item \textbf{Informationsart:} administrativ vs.\ fachlich vs.\ lernprozessunterstützend
+%    \item \textbf{Anforderung an die Generierung:} faktisch-präzise vs.\ kontextintegrierend vs.\ didaktisch-strukturierend
+%\end{enumerate}
 
-Alle Use Cases setzen faktische Korrektheit voraus. Der Unterschied liegt im Grad der Kontextintegration sowie in der strukturellen und pädagogischen Ausarbeitung der Antwort.
+%Alle Use Cases setzen faktische Korrektheit voraus. Der Unterschied liegt im Grad der Kontextintegration sowie in der strukturellen und pädagogischen Ausarbeitung der Antwort.
 
-Durch die Kombination aus datengetriebener Identifikation realer Nutzungsmuster und strategischer Erweiterung um den Lernpartner-Modus entsteht eine mehrdimensionale Testarchitektur. Diese erlaubt eine differenzierte Evaluation technischer Retrieval-Qualität, fachlicher Kontextintegration und didaktischer Leistungsfähigkeit des RAG-Systems.
+%Durch die Kombination aus datengetriebener Identifikation realer Nutzungsmuster und strategischer Erweiterung um den Lernpartner-Modus entsteht eine mehrdimensionale Testarchitektur. Diese erlaubt eine differenzierte Evaluation technischer Retrieval-Qualität, fachlicher Kontextintegration und didaktischer Leistungsfähigkeit des RAG-Systems.
 
 \section{Evaluation eines Retrieval-Augmented-Generation-Chatbots}
 
@@ -292,13 +292,15 @@ In beiden Versionen wurden ausschließlich die final ausgewählten Kontexte als 
 % LLM as a judge
 
 \subsubsection{Blindtest: Nutzer - Chatbot Arena}
-
+% Quellen fehlen, Abkürzungsverzeichnis befüllen
+% Abbildung für UI wie bei Max
 Die Chatbot-Arena wurde als kontrollierte Evaluationsplattform für paarweise Modellvergleiche konzipiert, angelehnt an das Prinzip der LMSYS Chatbot Arena zur Triangulation der Ergebnisse aus den qualitativen Experten-Interviews und der automatisierten Evaluation des Chatbots mittels der RAGAS Library. Ziel des Arena-Konzeptes ist nicht die freie Interaktion, sondern die standardisierte Qualitätsbewertung von Antworten unter gleichen Bedingungen. Methodisch steht dabei ein Blind-A/B-Setup im Vordergrund: Pro Vergleich sehen Teilnehmende zwei Antworten zur identischen Frage und entscheiden zwischen \textit{A}, \textit{B}, \textit{tie} oder \textit{both\_bad}. Dadurch entsteht ein robustes Präferenzsignal, das sich statistisch aggregieren lässt.
 
 Architektonisch besteht das System aus drei Ebenen. Erstens übernimmt ein Nginx-Reverse-Proxy den externen Zugriff (inklusive TLS-Terminierung) und leitet Anfragen intern an API und UI weiter. Zweitens bildet die Arena-API (FastAPI, Port 8001) das Backend für Vergleichserzeugung, Voting, Statistik und Session-bezogene Endpunkte. Drittens stellt die Voting-UI (FastAPI, Port 8002) das Web-Frontend bereit, über das Teilnehmende abstimmen und Ergebnisse einsehen. Die Persistenz erfolgt schlank über JSONL-Dateien (append-orientiert), was für Forschungsprototypen eine transparente und leicht auditierbare Datenhaltung ermöglicht.
 
 Für den quantitativen Massentest wurde ein Korpus vorgegebener Fragen genutzt (RAGAS-Fragenset), dessen Antworten allerdings für jede User-Session neu generiert werden. Durch die Variation der generierten Antworten werden realistische Testbedingungen geschaffen und die Aussagekraft der Ergebnisse im Vergleich zu einer deterministischen Antwortgenerierung erhöht. Jedes Comparison-Objekt enthält unter anderem Frage, Antwort A/B, Modellmetadaten, Subset-Zuordnung und Zeitstempel. Ergänzend wird die Stimmabgabe inklusive Session-Referenz protokolliert, sodass Mehrfachvoten nachvollziehbar bleiben und Auswertungen pro Nutzer-Session möglich sind.
 
+% 60 Fragen?
 Zur experimentellen Kontrolle wurden 59 Fragen in vier Subsets aufgeteilt. Die Zuweisung erfolgt Round-Robin beziehungsweise balanciert, um Last und Stichprobe gleichmäßig zu verteilen und Ermüdungseffekte zu reduzieren (ca. 15 Fragen pro Person). Zusätzlich wurde ein Shuffling der Position der jeweiligen Chatbot-Antworten (Anzeige links oder rechts) implementiert, um Positionsbias zu verhindern.
 
 Im Betrieb sichern Session-IDs, CSRF-Token, Request-Limits und Validierungen die Integrität der Datenerhebung und bieten Schutz vor externen Störungen wie Bot-Angriffen. Über Statistik-Endpunkte werden Kennzahlen wie Anzahl bewerteter Vergleiche, Verteilung der Vote-Klassen und Win-Rates bereitgestellt; das Dashboard erlaubt Filterung nach Subsets sowie Exportfunktionen. Insgesamt verbindet die Arena damit wissenschaftliche Vergleichbarkeit mit produktionsnaher Web-Architektur und eignet sich gut für belastbare, quantitative Modell-Evaluation im Hochschulkontext.
