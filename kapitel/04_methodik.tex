@@ -89,9 +89,8 @@ Die Verteilung zeigte drei dominante Interaktionsbereiche:
 
 Die empirische Struktur der Anfragen bildet die Grundlage für die Definition der evaluativen Use Cases. Ziel war es, reale Nutzungsmuster systematisch zu abstrahieren und in klar unterscheidbare Testszenarien zu überführen.
 
-\subsection*{Use Case 1: Technischer Support}
-% Hier mehr Bezug zu der vorigen Identifizierung herstellen; so wirkt es trotzdem etwas willkürlich gewählt
-Dieser Use Case umfasst organisatorische und strukturelle Plattformfragen. Typische Beispiele sind:
+\paragraph{Use Case 1: Technischer Support}
+Mit einem Anteil von 40\,\% stellte der technische Support die größte Cluster-Gruppe dar und bildet damit den ersten Use Case. Dieser umfasst organisatorische und strukturelle Plattformfragen. Typische Beispiele sind:
 
 \begin{itemize}
     \item „Wie teuer ist ein Kurs?“
@@ -101,9 +100,9 @@ Dieser Use Case umfasst organisatorische und strukturelle Plattformfragen. Typis
 
 Hier steht die korrekte und präzise Bereitstellung statischer, administrativer Informationen im Vordergrund. Die Bewertung fokussiert auf faktische Korrektheit, Präzision und Klarheit der Antwort. Kontextintegration spielt eine untergeordnete Rolle, da die Antworten primär auf fest definierten Informationen basieren. Dieser Use Case repräsentiert die grundlegende Funktion eines RAG-Systems: die Bereitstellung von Faktenwissen.
 
-\subsection*{Use Case 2: Kursbezogene Fragen}
+\paragraph{Use Case 2: Kursbezogene Fragen}
 
-Der zweite Use Case adressiert fachliche Anfragen innerhalb einer aktiven Lernsituation. Nutzer*innen befinden sich dabei im Kontext eines konkreten Kurses in moodle. Beispielhafte Prompts sind:
+Der zweite Use Case leitet sich aus der zweitgrößten Cluster-Gruppe ab (31\,\%, \textit{Wissen allgemein \& kursbezogen}) und adressiert fachliche Anfragen innerhalb einer aktiven Lernsituation. Nutzer*innen befinden sich dabei im Kontext eines konkreten Kurses in moodle. Beispielhafte Prompts sind:
 
 \begin{itemize}
     \item „Wie funktioniert ein LLM?“
@@ -113,7 +112,7 @@ Der zweite Use Case adressiert fachliche Anfragen innerhalb einer aktiven Lernsi
 
 Im Unterschied zum technischen Support erfordert dieser Use Case eine stärkere Kontextintegration. Das System muss kursinterne Materialien semantisch korrekt identifizieren und fachlich kohärent aufbereiten.
 
-\subsection*{Use Case 3: Lernpartner / Lernunterstützung}
+\paragraph{Use Case 3: Lernpartner / Lernunterstützung}
 
 Der dritte Use Case wurde nicht direkt aus den historischen Prompts abgeleitet, sondern vom Projektpartner strategisch definiert. Hintergrund ist die anvisierte Weiterentwicklung des Chatbots zu einem aktiven Lernbegleiter. Hierbei wird das System explizit als Lernpartner adressiert, mit der Anweisung, Lernprozesse zu unterstützen und Interaktion zu forcieren. Im Fokus steht nicht primär die punktuelle Beantwortung einzelner Fragen wie bei den vorigen beiden Use Cases, sondern die strukturierte Begleitung eines Lernprozesses.
 
@@ -124,18 +123,7 @@ Dieser Use Case prüft insbesondere:
     \item dialogische Lernunterstützung.
 \end{itemize}
 
-%\subsection*{Funktionale Differenzierung}
-% Welche Funktion hat diese Subsection?
-%Die drei Use Cases unterscheiden sich entlang zweier zentraler Dimensionen:
-
-%\begin{enumerate}
-%    \item \textbf{Informationsart:} administrativ vs.\ fachlich vs.\ lernprozessunterstützend
-%    \item \textbf{Anforderung an die Generierung:} faktisch-präzise vs.\ kontextintegrierend vs.\ didaktisch-strukturierend
-%\end{enumerate}
-
-%Alle Use Cases setzen faktische Korrektheit voraus. Der Unterschied liegt im Grad der Kontextintegration sowie in der strukturellen und pädagogischen Ausarbeitung der Antwort.
-
-%Durch die Kombination aus datengetriebener Identifikation realer Nutzungsmuster und strategischer Erweiterung um den Lernpartner-Modus entsteht eine mehrdimensionale Testarchitektur. Diese erlaubt eine differenzierte Evaluation technischer Retrieval-Qualität, fachlicher Kontextintegration und didaktischer Leistungsfähigkeit des RAG-Systems.
+Zusammenfassend differenzieren sich die drei Use Cases entlang der Informationsart (administrativ, fachlich, lernprozessunterstützend) sowie der jeweiligen Generationsanforderung (faktisch-präzise, kontextintegrierend, didaktisch-strukturierend) und strukturieren damit die Evaluation.
 
 \section{Evaluation eines Retrieval-Augmented-Generation-Chatbots}
 
@@ -148,12 +136,11 @@ Eine zentrale Herausforderung besteht darin, dass RAG-Systeme hybride Fehlerquel
 
 Im Zuge dieser Entwicklung vollzieht sich eine Abkehr von klassischen NLG-Metriken wie BLEU oder ROUGE, da diese primär Oberflächenähnlichkeit messen und Kontexttreue nicht adäquat erfassen \cite{Roychowdhury2024RAGAS}. Stattdessen rücken kontextbezogene Qualitätsdimensionen in den Fokus, insbesondere \emph{Faithfulness} und faktische Korrektheit, die prüfen, ob generierte Aussagen durch den bereitgestellten Kontext gestützt werden \cite{Roychowdhury2024RAGAS}.
 
-% In Rahmen von RAGAS sollte LLM-as-a-Judge gennant werden
-Ein zentraler methodischer Fortschritt liegt in automatisierten, referenzarmen Evaluationsframeworks. RAGAS nutzt LLMs als Bewertungsinstanz und operationalisiert Metriken wie \emph{Faithfulness} und Relevanzdimensionen, wodurch eine skalierbare Evaluation auch ohne umfangreiche Ground-Truth-Datensätze möglich wird \cite{es2025ragas}. Domänenspezifische Analysen zeigen jedoch, dass solche Metriken kritisch validiert werden müssen. Roychowdhury et al.\ weisen nach, dass insbesondere \emph{Faithfulness} und faktische Korrektheit vergleichsweise gut mit Expertenurteilen korrelieren, während andere Metriken sensitiv auf Retrieval-Fehler oder Embedding-Varianten reagieren können \cite{Roychowdhury2024RAGAS}. Ergänzend argumentieren Wang et al., dass starke LLMs als Evaluatoren in geschlossenen, faktischen Settings hohe Übereinstimmungen mit menschlichen Bewertungen erreichen, jedoch menschliche Evaluation nicht vollständig ersetzen \cite{Wang2024LLMEvaluation}.
+Ein zentraler methodischer Fortschritt liegt in automatisierten, referenzarmen Evaluationsframeworks. RAGAS nutzt LLMs als Bewertungsinstanz ("LLM-as-a-Judge") und operationalisiert Metriken wie \emph{Faithfulness} und Relevanzdimensionen, wodurch eine skalierbare Evaluation auch ohne umfangreiche Ground-Truth-Datensätze möglich wird \cite{es2025ragas}. Ergänzend verfolgt ARES einen pipeline-strukturierten, judge-basierten Ansatz mit Konfidenzintervallen \cite{SaadFalcon2024ARES}. Domänenspezifische Analysen zeigen jedoch, dass solche Metriken kritisch validiert werden müssen. Roychowdhury et al.\ weisen nach, dass insbesondere \emph{Faithfulness} und faktische Korrektheit vergleichsweise gut mit Expertenurteilen korrelieren, während andere Metriken sensitiv auf Retrieval-Fehler oder Embedding-Varianten reagieren können \cite{Roychowdhury2024RAGAS}. Ergänzend argumentieren Wang et al., dass starke LLMs als Evaluatoren in geschlossenen, faktischen Settings hohe Übereinstimmungen mit menschlichen Bewertungen erreichen, jedoch menschliche Evaluation nicht vollständig ersetzen \cite{Wang2024LLMEvaluation}. Auch in anderen Domänen, bspw. im medizinischen Kontext, wird die Anforderung von mehrdimensionaler Human-in-the-Loop-Evaluation betont, um die Komplexität von RAG-Fehlern adäquat zu erfassen \cite{Singhal2025MedQA}. 
 
-Im Bildungskontext erweitert sich die Evaluationsperspektive um pädagogische Zielgrößen. Übersichtsarbeiten zeigen, dass RAG-Chatbots insbesondere zur Halluzinationsreduktion und curricularen Einbettung eingesetzt werden \cite{Swacha2025RAGEducation}. Li et al.\ betonen, dass neben Faktentreue auch Aktualität, Vollständigkeit und didaktische Angemessenheit entscheidend sind \cite{Li2025RAGEducationSurvey}. Empirische Studien wie die zu MoodleBot kombinieren technische Genauigkeitsmessungen mit Akzeptanzanalysen auf Basis des Technology Acceptance Model (TAM) und erfassen sowohl inhaltliche Qualität als auch wahrgenommene Nützlichkeit und Bedienbarkeit \cite{Neumann2024MoodleBot}.
+Im Bildungskontext erweitert sich die Evaluationsperspektive um pädagogische Zielgrößen. Übersichtsarbeiten zeigen, dass RAG-Chatbots insbesondere zur Halluzinationsreduktion und curricularen Einbettung eingesetzt werden \cite{Swacha2025RAGEducation}. Li et al.\ betonen, dass neben Faktentreue auch Aktualität, Vollständigkeit und didaktische Angemessenheit entscheidend sind \cite{Li2025RAGEducationSurvey}. Empirische Studien wie die zu MoodleBot kombinieren technische Genauigkeitsmessungen mit Akzeptanzanalysen auf Basis des Technology Acceptance Model (TAM) und erfassen sowohl inhaltliche Qualität als auch wahrgenommene Nützlichkeit und Bedienbarkeit \cite{Neumann2024MoodleBot}. Strukturierte, frameworkbasierte Evaluationsansätze – wie etwa die Anwendung von Chapelles CALL-Kriterien auf generative KI-Werkzeuge – unterstreichen zudem, dass KI-gestützte Lernsysteme im Bildungskontext anhand mehrdimensionaler Qualitätsaspekte bewertet werden müssen, darunter didaktisches Lernpotenzial, Authentizität und kontextuelle Passung \cite{Shetye2024Khanmigo}.
 
-Eine weitere relevante Evaluationslinie stellen paarweise Blindvergleiche nach dem Arena-Prinzip dar. Zwei Systeme beantworten dieselbe Anfrage, und Rater bewerten ohne Kenntnis der Systemidentität die überzeugendere Antwort. Dieses Vorgehen ist besonders geeignet für generative Systeme, da offene Antworten nicht immer eindeutig gegen eine Ground Truth gemessen werden können. Während Metriken wie \emph{Faithfulness} oder faktische Korrektheit Kontexttreue und inhaltliche Richtigkeit quantifizieren \cite{Roychowdhury2024RAGAS}, erfassen Blindtests zusätzlich wahrgenommene Verständlichkeit, Struktur, Relevanzgewichtung und didaktische Qualität. Gerade im Bildungsbereich, in dem Akzeptanz und wahrgenommener Nutzen zentrale Erfolgsfaktoren sind \cite{Neumann2024MoodleBot}, ermöglicht dieses Design eine praxisnahe Bewertung der Gesamtqualität zweier RAG-Systeme.
+Eine weitere relevante Evaluationslinie stellen paarweise Blindvergleiche nach dem Arena-Prinzip dar \cite{Jiang2024GenAIArena,Son2025ArenaLite}. Zwei Systeme beantworten dieselbe Anfrage, und Rater bewerten ohne Kenntnis der Systemidentität die überzeugendere Antwort. Dieses Vorgehen ist besonders geeignet für generative Systeme, da offene Antworten nicht immer eindeutig gegen eine Ground Truth gemessen werden können. Während Metriken wie \emph{Faithfulness} oder faktische Korrektheit Kontexttreue und inhaltliche Richtigkeit quantifizieren \cite{Roychowdhury2024RAGAS}, erfassen Blindtests zusätzlich wahrgenommene Verständlichkeit, Struktur, Relevanzgewichtung und didaktische Qualität. Gerade im Bildungsbereich, in dem Akzeptanz und wahrgenommener Nutzen zentrale Erfolgsfaktoren sind \cite{Neumann2024MoodleBot}, ermöglicht dieses Design eine praxisnahe Bewertung der Gesamtqualität zweier RAG-Systeme.
 
 Neben Qualitäts- und Akzeptanzdimensionen gewinnt zunehmend auch die wirtschaftliche Perspektive an Bedeutung. Mehrere Arbeiten verweisen auf Fragen der technischen Skalierbarkeit und des Ressourcenverbrauchs, ohne diese systematisch zu quantifizieren \cite{Neumann2024MoodleBot}. Für produktive LMS-Integrationen sind jedoch Token-Verbrauch, API-Kosten, Antwortlatenz und Infrastrukturaufwand zentrale Kenngrößen, da sie die nachhaltige Einsetzbarkeit maßgeblich beeinflussen. Eine umfassende Evaluation sollte daher auch ökonomische Indikatoren berücksichtigen.
 
@@ -178,13 +165,16 @@ Kontextbezogene Qualitätsdimensionen statt NLG-Metriken & \cite{Roychowdhury202
 RAGAS-Framework: LLM-as-a-Judge, Faithfulness & \cite{es2025ragas} \\
 Validierung automatisierter Metriken & \cite{Roychowdhury2024RAGAS} \\
 LLM-Evaluatoren vs. menschliche Bewertungen & \cite{Wang2024LLMEvaluation} \\
+ARES: Pipeline-strukturierte, judge-basierte Evaluation mit Konfidenzintervallen & \cite{SaadFalcon2024ARES} \\
 \hline
 \multicolumn{2}{l}{\textbf{III. Menschliche Urteile und Anwendungskontext}} \\
 \hline
 RAG im Bildungsbereich & \cite{Swacha2025RAGEducation} \\
 Bildungsspezifische Qualitätsdimensionen & \cite{Li2025RAGEducationSurvey} \\
 Nutzerakzeptanz-Evaluation (TAM) & \cite{Neumann2024MoodleBot} \\
-Paarweise Blindvergleiche (Arena-Prinzip) & (methodisch) \\
+Paarweise Blindvergleiche (Arena-Prinzip) & \cite{Jiang2024GenAIArena,Son2025ArenaLite} \\
+Domänenspezifische Human-in-the-Loop-Evaluation & \cite{Singhal2025MedQA} \\
+Frameworkbasierte Evaluation von GenAI-Tools im Bildungskontext (CALL) & \cite{Shetye2024Khanmigo} \\
 Wirtschaftliche Perspektive und Skalierbarkeit & \cite{Neumann2024MoodleBot} \\
 \hline
 \end{tabular}
