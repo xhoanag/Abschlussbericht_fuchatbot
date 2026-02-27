@@ -5,9 +5,10 @@ Im Folgenden wird der KI-Campus-Chatbot als Untersuchungsgegenstand dieser Arbei
 
 \section{Systemarchitektur des KI-Campus-Chatbots}
 
-Die Architektur des Chatbots folgt einem modularen Aufbau, bei dem Nutzerinteraktion, Wissensspeicherung und Antwortgenerierung funktional voneinander getrennt sind. Ziel dieser Struktur ist es, generative Sprachfähigkeiten mit einer kontrollierten, domänenspezifischen Wissensbasis zu verbinden.
+Die Architektur des Chatbots folgt einem modularen Aufbau, bei dem Nutzerinteraktion, Wissensspeicherung und Antwortgenerierung funktional voneinander getrennt sind. Ziel dieser Struktur ist es, generative Sprachfähigkeiten mit einer kontrollierten, domänenspezifischen Wissensbasis zu verbinden. Abbildung~\ref{fig:kic-architektur} zeigt die technische Systemarchitektur mit den relevanten Datenquellen, Verarbeitungskomponenten und dem Frontendanschluss.
 
-Zentraler Bestandteil des Systems ist eine externe Wissensbasis, die Inhalte aus dem Lernmanagementsystem (Moodle) sowie dem Content-Management-System (Drupal) des KI-Campus integriert. Diese Inhalte umfassen Kursbeschreibungen, Lernmaterialien, Informationsseiten und weitere textbasierte Ressourcen. Aufgrund der heterogenen Struktur und unterschiedlichen Formate der Quelldaten erfolgt eine systematische Vorverarbeitung, um die Inhalte in eine für die semantische Suche geeignete Form zu überführen.
+% Ist nicht Moodle auch Content Management System? Drupal ist doch "einfach" Landing Page?
+Zentraler Bestandteil des Systems ist eine externe Wissensbasis, die Inhalte aus dem Lernmanagementsystem (Moodle) sowie dem Content-Management-System (Drupal) des KI-Campus integriert. Diese Inhalte umfassen Kursbeschreibungen, Lernmaterialien, Informationsseiten und weitere textbasierte Ressourcen. Aufgrund der heterogenen Struktur und unterschiedlichen Formate der Quelldaten erfolgt eine systematische Vorverarbeitung, um die Inhalte in eine für das RAG geeignete Form zu überführen.
 
 Die verarbeiteten Inhalte werden in einer Vektordatenbank gespeichert, die eine semantische Suche auf Basis von Ähnlichkeitsmaßen ermöglicht. Dadurch kann das System bei einer Nutzeranfrage relevante Textsegmente identifizieren, die als kontextuelle Grundlage für die Antwortgenerierung dienen.
 
@@ -21,8 +22,7 @@ Die Systemarchitektur ist somit durch drei zentrale Komponenten geprägt:
 \end{itemize}
 Diese funktionale Trennung bildet die Grundlage für die im Projekt durchgeführten Weiterentwicklungen und Evaluationsmaßnahmen.
 
-Abbildung~\ref{fig:kic-architektur} zeigt die technische Systemarchitektur mit den relevanten Datenquellen, Verarbeitungskomponenten und Frontends.
-
+% Bild vervollständigen
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{systemarchitektur_kic.png}
@@ -34,7 +34,7 @@ Abbildung~\ref{fig:kic-architektur} zeigt die technische Systemarchitektur mit d
 
 Der operative Ablauf des Chatbots folgt einem klar strukturierten Workflow, der die Prinzipien der Retrieval-Augmented Generation umsetzt.
 
-Zunächst gibt eine Nutzerin oder ein Nutzer eine Anfrage im Frontend der Lernplattform ein. Diese Anfrage wird an das Backend-System übermittelt und dort semantisch verarbeitet. Auf Grundlage der Anfrage wird eine Vektorrepräsentation erzeugt, die mit den in der Wissensbasis gespeicherten Dokumenten verglichen wird.
+Zunächst gibt ein Nutzer eine Anfrage im Frontend der Lernplattform ein. Diese Anfrage wird an das Backend-System übermittelt und dort semantisch verarbeitet. Auf Grundlage der Anfrage wird eine Vektorrepräsentation erzeugt, die mit den in der Wissensbasis gespeicherten Dokumenten verglichen wird.
 
 Im nächsten Schritt identifiziert das Retrieval-Modul diejenigen Textsegmente, die inhaltlich am stärksten mit der Nutzeranfrage übereinstimmen. Diese relevanten Dokumentausschnitte werden anschließend dem Sprachmodell als zusätzlicher Kontext bereitgestellt.
 
