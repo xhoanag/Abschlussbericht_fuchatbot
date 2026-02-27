@@ -1,18 +1,18 @@
 \chapter{Der KI-Campus-Chatbot}
 \label{sec:kic}
 
-Im Folgenden wird der KI-Campus-Chatbot als Untersuchungsgegenstand dieser Arbeit näher beschrieben. Ziel ist es, die bestehende Systemarchitektur sowie den funktionalen Ablauf des Retrieval-Augmented-Generation-Systems transparent darzustellen, da diese die Grundlage für die im Projekt durchgeführten Weiterentwicklungen und Evaluationsmaßnahmen bilden.
+Im Folgenden wird der KI-Campus-Chatbot als Untersuchungsgegenstand dieser Arbeit näher beschrieben. Ziel ist es, die bestehende Systemarchitektur sowie den funktionalen Ablauf des RAG-Systems transparent darzustellen, da diese die Grundlage für die im Projekt durchgeführten Weiterentwicklungen und Evaluationsmaßnahmen bilden.
 
 \section{Systemarchitektur des KI-Campus-Chatbots}
 
 Die Architektur des Chatbots folgt einem modularen Aufbau, bei dem Nutzerinteraktion, Wissensspeicherung und Antwortgenerierung funktional voneinander getrennt sind. Ziel dieser Struktur ist es, generative Sprachfähigkeiten mit einer kontrollierten, domänenspezifischen Wissensbasis zu verbinden. Abbildung~\ref{fig:kic-architektur} zeigt die technische Systemarchitektur mit den relevanten Datenquellen, Verarbeitungskomponenten und dem Frontendanschluss.
 
 % Ist nicht Moodle auch Content Management System? Drupal ist doch "einfach" Landing Page?
-Zentraler Bestandteil des Systems ist eine externe Wissensbasis, die Inhalte aus dem Lernmanagementsystem (Moodle) sowie dem Content-Management-System (Drupal) des KI-Campus integriert. Diese Inhalte umfassen Kursbeschreibungen, Lernmaterialien, Informationsseiten und weitere textbasierte Ressourcen. Aufgrund der heterogenen Struktur und unterschiedlichen Formate der Quelldaten erfolgt eine systematische Vorverarbeitung, um die Inhalte in eine für das RAG geeignete Form zu überführen.
+Zentraler Bestandteil des Systems ist eine externe Wissensbasis, die Inhalte aus dem Lernmanagementsystem (Moodle) sowie der statischen Landingpage (Drupal) des KI-Campus integriert. Diese Inhalte umfassen Kursbeschreibungen, Lernmaterialien, Informationsseiten und weitere textbasierte Ressourcen. Aufgrund der heterogenen Struktur und unterschiedlichen Formate der Quelldaten erfolgt eine systematische Vorverarbeitung, um die Inhalte in eine für das RAG geeignete Form zu überführen.
 
 Die verarbeiteten Inhalte werden in einer Vektordatenbank gespeichert, die eine semantische Suche auf Basis von Ähnlichkeitsmaßen ermöglicht. Dadurch kann das System bei einer Nutzeranfrage relevante Textsegmente identifizieren, die als kontextuelle Grundlage für die Antwortgenerierung dienen.
 
-Die Generierungskomponente basiert auf einem großen Sprachmodell (LLM), das die Nutzeranfrage gemeinsam mit den abgerufenen Kontextinformationen verarbeitet. Durch diese Kombination wird sichergestellt, dass Antworten nicht ausschließlich auf dem Trainingswissen des Modells beruhen, sondern auf der spezifischen Wissensbasis des KI-Campus aufbauen.
+Die Generierungskomponente basiert auf einem großen Sprachmodell (LLM, hier GPT-4), das die Nutzeranfrage gemeinsam mit den abgerufenen Kontextinformationen verarbeitet. Durch diese Kombination wird sichergestellt, dass Antworten nicht ausschließlich auf dem Trainingswissen des Modells beruhen, sondern auf der spezifischen Wissensbasis des KI-Campus aufbauen.
 
 Die Systemarchitektur ist somit durch drei zentrale Komponenten geprägt:
 \begin{itemize}
