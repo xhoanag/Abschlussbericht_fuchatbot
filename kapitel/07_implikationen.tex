@@ -1,5 +1,6 @@
 \chapter{Implikationen der Ergebnisse}
 \label{sec:implikationen}
+
 \section{Theoretische Implikationen}
 
 \subsection{Weiterentwicklung von Bildungs-Chatbots}
@@ -7,68 +8,54 @@
 Die Weiterentwicklung des Systems liefert mehrere Implikationen für die Gestaltung von Bildungs-Chatbots in Learning-Management-Systemen.
 
 \paragraph{Retrieval als stabiler Hebel, Generation als kontextabhängiger Hebel}
-Die Ergebnisse legen nahe, dass Verbesserungen im Retrieval vergleichsweise robust und methodenübergreifend sichtbar werden. Sowohl automatisierte als auch menschliche Evaluation bestätigen eine höhere Kontextrelevanz. Daraus folgt theoretisch, dass Investitionen in Wissensbasis, Ingestion und Ranking-Mechanismen eine verlässliche Grundlage darstellen, auf der weitere Funktionen aufbauen können. Demgegenüber sind Verbesserungen in der Generation stärker vom Nutzungsszenario abhängig: Für klassische Q\&A-Interaktionen werden qualitative Zugewinne nicht zwingend sichtbar, während didaktische Interaktionsformen (z.\,B. Lernassistenz) deutlich positiver wahrgenommen werden.
+Die Ergebnisse legen nahe, dass Verbesserungen im Retrieval robust und methodenübergreifend sichtbar werden. Eine erweiterte Wissensbasis, strukturierte Ingestion und geeignete Ranking-Mechanismen bilden eine verlässliche Grundlage für Systemqualität. Verbesserungen in der Generation hingegen sind stärker vom Nutzungsszenario abhängig: Während klassische Q\&A-Interaktionen nur begrenzte Zugewinne zeigen, werden didaktische Interaktionsformen deutlich positiver wahrgenommen.
 
-\paragraph{Routing als Qualitäts- \textit{und} Effizienzmechanismus}
-Die Umstellung auf ein routingbasiertes Orchestrierungskonzept macht deutlich, dass Systemarchitektur nicht nur eine Implementierungsfrage ist, sondern ein zentraler Bestandteil der Systemleistung. Routing bestimmt, wann Retrieval überhaupt notwendig ist, wie viel Kontext in die Generation eingeht und welche Verarbeitungsschritte (z.\,B. Reranking oder Multi-Hop) ausgelöst werden. Damit wird Routing zu einem Mechanismus, der Qualität, Kosten und Antwortzeit gleichzeitig steuert. Die Diskussion zeigt, dass der \textit{Path ohne Retrieval} insbesondere als Auflockerung starrer No-Answer-Logik und als Ressourcenschonung sinnvoll ist, während komplexere Pfade selektiv und begründet eingesetzt werden sollten.
+\paragraph{Routing als zentraler Steuerungsmechanismus}
+Routing beeinflusst, wann Retrieval eingesetzt wird und wie komplex die Verarbeitung ausfällt. Es steuert damit Qualität, Kosten und Antwortzeit zugleich. Besonders einfache Pfade ohne Retrieval können Ressourcen sparen, während komplexere Strategien selektiv und begründet eingesetzt werden sollten. Systemarchitektur wird damit zu einem eigenständigen Qualitätsfaktor.
 
-\paragraph{Wissensbasis: Abdeckung und Struktur schlagen bloße Datenmenge}
-Die Erweiterung der Ingestion-Pipeline erhöht die Wahrscheinlichkeit, dass relevante Dokumente vorhanden und auffindbar sind. Entscheidend ist jedoch nicht nur die Quantität, sondern die kuratierte Aufbereitung: Segmentierung, konsistente Vorverarbeitung und Metadaten verbessern die Anschlussfähigkeit des Retrievals und damit die Kontextfundierung. In der Diskussion wird zudem deutlich, dass der Mehrwert der erweiterten Wissensbasis besonders bei spezifischen Modul-/Kursfragen sichtbar wird, während oberflächlichere Fragen bereits durch die frühere Datenbasis gut abgedeckt sein können. Theoretisch folgt daraus: Der Nutzen einer größeren Wissensbasis ist ungleich verteilt und hängt stark von der Frageart ab.
+\paragraph{Struktur der Wissensbasis wichtiger als bloße Datenmenge}
+Die Erweiterung der Ingestion-Pipeline erhöht die thematische Abdeckung des Systems und verbessert die Kontextfundierung, insbesondere bei spezifischen Kurs- und Modulfragen. Entscheidend ist dabei nicht nur die Menge der integrierten Inhalte, sondern deren strukturierte Aufbereitung.Eine strukturierte Aufbereitung mit Segmentierung und Metadaten erleichtert die Identifikation relevanter Dokumente. Zusätzliche Daten bringen vor allem bei spezifischen Anfragen einen Mehrwert, während allgemeine Fragen oft bereits durch die bestehende Wissensbasis abgedeckt sind.
 
-\paragraph{Multi-Hop: Risiko von Overengineering in verdichteten Kurskontexten}
-Die Befunde deuten darauf hin, dass Multi-Hop-Strategien nicht automatisch zu besserer Antwortqualität führen. In stark verdichteten Moodle-Kursen könnten viele Fragen bereits mit einem Dokument beantwortbar sein. Zusätzliche Hops erhöhen dann Komplexität, Kosten und Fehleranfälligkeit, ohne einen klaren Qualitätsgewinn zu liefern. Damit wird Multi-Hop als kontextabhängige Strategie sichtbar, deren Nutzen an Dokumentstruktur, Redundanz und Verteilung des Wissens über Quellen gebunden ist.
+\paragraph{Multi-Hop als kontextabhängige Strategie}
+Multi-Hop-Logiken führen nicht automatisch zu besserer Antwortqualität. In verdichteten Kurskontexten können zusätzliche Verarbeitungsschritte Komplexität und Kosten erhöhen, ohne spürbaren Mehrwert zu erzeugen. Komplexere Retrieval-Strategien sollten daher gezielt und nicht standardmäßig eingesetzt werden.
 
-\paragraph{Didaktische Interaktionsformen verändern den Qualitätsbegriff}
-Die Lernassistenz wird von Expertinnen und Experten besonders positiv bewertet, obwohl sich dies in automatisierten Relevanzmetriken nicht spiegeln muss. Das impliziert, dass im Bildungskontext ``Antwortqualität'' nicht nur als direkte Passung zur Frage verstanden werden sollte, sondern auch als Lernförderlichkeit, Struktur, Verständlichkeit und Reflexionsanstoß. Ein Chatbot wird damit weniger als reine Q\&A-Maschine, sondern als Lernbegleiter konzeptualisiert. Gleichzeitig wird deutlich, dass didaktische Qualität nicht allein aus neuen Prompts oder zusätzlicher Logik entsteht, sondern eine stabile didaktische Zieldefinition und Gesprächsführung benötigt (Proof-of-Concept-Charakter).
+\paragraph{Didaktische Qualität erweitert den Qualitätsbegriff}
+Die positive Bewertung der Lernassistenz zeigt, dass Antwortqualität im Bildungskontext über reine Relevanz hinausgeht. Struktur, Verständlichkeit und Lernförderlichkeit beeinflussen die Wahrnehmung wesentlich. Bildungs-Chatbots entwickeln sich damit von reinen Informationssystemen hin zu dialogischen Lernbegleitern. Gleichzeitig wird deutlich, dass didaktische Qualität eine stabile Gesprächslogik erfordert und nicht allein durch zusätzliche Prompts entsteht.
 
-\paragraph{Prompt Engineering ist unterstützend, aber nicht hinreichend}
-Die Diskussion legt nahe, dass angepasste Systemprompts allein keine konsistente Verbesserung der Generation garantieren. Insbesondere dort, wo die Logik komplexer wird (Single-/Multi-Hop, zusätzliche Schritte), kann Prompting nicht alle Nebenwirkungen kompensieren. Daraus folgt die Implikation, dass Prompt Engineering als Feintuning verstanden werden sollte, während die stabileren Qualitätsgewinne eher durch Daten- und Architekturentscheidungen entstehen.
-
-\paragraph{Transparenz und UI als Teil der Systemqualität}
-Die Verbesserung der Zitierlogik wird durchweg positiv wahrgenommen. Damit wird sichtbar, dass Transparenz (Quellen mit Titeln, nachvollziehbare Referenzen) nicht nur eine ethische Anforderung ist, sondern die wahrgenommene Qualität und das Vertrauen in das System direkt erhöht. Ähnlich zeigt sich beim Streaming: Obwohl der Einfluss auf die Latenz begrenzt ist, kann die Darstellung die UX beim Lesen verbessern. UI-Entscheidungen wirken damit als eigenständige Qualitätstreiber, die unabhängig von der inhaltlichen Antwortqualität relevant sind.
-
-\paragraph{Mehrsprachigkeit als systemische Schwachstelle}
-Die verstärkte Unsicherheit der V2 bei englischen Anfragen verdeutlicht, dass Mehrsprachigkeit nicht als Randthema behandelt werden kann. Sprachverhalten ist ein Querschnittsthema entlang Routing, Prompting, Retrieval und Ausgabeformat. Theoretisch folgt daraus: Sprachrobustheit ist eine Basiseigenschaft, die architektonisch abgesichert werden muss, da sie sonst Qualitätsgewinne in anderen Bereichen überlagern kann.
+\paragraph{Transparenz und Mehrsprachigkeit als systemische Faktoren}
+Verbesserte Zitierlogik und nachvollziehbare Quellenangaben erhöhen Vertrauen und wahrgenommene Qualität. Ebenso zeigt sich, dass sprachliche Stabilität eine grundlegende Voraussetzung für Systemrobustheit ist. Mehrsprachigkeit wirkt entlang der gesamten Architektur und sollte strukturell abgesichert werden.
 
 \subsection{Implikationen für die Evaluation von RAG-Systemen}
 
-Neben der Systemgestaltung ergeben sich Implikationen für die Evaluation, insbesondere mit Blick auf die beobachteten Unterschiede zwischen RAGAS und Expertinnen-/Expertenurteilen.
+\paragraph{Mehrdimensionale Evaluation als Voraussetzung}
+Die Ergebnisse verdeutlichen, dass keine einzelne Methode die Qualität hybrider RAG-Systeme vollständig abbilden kann. Automatisierte Metriken liefern skalierbare Hinweise auf Retrieval- und Generationsaspekte, während Expertenevaluation didaktische Qualität sichtbar macht. Ergänzend ist die wirtschaftliche Betrachtung notwendig, um technische Verbesserungen im Verhältnis zu Kosten und Latenz zu bewerten.
 
-\paragraph{Mehrdimensionale Evaluation ist notwendig.}
-Die Ergebnisse zeigen, dass eine einzelne Methode der hybriden Natur von RAG-Systemen nicht gerecht wird. Automatisierte Metriken liefern skalierbare, komponentennahe Hinweise (Retrieval vs. Generation), während Expertenevaluation didaktische Qualität, Verständlichkeit und Kontextangemessenheit sichtbar macht. Die wirtschaftliche Betrachtung ergänzt dies um die Frage, ob ein Qualitätsgewinn die Mehrkosten rechtfertigt. Daraus folgt: Ein integratives Evaluationsdesign ist nicht optional, sondern Voraussetzung, um Systemveränderungen korrekt einzuordnen.
+\paragraph{Unterschiedliche Qualitätsbegriffe explizit machen}
+Abweichungen zwischen automatisierten Metriken und Expertenurteilen lassen sich durch unterschiedliche Bewertungslogiken erklären. Während Metriken formale Relevanz erfassen, berücksichtigen Experten breitere didaktische Kriterien. Evaluation sollte diese unterschiedlichen Qualitätsdimensionen transparent machen und nicht auf einen Gesamtscore reduzieren.
 
-\paragraph{Scheinbare Widersprüche sind oft Messartefakte unterschiedlicher Qualitätsbegriffe.}
-Der in der Diskussion beschriebene Gegensatz (automatisierte Relevanz sinkt, Expertenwahrnehmung steigt) lässt sich theoretisch als Unterschied der Bewertungslogiken erklären. Automatisierte Relevanzmetriken sind näher am Q\&A-Format und an formaler Passung, während Experten eine breitere Bildungsqualität bewerten. Daraus folgt: Evaluation muss die Zieldefinition explizit machen (z.\,B. ``technische Relevanz'' vs. ``didaktische Nützlichkeit'') und Metriken dürfen nicht als allgemeingültige Qualitätsaussage interpretiert werden.
+\paragraph{Use-Case-spezifische Bewertung}
+Da einzelne Workflows unterschiedliche Effekte erzeugen, sollte Evaluation stärker nach Nutzungsszenarien differenziert werden. Nur so lassen sich Zielkonflikte zwischen technischer Relevanz, didaktischer Qualität und Ressourceneffizienz sichtbar machen.
 
-\paragraph{Use-Case-spezifische Messung statt globaler Gesamtscores.}
-Da die Lernassistenz als eigener Workflow deutliche qualitative Effekte erzeugt, die in Q\&A-Metriken nicht sichtbar werden, sollte Evaluation stärker nach Use Cases getrennt werden (z.\,B. kursbezogene Fragen, technischer Support, Lernassistenz). Nur so lassen sich Trade-offs erkennen, etwa wenn Verbesserungen im Lernmodus mit Verschlechterungen im technischen Support einhergehen.
-
-\paragraph{Kosten und Latenz als Qualitätsdimension im Bildungskontext.}
-Die Diskussion zeigt, dass hohe Latenz und Kosten (z.\,B. durch LLM-basiertes Reranking) praktisch relevant sind und die Nutzbarkeit beeinflussen können. Evaluation sollte daher nicht nur Antwortqualität messen, sondern systematisch Kosten pro Anfrage, Tokenverbrauch und Antwortzeit als gleichwertige Dimensionen erfassen. Damit wird ``Qualität'' im produktiven Kontext als Bündel aus Inhalt, Transparenz und Performance verstanden.
+\paragraph{Kosten und Latenz als Qualitätsdimension}
+Im produktiven Bildungskontext sind Tokenverbrauch, Antwortzeit und Infrastrukturkosten integrale Bestandteile der Systemqualität. Qualitätsbewertung sollte daher stets in Relation zur Ressourceneffizienz erfolgen.
 
 \section{Praktische Handlungsempfehlungen}
 
-Aus den Ergebnissen lassen sich praxisorientierte Empfehlungen für den weiteren Ausbau des Systems für KI-Campus ableiten. Leitend ist dabei die Erkenntnis, dass selektive Komplexität und klare Use-Case-Ausrichtung mehr Wirkung entfalten als eine generelle Erhöhung der Systemkomplexität.
+Aus den Ergebnissen ergeben sich konkrete Empfehlungen für den weiteren Ausbau des KI-Campus-Chatbots.
 
-\paragraph{ETL- und Wissensbasis-Erweiterung dauerhaft übernehmen, aber aktiv pflegen}
-Die erweiterte Ingestion-Pipeline sollte in den Produktivbetrieb überführt werden, da sie die Abdeckung und Kontextrelevanz verbessert und insbesondere bei spezifischen Modul-/Kursfragen einen klaren Mehrwert schafft. Gleichzeitig ist ein Prozess zur Qualitätssicherung notwendig (Aktualisierung, Konsistenz, Entfernung veralteter Inhalte), da sonst die Antwortqualität direkt leidet.
+\paragraph{Wissensbasis strukturiert erweitern und pflegen}
+Die erweiterte Ingestion-Pipeline sollte beibehalten werden, da sie die Kontextrelevanz erhöht. Gleichzeitig ist eine Qualitätssicherung erforderlich, um Konsistenz und Aktualität der Inhalte zu gewährleisten.
 
-\paragraph{Routing beibehalten und stärker als Spar- und Qualitätslogik nutzen}
-Die routingbasierte Orchestrierung sollte beibehalten werden. Der \textit{Path ohne Retrieval} eignet sich für einfache Anfragen und reduziert Kosten. Retrieval-intensive Pfade sollten gezielt dort aktiviert werden, wo Kursbezug, Quellenbindung oder hohe Unsicherheit dies nahelegen. Damit wird Routing zum zentralen Instrument, um den Trade-off zwischen Qualität und Effizienz aktiv zu steuern.
+\paragraph{Routing strategisch nutzen}
+Die routingbasierte Orchestrierung sollte als zentrales Steuerungsinstrument erhalten bleiben. Einfache Anfragen können über ressourcenschonende Pfade verarbeitet werden, während komplexere Strategien gezielt aktiviert werden sollten.
 
-\paragraph{Multi-Hop nur selektiv einsetzen und Overengineering vermeiden}
-Multi-Hop sollte nicht als Standardpfad genutzt werden. Für verdichtete Kursmaterialien ist der Mehrwert begrenzt; zusätzliche Schritte erhöhen Kosten und Fehlerpotenzial. Empfohlen ist ein selektives Aktivieren bei klaren Indikatoren für über mehrere Dokumente verteiltes Wissen.
+\paragraph{Multi-Hop und Reranking selektiv einsetzen}
+Komplexe Retrieval-Mechanismen sollten nur dort genutzt werden, wo ein klarer Mehrwert erkennbar ist. Insbesondere der Reranker sollte hinsichtlich Kosten und Latenz optimiert werden, etwa durch spezialisierte Modelle.
 
-\paragraph{Reranking wirtschaftlich optimieren}
-Da der aktuelle Reranker als LLM-Call ein zentraler Kostentreiber ist, sollte auf dedizierte Reranker-Modelle oder einen Reranker-Service umgestellt werden, um Latenz und Kosten zu senken. Reranking bleibt sinnvoll, sollte aber so implementiert werden, dass es nicht den Großteil der Ressourcen bindet.
+\paragraph{Lernassistenz weiterentwickeln}
+Die Lernassistenz zeigt das größte didaktische Potenzial und sollte hinsichtlich Stabilität und Gesprächsstruktur weiter ausgebaut werden, um den Übergang vom Proof-of-Concept zur produktiven Nutzung zu ermöglichen.
 
-\paragraph{Lernassistenz gezielt weiterentwickeln}
-Die Lernassistenz zeigt den größten didaktischen Mehrwert und sollte daher priorisiert weiterentwickelt werden. Im Fokus sollten Stabilität der Gesprächsführung, klare didaktische Struktur (z.\,B. Diagnosefragen, Feedbackregeln, Zusammenfassungen) und robuste Abbruch-/Übergangslogik stehen, um den Proof-of-Concept in Richtung produktiver Einsatz zu entwickeln.
+\paragraph{Transparenz und Sprachrobustheit stärken}
+Transparente Zitation sollte beibehalten werden. Gleichzeitig ist eine systematische Absicherung der Mehrsprachigkeit notwendig, um Unsicherheiten bei nicht-deutschen Anfragen zu reduzieren. \\
 
-\paragraph{UI-Verbesserungen priorisieren: Zitation und Streaming}
-Die neue Zitierlogik mit Titeln sollte übernommen werden, da sie Transparenz und Vertrauen erhöht. Streaming kann trotz geringer Latenzwirkung die Lesbarkeit verbessern und damit die UX stärken. Beide Maßnahmen sind vergleichsweise kostengünstig und erhöhen die wahrgenommene Qualität.
-
-\paragraph{Mehrsprachigkeit systematisch adressieren}
-Die Sprachproblematik sollte als Querschnittsthema entlang der gesamten Pipeline behandelt werden (Spracherkennung, konsistente Prompt-Sprache, Retrieval-Sprache, Ausgabeformat). Ziel ist es, Verunsicherung bei englischen oder gemischtsprachigen Anfragen zu reduzieren, da diese aktuell einen spürbaren negativen Einfluss auf die Gesamtwahrnehmung haben. \\
-
-Insgesamt sprechen die Ergebnisse für eine flexible Architektur mit klarer Use-Case-Orientierung: Retrieval- und Transparenzverbesserungen liefern stabile Gewinne, während komplexere Schritte (Multi-Hop, schwergewichtiges Reranking, umfangreiche Prompt-Logik) nur dort eingesetzt werden sollten, wo ihr Mehrwert im Bildungskontext tatsächlich sichtbar ist.
+Insgesamt sprechen die Ergebnisse für eine selektive und kontextabhängige Systemgestaltung. Verbesserungen im Retrieval und in der Transparenz liefern stabile Qualitätsgewinne, während zusätzliche Komplexität nur dort eingesetzt werden sollte, wo ihr Nutzen im Bildungskontext klar nachweisbar ist.
