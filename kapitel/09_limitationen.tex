@@ -1,19 +1,26 @@
 \chapter{Limitationen und Ausblick}
 \label{sec:limitationen}
+
 \section{Limitationen}
 
-Die Arbeit weist mehrere Einschränkungen auf. Die qualitative Expertenstichprobe ist begrenzt, wodurch die Generalisierbarkeit der Ergebnisse eingeschränkt ist. Zudem basieren automatisierte Evaluationsmetriken wie RAGAS auf LLM-basierten Bewertungsmodellen, die selbst modellabhängig sind und keine objektive „Ground Truth“ darstellen. Die Bewertungen reflektieren somit die internen Strukturen und Trainingsdaten der eingesetzten Modelle. Diese inhärente Modellabhängigkeit kann die Verlässlichkeit und Reproduzierbarkeit der Ergebnisse beeinflussen.
+Die Arbeit weist mehrere Einschränkungen auf. Die qualitative Expertenstichprobe ist begrenzt, wodurch die Generalisierbarkeit der Ergebnisse eingeschränkt ist. Zudem basieren automatisierte Evaluationsmetriken wie RAGAS auf LLM-basierten Bewertungsmodellen, die selbst modellabhängig sind und keine objektive Ground Truth darstellen. Die Bewertungen reflektieren somit die internen Strukturen und Trainingsdaten der eingesetzten Modelle. Diese Modellabhängigkeit kann die Verlässlichkeit und Reproduzierbarkeit der Ergebnisse beeinflussen.
 
-Ein weiteres Einschränkungsmerkmal betrifft die quantitative Evaluation. Aufgrund technischer Schwierigkeiten mit der virtuellen Maschinenumgebung konnten bestimmte quantitative Messungen nicht wie geplant erfasst und ausgewertet werden. Eine vollständige Auswertung dieser Daten ist im Rahmen einer geplanten Weiterführung des Projekts vorgesehen.
+Ein weiteres Einschränkungsmerkmal betrifft die quantitative Evaluation. Aufgrund technischer Schwierigkeiten mit der virtuellen Maschinenumgebung konnten bestimmte quantitative Messungen nicht wie geplant vollständig erfasst und ausgewertet werden. Eine umfassende Auswertung dieser Daten ist im Rahmen einer Weiterführung des Projekts vorgesehen.
 
-Die Evaluation erfolgte in einem spezifischen Anwendungskontext eines Learning-Management-Systems. Die Ergebnisse besitzen daher eine hohe Kontextvalidität, sind jedoch nicht automatisch auf andere Plattformen oder Domänen übertragbar. Eine externe Validierung in unterschiedlichen Einsatzszenarien ist erforderlich.
+Einzelne Verarbeitungspfade der Architektur, insbesondere der Path ohne Retrieval, wurden nicht isoliert evaluiert. Deren spezifischer Einfluss auf Qualität und Effizienz konnte daher nur indirekt abgeschätzt werden.
 
-Die tatsächliche Lernwirkung wurde nicht experimentell gemessen, sondern auf Basis qualitativer Einschätzungen beurteilt. Zudem ist die durchgeführte Kostenanalyse modell- und anbieterspezifisch. Veränderungen in Preisstrukturen, Modellversionen oder Infrastrukturbedingungen können zu abweichenden Bewertungen führen.
+Die Evaluation erfolgte im spezifischen Anwendungskontext des KI-Campus innerhalb eines Learning-Management-Systems. Die Ergebnisse besitzen daher eine hohe Kontextvalidität, sind jedoch nicht automatisch auf andere Plattformen oder Domänen übertragbar. Eine externe Validierung in unterschiedlichen Einsatzszenarien ist erforderlich.
+
+Zudem zeigte sich eine erhöhte Unsicherheit bei mehrsprachigen Anfragen, insbesondere in englischer Sprache. Diese sprachliche Instabilität wurde nicht systematisch isoliert untersucht und stellt eine weitere Einschränkung dar.
+
+Die tatsächliche Lernwirkung wurde nicht experimentell gemessen, sondern auf Basis qualitativer Einschätzungen beurteilt. Ebenso ist die durchgeführte Kostenanalyse modell- und anbieterspezifisch. Veränderungen in Preisstrukturen, Modellversionen oder Infrastrukturbedingungen können zu abweichenden Bewertungen führen.
 
 \section{Ausblick}
 
-Zukünftige Forschung sollte die tatsächliche Lernwirkung experimentell untersuchen, beispielsweise durch kontrollierte oder longitudinale Studiendesigns. Ebenso erscheint eine systematische Analyse unterschiedlicher Routing-Strategien unter variierenden Nutzungsszenarien sinnvoll, um kontextspezifische Optimierungsstrategien zu identifizieren.
+Zukünftige Forschung sollte die tatsächliche Lernwirkung experimentell untersuchen, beispielsweise durch kontrollierte oder longitudinale Studiendesigns im Kontext realer Kurse des KI-Campus. Ebenso erscheint eine systematische Analyse unterschiedlicher Routing-Strategien unter variierenden Nutzungsszenarien sinnvoll, um kontextspezifische Optimierungsstrategien zu identifizieren.
 
-Darüber hinaus ist die Weiterentwicklung transparenter und erklärbarer Evaluationsmethoden ein zentrales Forschungsfeld, um die Nachvollziehbarkeit automatisierter Bewertungen zu erhöhen. Auch ethische und regulatorische Aspekte wie Transparenz, Datenschutz und Verantwortlichkeit sollten stärker in die Konzeption und Evaluation KI-gestützter Assistenzsysteme integriert werden.
+Darüber hinaus sollte die Nutzung spezialisierter Reranker-Modelle hinsichtlich ihres Kosten-Nutzen-Verhältnisses empirisch untersucht werden, um die Ressourceneffizienz weiter zu verbessern. Auch eine gezielte architektonische Absicherung der Mehrsprachigkeit stellt ein relevantes Entwicklungsfeld dar.
 
-Insgesamt liefert die Arbeit eine empirisch fundierte Grundlage für die Weiterentwicklung von RAG-basierten Bildungs-Chatbots und identifiziert zugleich zentrale Forschungs- und Entwicklungsbedarfe in diesem Bereich.
+Schließlich ist die Weiterentwicklung transparenter und nachvollziehbarer Evaluationsmethoden ein zentrales Forschungsfeld, um die Interpretation automatisierter Bewertungen zu verbessern. Ethische und regulatorische Aspekte wie Transparenz, Datenschutz und Verantwortlichkeit sollten weiterhin integraler Bestandteil der Konzeption und Evaluation KI-gestützter Assistenzsysteme bleiben.
+
+Insgesamt liefert die Arbeit eine empirisch fundierte Grundlage für die Weiterentwicklung RAG-basierter Bildungs-Chatbots am KI-Campus und identifiziert zugleich konkrete technische und didaktische Weiterentwicklungsbedarfe.
