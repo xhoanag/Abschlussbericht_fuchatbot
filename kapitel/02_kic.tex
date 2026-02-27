@@ -1,13 +1,58 @@
-\chapter{Systemarchitektur des KI-Campus-Chatbots}
+\chapter{Der KI-Campus-Chatbot}
 \label{sec:kic}
 
-\section{Systemueberblick und Architekturprinzip}
+Im Folgenden wird der KI-Campus-Chatbot als Untersuchungsgegenstand dieser Arbeit näher beschrieben. Ziel ist es, die bestehende Systemarchitektur sowie den funktionalen Ablauf des Retrieval-Augmented-Generation-Systems transparent darzustellen, da diese die Grundlage für die im Projekt durchgeführten Weiterentwicklungen und Evaluationsmaßnahmen bilden.
 
-Der KI-Campus-Chatbot ist ein dialogisches Assistenzsystem, das in die Moodle-basierte Lernplattform sowie in die Drupal-Website integriert ist. Er dient als Schnittstelle zwischen Nutzerinteraktion und Wissensbasis.
+\section{Systemarchitektur des KI-Campus-Chatbots}
 
-Architektonisch basiert das System auf Retrieval-Augmented Generation. Ein semantisches Retrieval-Modul wird mit einem generativen Sprachmodell kombiniert, sodass Antworten nicht ausschliesslich auf Trainingswissen beruhen, sondern auf abgerufenen domaenenspezifischen Inhalten. Die Trennung zwischen Vektordatenbank (Wissensspeicher) und LLM (Generierung) bildet ein zentrales Architekturprinzip.
+Die Architektur des Chatbots folgt einem modularen Aufbau, bei dem Nutzerinteraktion, Wissensspeicherung und Antwortgenerierung funktional voneinander getrennt sind. Ziel dieser Struktur ist es, generative Sprachfähigkeiten mit einer kontrollierten, domänenspezifischen Wissensbasis zu verbinden. Abbildung~\ref{fig:kic-architektur} zeigt die technische Systemarchitektur mit den relevanten Datenquellen, Verarbeitungskomponenten und dem Frontendanschluss.
 
-Die Orchestrierung erfolgt ueber ein REST-basiertes Backend mit modularer Struktur, wodurch Datenverarbeitung, Retrieval, Generierung und Monitoring klar voneinander getrennt sind.
+% Ist nicht Moodle auch Content Management System? Drupal ist doch "einfach" Landing Page?
+Zentraler Bestandteil des Systems ist eine externe Wissensbasis, die Inhalte aus dem Lernmanagementsystem (Moodle) sowie dem Content-Management-System (Drupal) des KI-Campus integriert. Diese Inhalte umfassen Kursbeschreibungen, Lernmaterialien, Informationsseiten und weitere textbasierte Ressourcen. Aufgrund der heterogenen Struktur und unterschiedlichen Formate der Quelldaten erfolgt eine systematische Vorverarbeitung, um die Inhalte in eine für das RAG geeignete Form zu überführen.
+
+Die verarbeiteten Inhalte werden in einer Vektordatenbank gespeichert, die eine semantische Suche auf Basis von Ähnlichkeitsmaßen ermöglicht. Dadurch kann das System bei einer Nutzeranfrage relevante Textsegmente identifizieren, die als kontextuelle Grundlage für die Antwortgenerierung dienen.
+
+Die Generierungskomponente basiert auf einem großen Sprachmodell (LLM), das die Nutzeranfrage gemeinsam mit den abgerufenen Kontextinformationen verarbeitet. Durch diese Kombination wird sichergestellt, dass Antworten nicht ausschließlich auf dem Trainingswissen des Modells beruhen, sondern auf der spezifischen Wissensbasis des KI-Campus aufbauen.
+
+Die Systemarchitektur ist somit durch drei zentrale Komponenten geprägt:
+\begin{itemize}
+    \item eine strukturierte Wissensbasis,
+    \item ein semantisches Retrieval-Modul und
+    \item eine generative Sprachmodell-Komponente.
+\end{itemize}
+Diese funktionale Trennung bildet die Grundlage für die im Projekt durchgeführten Weiterentwicklungen und Evaluationsmaßnahmen.
+
+% Bild vervollständigen
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{systemarchitektur_kic.png}
+    \caption{Systemarchitektur des KI-Campus-Chatbots mit Datenquellen, Retrieval-System und Frontends.}
+    \label{fig:kic-architektur}
+\end{figure}
+
+\section{Workflow des Retrieval-Augmented-Generation-Systems}
+
+Der operative Ablauf des Chatbots folgt einem klar strukturierten Workflow, der die Prinzipien der Retrieval-Augmented Generation umsetzt.
+
+Zunächst gibt ein Nutzer eine Anfrage im Frontend der Lernplattform ein. Diese Anfrage wird an das Backend-System übermittelt und dort semantisch verarbeitet. Auf Grundlage der Anfrage wird eine Vektorrepräsentation erzeugt, die mit den in der Wissensbasis gespeicherten Dokumenten verglichen wird.
+
+Im nächsten Schritt identifiziert das Retrieval-Modul diejenigen Textsegmente, die inhaltlich am stärksten mit der Nutzeranfrage übereinstimmen. Diese relevanten Dokumentausschnitte werden anschließend dem Sprachmodell als zusätzlicher Kontext bereitgestellt.
+
+Das Sprachmodell generiert daraufhin eine Antwort, die sowohl die ursprüngliche Nutzeranfrage als auch die abgerufenen Kontextinformationen berücksichtigt. Dadurch entsteht eine kontextualisierte und auf die KI-Campus-Inhalte bezogene Antwort.
+
+Falls keine ausreichenden Kontextinformationen identifiziert werden können, greift das System auf vordefinierte Antwortstrategien zurück, um Fehlinformationen zu vermeiden.
+
+Der Workflow lässt sich somit in vier Hauptschritte unterteilen:
+\begin{enumerate}
+    \item Nutzeranfrage
+    \item semantisches Retrieval
+    \item kontextbasierte Antwortgenerierung
+    \item Ausgabe im Frontend
+\end{enumerate}
+
+Diese Abfolge bildet die funktionale Grundlage des Systems und dient als Ausgangspunkt für die im weiteren Verlauf des Projekts durchgeführten Optimierungen.
+
+Abbildung~\ref{fig:kic-workflow} visualisiert die einzelnen Prozessschritte des RAG-Workflows.
 
 \begin{figure}[H]
     \centering
@@ -16,47 +61,6 @@ Die Orchestrierung erfolgt ueber ein REST-basiertes Backend mit modularer Strukt
     \label{fig:kic-workflow}
 \end{figure}
 
-\section{Datenquellen und Wissensbasis}
+Trotz der modularen Architektur und des klar strukturierten Workflows zeigten sich zum Projektstart mehrere strukturelle und funktionale Limitationen. Dazu zählen eine teilweise eingeschränkte Kontextsensitivität, eine starre No-Answer-Logik sowie eine begrenzte Sprachrobustheit. Darüber hinaus zeigte sich, dass die Datenpipeline nicht alle verfügbaren Inhalte vollständig oder konsistent verarbeitete.
 
-Die Wissensbasis speist sich aus zwei zentralen Quellen: dem Moodle-Lernmanagementsystem und dem Drupal-Content-Management-System.
-
-Aus Moodle werden kursbezogene Inhalte wie Beschreibungen, Materialien und strukturierte Modulelemente extrahiert. Drupal liefert ergaenzende Inhalte wie Landingpages, Blogbeitraege und allgemeine Plattformtexte. Die Daten sind heterogen, umfassen strukturierte und unstrukturierte Textformate und liegen teilweise mehrsprachig vor. Diese Vielfalt erfordert eine systematische Vorverarbeitung.
-
-\section{ETL-Prozess}
-
-Zur Integration der Inhalte wird eine mehrstufige ETL-Pipeline (Extract, Transform, Load) eingesetzt.
-
-Im \textit{Extract}-Schritt werden Inhalte mittels Parser aus Moodle und Drupal extrahiert. Im \textit{Transform}-Schritt erfolgt Textbereinigung, Chunking sowie die Generierung semantischer Embeddings. Im \textit{Load}-Schritt werden die Embeddings in einer Vektordatenbank gespeichert, waehrend persistente Systemdaten in einer relationalen PostgreSQL-Datenbank abgelegt werden.
-
-Die Qualitaet der Pipeline beeinflusst unmittelbar die Leistungsfaehigkeit des Retrieval-Mechanismus.
-
-\section{Vektordatenbank und Retrieval}
-
-Fuer die Speicherung der Embeddings wird Qdrant verwendet. Die Suche erfolgt ueber Approximate-Nearest-Neighbor-Verfahren auf Basis von HNSW-Graphstrukturen, wodurch semantisch aehnliche Dokumente effizient identifiziert werden koennen.
-
-Bei einer Nutzeranfrage wird ein Embedding der Eingabe generiert und mit den gespeicherten Vektoren verglichen. Die relevantesten Textsegmente werden als Kontext an das Sprachmodell uebergeben. Zum Projektstart erfolgt das Retrieval als Single-Hop-Suche ohne zusaetzliche Reranking-Mechanismen oder adaptive Routing-Logik.
-
-\section{Generierungskomponente}
-
-Die Generierung erfolgt primaer ueber ein auf GWDG-Servern betriebenes LLM, ergaenzt durch ein Fallback-Modell (GPT-4o ueber Azure OpenAI). Die Modell-Eingabe besteht aus Systemprompt, abgerufenem Kontext und Nutzeranfrage.
-
-Ein Postprocessing-Schritt uebernimmt Formatierung und Quellenangabe. Bei fehlendem Retrieval wird eine standardisierte Fallback-Antwort ausgegeben.
-
-\section{Infrastruktur und Integration}
-
-Das Backend basiert auf FastAPI und wird in einer Azure-WebApp betrieben. Die Infrastruktur umfasst Azure Key Vault, Azure PostgreSQL und Application Insights. Prompts und Antworten werden protokolliert, wodurch Monitoring und spaetere Evaluation unterstuetzt werden.
-
-Der Interaktionsablauf folgt einem klaren Muster: Nutzeranfrage $\rightarrow$ Embedding $\rightarrow$ Retrieval $\rightarrow$ Generierung $\rightarrow$ Ausgabe im Frontend.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{systemarchitektur_kic.png}
-    \caption{Systemarchitektur des KI-Campus-Chatbots mit Datenquellen, Retrieval-System und Frontends.}
-    \label{fig:kic-architektur}
-\end{figure}
-
-\section{Identifizierte strukturelle Limitationen}
-
-Zum Projektstart wurden mehrere strukturelle und funktionale Limitationen der bestehenden Architektur festgestellt. Dazu zaehlen eine teilweise eingeschraenkte Kontextsensitivitaet, eine starre No-Answer-Logik sowie eine begrenzte Sprachrobustheit. Darueber hinaus zeigte sich, dass die Datenpipeline nicht alle verfuegbaren Inhalte vollstaendig oder konsistent verarbeitete.
-
-Diese strukturellen Eigenschaften bildeten den Ausgangspunkt fuer die im weiteren Verlauf des Projekts entwickelte Weiterentwicklung und Evaluation des Systems.
+Diese strukturellen Eigenschaften bildeten den Ausgangspunkt für die im weiteren Verlauf des Projekts entwickelte Weiterentwicklung und Evaluation des Systems.

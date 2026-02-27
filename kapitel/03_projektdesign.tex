@@ -1,30 +1,38 @@
-\chapter{Projekt- und Studiendesign}
+\chapter{Projektdesign}
 \label{sec:projektdesign}
 
-\section{Projektziele}
+Das Projekt folgte einem strukturierten, iterativen Vorgehen, das Analyse, Entwicklung, Evaluation und Dokumentation miteinander verband. Um flexibel auf neue Erkenntnisse reagieren und kontinuierliche Verbesserungen ermöglichen zu können, wurde das Projekt entlang agiler Projektmanagementprinzipien organisiert.
 
-Das Projekt verfolgt das uebergeordnete Ziel, einen produktiv eingesetzten RAG-basierten Chatbot im Bildungskontext systematisch zu evaluieren und gezielt zu verbessern. Dabei werden sowohl technische Leistungsaspekte als auch nutzerbezogene Qualitaetsdimensionen beruecksichtigt.
+\section{Projektstruktur und Phasenmodell}
+% Wie dokumentiert? Wie mit KI-Campus zusammengearbeitet? Welche Tools genutzt?
+Die Projektstruktur gliederte sich in fünf aufeinander aufbauende Phasen:
+\begin{enumerate}
+    \item Onboarding
+    \item Ideation \& Scoping
+    \item Development
+    \item Evaluation
+    \item Research Documentation
+\end{enumerate}
 
-Ein erstes Ziel besteht in der Entwicklung einer wissenschaftlich fundierten Evaluationsmethodik zur Messung der Antwortqualitaet von RAG-Systemen. Da bislang kein allgemein akzeptierter Standard fuer die Evaluation solcher Systeme existiert, kombiniert das Projekt verschiedene Ansaetze aus der Forschung. Hierzu zaehlen automatisierte Qualitaetsmetriken, statistische Signifikanztests sowie qualitative Bewertungen durch Expertinnen und Experten. Fuer die automatische Evaluation wird insbesondere das RAGAS-Framework (Retrieval-Augmented Generation Assessment System) genutzt, das die Dimensionen \textit{Faithfulness}, \textit{Answer Relevance} und \textit{Context Relevance} ohne Referenzantworten bewertet \cite{Es2023RAGAS}.
+In der Onboarding-Phase erfolgten die Einarbeitung in die bestehende Systemarchitektur sowie eine erste Markt- und Literaturanalyse; außerdem wurde die Forschungsfrage konkretisiert.
 
-Das zweite Ziel besteht in der messbaren Verbesserung des bestehenden Chatbots auf Grundlage der entwickelten Evaluationsmethodik. Technische Anpassungen, Optimierungen der Datenpipeline sowie funktionale Erweiterungen sollen zu einer nachweisbaren Steigerung der Antwortqualitaet und Nutzererfahrung fuehren.
+Die Phase Ideation \& Scoping diente der systematischen Identifikation von Verbesserungspotenzialen. Hierzu wurden reale Chatinteraktionen analysiert und typische Nutzungsszenarien herausgearbeitet. Dabei zeigte sich eine Diskrepanz zwischen geplanter und tatsächlicher Nutzung des Chatbots. Auf Basis dieser Erkenntnisse wurden repräsentative Use Cases definiert, die als Grundlage für die Weiterentwicklung und Evaluation dienten.
 
-\section{Forschungsfrage}
+In der Development-Phase erfolgten strukturelle und funktionale Anpassungen des Systems, darunter Erweiterungen der Datenpipeline, Optimierungen der Retrieval- und Generierungslogik sowie Anpassungen der Systemprompts. Die Weiterentwicklung erfolgte iterativ in Subaufgaben (Arbeitspaketen).
 
-Ausgehend von diesen Zielen wird folgende Forschungsfrage untersucht:
+Die Evaluation-Phase umfasste die systematische Bewertung der ursprünglichen und weiterentwickelten Systemversion. Abschließend wurden die Ergebnisse im Rahmen der Research Documentation konsolidiert und in Form des Projektberichts, eines Posters sowie einer Abschlusspräsentation aufbereitet.
 
-\begin{quote}
-Wie kann die Systemarchitektur eines RAG-basierten Chatbots sowie die multimodale Preprocessing-Pipeline im Kontext eines Lernmanagementsystems verbessert und evaluiert werden?
-\end{quote}
+Die operative Umsetzung der Entwicklungs- und Evaluationsschritte erfolgte auf Basis eines Kanban-Boards, auf dem Arbeitspakete strukturiert und priorisiert wurden. Regelmäßige zweiwöchentliche Meetings dienten als Sprint Reviews, in denen Zwischenergebnisse präsentiert, technische Entscheidungen reflektiert und neue Aufgaben priorisiert wurden. Dieses Vorgehen ermöglichte eine adaptive Projektsteuerung in Reaktion auf Erkenntnisse aus Analyse- und Evaluationszyklen. Durch diese iterative Arbeitsweise konnten Entwicklungs- und Evaluationszyklen mehrfach durchlaufen und schrittweise optimiert werden.
 
-Die Forschungsfrage verbindet technische und methodische Perspektiven. Sie adressiert sowohl die Weiterentwicklung der Systemarchitektur als auch die wissenschaftliche Bewertung der resultierenden Qualitaetsveraenderungen.
+% Das raus oder? Wird später erarbeitet.
+\section{Evaluationsdesign}
 
-\section{Projektdesign}
+Zur Bewertung der Systemqualität wurde ein mehrdimensionales Evaluationsdesign gewählt, das automatische, qualitative und quantitative Methoden kombiniert.
 
-Das Projekt folgt einem strukturierten, iterativen Vorgehen, das Analyse, Entwicklung, Evaluation und Reflexion kombiniert. Zunaechst wurde eine Anwendungsanalyse durchgefuehrt, bei der reale Chatinteraktionen ausgewertet und typische Nutzungsszenarien identifiziert wurden. Dabei zeigte sich eine Diskrepanz zwischen geplanter und tatsaechlicher Nutzung des Chatbots. Auf Basis dieser Erkenntnisse wurden repraesentative Use Cases definiert, die als Grundlage fuer die Evaluation dienten.
+Zunächst erfolgt eine automatisierte Bewertung der Antwortqualität mittels des RAGAS-Frameworks, das die Dimensionen \textit{Faithfulness}, \textit{Answer Relevance} und \textit{Context Relevance} ohne Referenzantworten analysiert \cite{Es2023RAGAS}. Diese quantitative Grundlage ermöglicht eine systematische Vergleichbarkeit zwischen verschiedenen Systemversionen.
 
-Die Weiterentwicklung des Systems umfasste sowohl strukturelle als auch funktionale Anpassungen, darunter Erweiterungen der Datenpipeline, Verbesserungen der Retrieval- und Generierungslogik sowie Anpassungen der Systemprompts. Ziel war es, die Wissensbasis zu verbreitern, die Kontextualisierung zu verbessern und die Interaktionsqualitaet zu erhoehen.
+Ergänzend wurde eine qualitative Expertenevaluation durchgeführt, bei der beide Systemversionen in einer neutralen Testumgebung gegenübergestellt wurden. Die Bewertung erfolgte anhand strukturierter Fragebögen sowie verbaler Analysen nach der Think-Aloud-Methode.
 
-Zur Evaluation wurde ein mehrdimensionales Design gewaehlt, das automatische, qualitative und quantitative Methoden kombiniert. Zunaechst erfolgt eine automatisierte Bewertung der Antwortqualitaet mittels RAGAS. Ergaenzend wird eine Expertenevaluation durchgefuehrt, bei der beide Systemversionen in einer neutralen Testumgebung verglichen werden. Die Bewertung erfolgt ueber strukturierte Frageboegen sowie verbale Analysen nach der Think-Aloud-Methode. Zusaetzlich werden quantitative Nutzertests nach dem Prinzip der \textit{lmsys.org Chatbot Arena} durchgefuehrt, bei der zwei Chatbot-Antworten zur selben Frage gegenuebergestellt werden und die Nutzenden die subjektiv bessere Antwort auswaehlen.
+Zusätzlich wurden quantitative Nutzertests angelehnt an das Konzept der \textit{lmsys.org Chatbot Arena} durchgeführt. Hierbei wurden zwei Antworten zur gleichen Nutzeranfrage parallel präsentiert, sodass die Teilnehmenden die jeweils überzeugendere Antwort auswählen konnten.
 
-Dieses kombinierte Evaluationsdesign erlaubt eine ganzheitliche Betrachtung der Systemqualitaet, indem sowohl technische Leistungsmetriken als auch subjektive Nutzerwahrnehmungen einbezogen werden. Dadurch wird eine fundierte Grundlage geschaffen, um die Wirksamkeit der vorgenommenen Systemverbesserungen zu beurteilen.
+Dieses kombinierte Evaluationsdesign erlaubt eine ganzheitliche Betrachtung der Systemqualität, indem sowohl technische Leistungsmetriken als auch subjektive Nutzerwahrnehmungen einbezogen werden. Dadurch wird eine fundierte Grundlage geschaffen, um die Wirksamkeit der vorgenommenen Systemverbesserungen zu beurteilen.
