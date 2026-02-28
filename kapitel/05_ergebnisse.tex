@@ -54,7 +54,7 @@ Für \textit{Faithfulness} beträgt die Differenz $-0{,}025$. Das Konfidenzinter
 
 Die Expertenevaluation liefert ein differenziertes Gesamtbild der beiden Systemvarianten (V1 und V2). Während die quantitativen Fragebogendaten signifikante Unterschiede in einzelnen Use Cases zeigen, erlaubt insbesondere die Think-Aloud-Analyse eine vertiefte Interpretation der zugrunde liegenden Qualitätswahrnehmungen. Im Folgenden werden beide Perspektiven integriert dargestellt. Die zugrundeliegenden Fragebögen sowie die Transkripte der Think-Aloud-Interviews (+ Codierung) sind in Anhang~\ref{anhang:c} einsehbar.
 
-Ein Experteninterview zum Kurs \textit{KI praktisch anwenden - Step by Step zu deinem Chatbot!} wurde von der Auswertung ausgeschlossen, da wesentliche zugrunde liegende Kursvektoren als technische Ausreißer in der Vektordatenbank isoliert lagen und somit über das verwendete HNSW‑Indexverfahren nicht erreichbar waren. Dadurch konnten relevante Chunks im Retrieval nicht gefunden werden, was zu systematisch verfälschten, nicht mit den übrigen Fällen vergleichbaren Ergebnissen geführt hätte.
+Anmerkung: Ein Experteninterview zum Kurs \textit{KI praktisch anwenden - Step by Step zu deinem Chatbot!} wurde von der Auswertung ausgeschlossen, da wesentliche zugrunde liegende Kursvektoren als technische Ausreißer in der Vektordatenbank isoliert lagen und somit über das verwendete HNSW‑Indexverfahren nicht erreichbar waren. Dadurch konnten relevante Chunks im Retrieval nicht gefunden werden, was zu systematisch verfälschten, nicht mit den übrigen Fällen vergleichbaren Ergebnissen geführt hätte.
 
 \paragraph{Quantitative Ergebnisse (Fragebogen)}
 % FALSCHES BILD FÜR USE CASE VERGLEICH
@@ -68,13 +68,13 @@ Ein Experteninterview zum Kurs \textit{KI praktisch anwenden - Step by Step zu d
 \textbf{Legende:} Orange Markierungen repräsentieren Version~1 (V1), blaue Markierungen Version~2 (V2). Punkte kennzeichnen die Mittelwerte ($\mu$). Helle Balken zeigen die Standardabweichung (SD), dunkle Balken das 95\,\%-Konfidenzintervall (CI).
 \end{figure}
 
-Im Use Case \emph{Technischer Support} zeigt sich eine signifikante Verschlechterung von V2 gegenüber V1 ($p = 0.002$). Experten bewerteten V1 hier als überlegen, was insbesondere auf die wahrgenommene höhere Reaktionsgeschwindigkeit zurückgeführt wurde. Geschwindigkeit fungiert im Support-Kontext als dominantes Qualitätskriterium, wodurch kleinere inhaltliche Unterschiede weniger stark ins Gewicht fallen.
+Im Use Case \emph{Technischer Support} zeigt sich eine signifikante Verschlechterung von V2 gegenüber V1 ($p = 0.002$). V1 erhielt hier durchschnittlich höhere Bewertungen als V2.
 
-Im Bereich \emph{Fachliche Fragen} zeigt sich eine leichte, signifikante Verbesserung zugunsten von V2 ($p = 0.036$). Der Effekt ist moderat, deutet jedoch darauf hin, dass V2 komplexere fachliche Anfragen strukturierter verarbeitet und kontextbezogener beantwortet.
+Im Bereich \emph{Fachliche Fragen} zeigt sich eine leichte, signifikante Verbesserung zugunsten von V2 ($p = 0.036$).
 
-Am deutlichsten fällt die Verbesserung im \emph{Lernmodus} aus ($p < 0.001$). Hier wird V2 signifikant besser bewertet. Dies deutet bereits quantitativ auf eine qualitative Verschiebung in Richtung didaktischer Unterstützung hin.
+Am deutlichsten fällt die Verbesserung im \emph{Lernmodus} aus ($p < 0.001$). Hier wird V2 signifikant besser bewertet als V1.
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{dimensionen_vergleich.png}
     \caption{Dimensionsspezifische Auswertung der Expertenbewertungen}
@@ -84,21 +84,19 @@ Am deutlichsten fällt die Verbesserung im \emph{Lernmodus} aus ($p < 0.001$). H
 \textbf{Legende:} Orange Markierungen repräsentieren Version~1 (V1), blaue Markierungen Version~2 (V2). Punkte kennzeichnen die Mittelwerte ($\mu$). Helle Balken zeigen die Standardabweichung (SD), dunkle Balken das 95\,\%-Konfidenzintervall (CI).
 \end{figure}
 
-Die differenzierte Betrachtung der einzelnen Bewertungsdimensionen (Abb.~\ref{fig:dimensionen_vergleich}) präzisiert die zuvor dargestellten Use-Case-Ergebnisse und erlaubt eine inhaltliche Einordnung der beobachteten Unterschiede zwischen V1 und V2.
+Die differenzierte Betrachtung der einzelnen Bewertungsdimensionen (Abb.~\ref{fig:dimensionen_vergleich}) zeigt folgende Ergebnisse:
 
-In der Dimension \textbf{Lernförderlichkeit/Didaktik} zeigt sich eine signifikante Verbesserung zugunsten von V2 ($p < 0.01$). Dieser Befund steht in direktem Zusammenhang mit dem zuvor definierten Use Case \emph{Lernmodus} und bestätigt quantitativ die dort beobachtete Qualitätssteigerung. Die Weiterentwicklung des Systems wirkt sich somit insbesondere auf die didaktische Ausgestaltung der Antworten aus.
+In der Dimension \textbf{Lernförderlichkeit/Didaktik} zeigt sich eine signifikante Verbesserung zugunsten von V2 ($p < 0.01$).
 
-Auch die \textbf{Relevanz} der Antworten ist für V2 signifikant höher ($p < 0.01$). Dies deutet auf eine verbesserte Kontextanbindung und zielgerichtetere Beantwortung hin – ein zentraler Leistungsindikator im Use Case \emph{kursbezogene Fragen}, bei dem die Integration kursinterner Materialien entscheidend ist.
+Auch die \textbf{Relevanz} der Antworten ist für V2 signifikant höher ($p < 0.01$).
 
-Demgegenüber zeigen die Dimensionen \textbf{inhaltliche Korrektheit} und \textbf{Verständlichkeit/Struktur} keine signifikanten Unterschiede. Beide Systeme bewegen sich hier auf hohem Niveau. Dies stützt die Interpretation aus der Think-Aloud-Analyse, dass die Weiterentwicklung nicht primär die faktische Richtigkeit betrifft, sondern vielmehr Strukturierungs- und Didaktisierungsaspekte.
+Demgegenüber zeigen die Dimensionen \textbf{inhaltliche Korrektheit} und \textbf{Verständlichkeit/Struktur} keine signifikanten Unterschiede. Beide Systeme erreichen in diesen Dimensionen vergleichbare Bewertungen.
 
-Bei \textbf{Vollständigkeit/Effizienz} zeigt sich ein leichter, nicht signifikanter Vorteil für V1. In Verbindung mit den qualitativen Hinweisen zur höheren Latenz von V2 deutet dies auf einen funktionalen Trade-off hin: Die stärkere didaktische Ausarbeitung und Kontextintegration von V2 geht teilweise zulasten von Effizienz und Kompaktheit – insbesondere relevant im Use Case \emph{Technischer Support}, in dem schnelle und präzise Antworten dominieren.
+Bei \textbf{Vollständigkeit/Effizienz} zeigt sich ein leichter, nicht signifikanter Vorteil für V1.
 
-Schließlich weist auch \textbf{Kontextintegration/Kohärenz} einen deutlichen Mittelwertunterschied zugunsten von V2 auf, ohne statistische Signifikanz zu erreichen. Die erhöhte Streuung deutet darauf hin, dass die Verbesserungen kontextabhängig auftreten und nicht über alle Aufgaben hinweg gleichermaßen wirksam sind. Dies entspricht der bereits beschriebenen Variation zwischen administrativen und lernorientierten Interaktionsformen.
+Schließlich weist auch \textbf{Kontextintegration/Kohärenz} einen Mittelwertunterschied zugunsten von V2 auf, der jedoch keine statistische Signifikanz erreicht. Die Streuung ist in dieser Dimension erhöht.
 
-Insgesamt zeigt die dimensionsspezifische Analyse, dass sich die Weiterentwicklung von V1 zu V2 nicht gleichmäßig über alle Qualitätskriterien verteilt. Vielmehr konzentrieren sich die signifikanten Verbesserungen auf jene Dimensionen, die für lernbezogene und kontextintensive Use Cases zentral sind, während funktionale Aspekte wie Effizienz stabil bleiben oder leicht zugunsten von V1 ausfallen. Diese Befunde ergänzen die zuvor dargestellte Use-Case-Analyse und liefern eine feingranulare Erklärung der beobachteten Gesamteffekte.
-
-\begin{figure}[htbp]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.7\textwidth]{Ergebnisse Fragebogen - Gesamtvergleich.png}
     \caption{Gesamtvergleich beider Versionen (bereinigt)}
@@ -108,12 +106,12 @@ Insgesamt zeigt die dimensionsspezifische Analyse, dass sich die Weiterentwicklu
 \textbf{Legende:} Orange Markierungen repräsentieren Version~1 (V1), blaue Markierungen Version~2 (V2). Punkte kennzeichnen die Mittelwerte ($\mu$). Helle Balken zeigen die Standardabweichung (SD), dunkle Balken das 95\,\%-Konfidenzintervall (CI).
 \end{figure}
 
-Der bereinigte Gesamtvergleich bestätigt insgesamt eine leichte, aber signifikante Verbesserung zugunsten von V2. Die Qualitätssteigerung ist somit statistisch nachweisbar, variiert jedoch je nach Nutzungskontext.
+Der bereinigte Gesamtvergleich zeigt eine leichte, aber signifikante Verbesserung zugunsten von V2.
 
 
 \paragraph{Qualitative Ergebnisse (Think-Aloud-Analyse)}
 
-\begin{figure}[htbp]
+\begin{figure}[H]
     \centering
     \includegraphics[width=1.1\textwidth]{Ergebnisse Think Aloud_2.png}
     \caption{Ergebnisse der Think-Aloud-Analyse im Experten-Blindtest.} 
@@ -124,19 +122,19 @@ Der bereinigte Gesamtvergleich bestätigt insgesamt eine leichte, aber signifika
 Die Bilanz ergibt sich aus der Gegenüberstellung der Anzahl positiver und negativer Segmente je System und Kategorie. Kategorien mit ähnlich vielen positiven und negativen Zuschreibungen wurden als ausgeglichen (±) klassifiziert 
 \end{figure}
 
-Die Think-Aloud-Daten liefern entscheidende Hinweise darauf, warum bestimmte Bewertungen zustande kamen. Anders als die Likert-Skalen erfassen sie Bewertungslogiken, Wahrnehmungsprozesse und implizite Qualitätsmaßstäbe der Experten.
+Die Think-Aloud-Daten ergänzen die quantitativen Fragebogenergebnisse um verbale Begründungen und Bewertungskommentare der Experten.
 
-Im Bereich \textbf{Didaktik} wurde V2 deutlich positiver wahrgenommen. Experten beschrieben V2 als stärker lernunterstützend und teilweise als „sokratischen Lernassistenten“. Hinweise auf Metakognition zeigen, dass V2 nicht nur Informationen bereitstellt, sondern stärker strukturierend und reflexionsanregend wirkt. Diese qualitative Verschiebung erklärt die signifikante Verbesserung im Lernmodus.
+Im Bereich \textbf{Didaktik} wurde V2 deutlich positiver wahrgenommen. Experten beschrieben V2 als stärker lernunterstützend und verwendeten teilweise die Bezeichnung „sokratischer Lernassistent". Es wurden Hinweise auf metakognitive Elemente genannt.
 
-Im Bereich \textbf{UX und Transparenz} (Streaming, Fußnoten, Darstellung) wurde insbesondere die verbesserte Linkdarstellung und das sichtbare Streaming positiv hervorgehoben. Dass sich der Text während der Generierung verändert und „zeigt, dass noch gerechnet wird“, wurde als Transparenzsignal interpretiert. Transparenz scheint hier Vertrauen zu stärken und die wahrgenommene Systemintelligenz zu erhöhen.
+Im Bereich \textbf{UX und Transparenz} (Streaming, Fußnoten, Darstellung) wurde insbesondere die verbesserte Linkdarstellung und das sichtbare Streaming positiv hervorgehoben. Experten erwähnten, dass die Textveränderung während der Generierung sichtbar macht, dass „noch gerechnet wird".
 
-Hinsichtlich der \textbf{Antwortqualität} wurde V1 teilweise als liefernd „High-Level-Antworten“ beschrieben, während V2 stärker kursbezogenen Kontext integriert. Der Unterschied wurde weniger als richtig versus falsch wahrgenommen, sondern als Differenz im Abstraktionsniveau und in der Kontexttiefe. Die Systemverbesserung betrifft somit primär die Kontextintegration.
+Hinsichtlich der \textbf{Antwortqualität} wurde V1 teilweise als liefernd von „High-Level-Antworten" beschrieben, während V2 nach Expertenaussagen stärker kursbezogenen Kontext integriert. Der Unterschied wurde als Differenz im Abstraktionsniveau und in der Kontexttiefe beschrieben.
 
 Im Bereich \textbf{Sprache} wurde V2 teilweise kritisch gesehen. Englische Promptstrukturen führten zu wahrgenommener Inkonsistenz und „Verunsicherung“. Sprachliche Kohärenz erweist sich hier als sensibler Qualitätsindikator, der im quantitativen Rating weniger stark differenziert, qualitativ jedoch klar sichtbar wird.
 
-Bei den \textbf{Referenzen} wurden beide Systeme als vergleichbar souverän eingeschätzt. Es ergab sich kein klarer qualitativer Vorsprung.
+Bei den \textbf{Referenzen} wurden beide Systeme als vergleichbar eingeschätzt. Es ergab sich kein klarer Vorsprung für eine Version.
 
-Die \textbf{Latenz} wurde hingegen konsistent zugunsten von V1 bewertet. V1 wurde als schneller wahrgenommen, was die signifikante Verschlechterung von V2 im Support-Use-Case erklärt und den Zielkonflikt zwischen didaktischer Ausarbeitung und Reaktionsgeschwindigkeit verdeutlicht.
+Die \textbf{Latenz} wurde konsistent zugunsten von V1 bewertet. V1 wurde als schneller wahrgenommen.
 
 % ÜBERNEHME ICH IN DISKUSSION
 %\paragraph{Einordnung}
