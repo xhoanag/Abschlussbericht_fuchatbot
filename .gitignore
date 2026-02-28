@@ -11,8 +11,8 @@
 *.fdb_latexmk
 *.synctex.gz
 
-# PDFs (optional)
-*.pdf
+# main.pdf
+main.pdf
 
 # OS / Editor
 .DS_Store
