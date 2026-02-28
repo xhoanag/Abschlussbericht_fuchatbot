@@ -24,11 +24,7 @@ Für \textit{Answer Relevancy} erzielt V1 einen höheren Mittelwert ($\mu = 0{.}
 
 \autoref{fig:ragas2} stellt die gepaarten Mittelwertsdifferenzen (V2$-$V1) dar. Positive Werte sprechen für V2, negative Werte für V1. Die vertikalen Balken zeigen das 95\,\%-Konfidenzintervall der Differenz; die horizontale Linie bei Null markiert das Ausbleiben eines Effekts. Ein Stern kennzeichnet statistisch signifikante Unterschiede.
 
-Für \textit{Answer Relevancy} beträgt die mittlere Differenz $-0{.}055$. Das Konfidenzintervall liegt vollständig unterhalb von Null. Der Unterschied ist signifikant (einseitiger gepaarter t-Test: $t = 4{.}285$, $p < 0{.}001$; Wilcoxon-Test ebenfalls signifikant). V2 weist somit signifikant niedrigere Werte in der \textit{Answer Relevancy} auf.
-
-Für \textit{Context Relevance} ergibt sich eine mittlere Differenz von $+0{.}053$. Das Konfidenzintervall liegt vollständig oberhalb von Null. Der Unterschied ist signifikant ($t = 2{.}088$, $p = 0{.}021$; Wilcoxon-Test signifikant). V2 erzielt in dieser Dimension höhere Werte in der \textit{Context Relevance}.
-
-Für \textit{Faithfulness} beträgt die Differenz $-0{.}025$. Das Konfidenzintervall schneidet die Null, und der Unterschied ist nicht signifikant ($t = 1{.}031$, $p = 0{.}153$; Wilcoxon-Test nicht signifikant).
+Für \textit{Answer Relevancy} beträgt die mittlere Differenz $-0{.}055$. Das Konfidenzintervall liegt vollständig unterhalb von Null. Der Unterschied ist signifikant ($t = 4{.}285$, $p < 0{.}001$; Wilcoxon-Test ebenfalls signifikant). V2 weist somit signifikant niedrigere Werte in der \textit{Answer Relevancy} auf. Für \textit{Context Relevance} ergibt sich eine mittlere Differenz von $+0{.}053$. Das Konfidenzintervall liegt vollständig oberhalb von Null. Der Unterschied ist signifikant ($t = 2{.}088$, $p = 0{.}021$; Wilcoxon-Test signifikant). V2 erzielt in dieser Dimension höhere Werte in der \textit{Context Relevance}. Für \textit{Faithfulness} beträgt die Differenz $-0{.}025$. Das Konfidenzintervall schneidet die Null, und der Unterschied ist nicht signifikant ($t = 1{.}031$, $p = 0{.}153$; Wilcoxon-Test nicht signifikant).
 
 \begin{figure}[H]
 \centering
@@ -44,14 +40,13 @@ Für \textit{Faithfulness} beträgt die Differenz $-0{.}025$. Das Konfidenzinter
 % Evtl. Rausnehmen weil Teil der Diskussion
 %Zusammenfassend zeigt sich eine gegenläufige Entwicklung zwischen \textit{Answer Relevancy} und \textit{Context Relevance}: V2 erzielt signifikant höhere Werte in der \textit{Context Relevance}, während V1 signifikant höhere Werte in der \textit{Answer Relevancy} aufweist. Hinsichtlich \textit{Faithfulness} ergibt sich kein statistisch signifikanter Unterschied. Die Ergebnisse deuten somit auf eine Verschiebung der Leistungscharakteristik zwischen Retrieval-Relevanz und Antwortpassung hin, ohne dass sich Unterschiede in der kontextuellen Stützung der generierten Aussagen statistisch belegen lassen.
 
-\section{Expertenbasierte Blindtest}
+\section{Blindtest: Experten}
 
-Die Expertenevaluation liefert ein differenziertes Gesamtbild der beiden Systemvarianten (V1 und V2). Während die quantitativen Fragebogendaten signifikante Unterschiede in einzelnen Use Cases zeigen, erlaubt insbesondere die Think-Aloud-Analyse eine vertiefte Interpretation der zugrunde liegenden Qualitätswahrnehmungen. Im Folgenden werden beide Perspektiven integriert dargestellt. Die zugrundeliegenden Fragebögen sowie die Transkripte der Think-Aloud-Interviews (+ Codierung) sind in Anhang~\ref{anhang:c} einsehbar.
-
-Anmerkung: Ein Experteninterview zum Kurs \textit{KI praktisch anwenden - Step by Step zu deinem Chatbot!} wurde von der Auswertung ausgeschlossen, da wesentliche zugrunde liegende Kursvektoren als technische Ausreißer in der Vektordatenbank isoliert lagen und somit über das verwendete HNSW‑Indexverfahren nicht erreichbar waren. Dadurch konnten relevante Chunks im Retrieval nicht gefunden werden, was zu systematisch verfälschten, nicht mit den übrigen Fällen vergleichbaren Ergebnissen geführt hätte.
+Die Expertenevaluation liefert ein differenziertes Gesamtbild der beiden Systemvarianten (V1 und V2). Während die quantitativen Fragebogendaten signifikante Unterschiede in einzelnen Use Cases zeigen, erlaubt insbesondere die Think-Aloud-Analyse eine vertiefte Interpretation der zugrunde liegenden Qualitätswahrnehmungen. Im Folgenden werden beide Perspektiven integriert dargestellt. Die zugrundeliegenden Fragebögen sowie die Transkripte der Think-Aloud-Interviews (+ Codierung) sind in Anhang~\ref{anhang:c} einsehbar. Ein Experteninterview zum Kurs \textit{KI praktisch anwenden - Step by Step zu deinem Chatbot!} wurde von der Auswertung ausgeschlossen, da wesentliche zugrunde liegende Kursvektoren als technische Ausreißer in der Vektordatenbank isoliert lagen und somit über das verwendete Suchverfahren nicht erreichbar waren. Dadurch konnten relevante Chunks im Retrieval nicht gefunden werden, was zu systematisch verfälschten, nicht mit den übrigen Fällen vergleichbaren Ergebnissen geführt hätte.
 
 \paragraph{Quantitative Ergebnisse (Fragebogen)}
-\begin{figure}[htbp]
+Die Bewertung anhand der Use Cases ist in \autoref{fig:fragebogen_usecases} dargestellt.Im Use Case \emph{Technischer Support} zeigt sich eine signifikante Verschlechterung von V2 gegenüber V1 ($p = 0.002$). V1 erhielt hier durchschnittlich höhere Bewertungen als V2. Im Bereich \emph{Fachliche Fragen} zeigt sich eine leichte, signifikante Verbesserung zugunsten von V2 ($p = 0.036$). Am deutlichsten fällt die Verbesserung im \emph{Lernmodus} aus ($p < 0.001$). Hier wird V2 signifikant besser bewertet als V1.
+\begin{figure}[H]
     \centering
     \includegraphics[width=1.0\textwidth]{Ergebnisse Fragebogen – Use Case Vergleich 2.png}
     \caption{Auswertung der Experteninterviews anhand der Use Cases}
@@ -60,49 +55,36 @@ Anmerkung: Ein Experteninterview zum Kurs \textit{KI praktisch anwenden - Step b
 \vspace{2mm}
 \textbf{Legende:} Orange Markierungen repräsentieren V1, blaue Markierungen V2. Punkte kennzeichnen die Mittelwerte ($\mu$), helle Balken die Standardabweichung ($\sigma$) und dunkle Balken das 95\,\%-Konfidenzintervall. Die Hypothesentests umfassen paarweise gerichtete t-Tests ($t$) und Wilcoxon-Tests ($W$) mit $\alpha = 0{.}05$.
 \end{figure}
+\noindent
+Die differenzierte Betrachtung der einzelnen Bewertungsdimensionen ist in \autoref{fig:dimensionen_vergleich} dargestellt und die Ergebnisse werden kurz erläutert.
 
-Im Use Case \emph{Technischer Support} zeigt sich eine signifikante Verschlechterung von V2 gegenüber V1 ($p = 0.002$). V1 erhielt hier durchschnittlich höhere Bewertungen als V2.
-
-Im Bereich \emph{Fachliche Fragen} zeigt sich eine leichte, signifikante Verbesserung zugunsten von V2 ($p = 0.036$).
-
-Am deutlichsten fällt die Verbesserung im \emph{Lernmodus} aus ($p < 0.001$). Hier wird V2 signifikant besser bewertet als V1.
-
+In der Dimension \textit{Lernförderlichkeit/Didaktik} zeigt sich eine signifikante Verbesserung zugunsten von V2 ($p < 0.01$). Auch die \textit{Relevanz} der Antworten ist für V2 signifikant höher ($p < 0.01$). Demgegenüber zeigen die Dimensionen \textit{inhaltliche Korrektheit} und \textit{Verständlichkeit/Struktur} keine signifikanten Unterschiede. Beide Systeme erreichen in diesen Dimensionen vergleichbare Bewertungen. Bei \textit{Vollständigkeit/Effizienz} zeigt sich ein leichter, nicht signifikanter Vorteil für V1. Schließlich weist auch \textit{Kontextintegration/Kohärenz} einen Mittelwertunterschied zugunsten von V2 auf, der jedoch keine statistische Signifikanz erreicht. Die Streuung ist in dieser Dimension erhöht.
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{dimensionen_vergleich.png}
-    \caption{Dimensionsspezifische Auswertung der Expertenbewertungen}
+    \caption{Auswertung der Experteninterviews anhand der Bewertungsdimensionen}
     \label{fig:dimensionen_vergleich}
 
 \vspace{2mm}
 \textbf{Legende:} Orange Markierungen repräsentieren V1, blaue Markierungen V2. Punkte kennzeichnen die Mittelwerte ($\mu$), helle Balken die Standardabweichung ($\sigma$) und dunkle Balken das 95\,\%-Konfidenzintervall. Die Hypothesentests umfassen paarweise gerichtete t-Tests ($t$) und Wilcoxon-Tests ($W$) mit $\alpha = 0{.}05$.
 \end{figure}
-
-Die differenzierte Betrachtung der einzelnen Bewertungsdimensionen (\autoref{fig:dimensionen_vergleich}) zeigt folgende Ergebnisse:
-
-In der Dimension \textbf{Lernförderlichkeit/Didaktik} zeigt sich eine signifikante Verbesserung zugunsten von V2 ($p < 0.01$).
-
-Auch die \textbf{Relevanz} der Antworten ist für V2 signifikant höher ($p < 0.01$).
-
-Demgegenüber zeigen die Dimensionen \textbf{inhaltliche Korrektheit} und \textbf{Verständlichkeit/Struktur} keine signifikanten Unterschiede. Beide Systeme erreichen in diesen Dimensionen vergleichbare Bewertungen.
-
-Bei \textbf{Vollständigkeit/Effizienz} zeigt sich ein leichter, nicht signifikanter Vorteil für V1.
-
-Schließlich weist auch \textbf{Kontextintegration/Kohärenz} einen Mittelwertunterschied zugunsten von V2 auf, der jedoch keine statistische Signifikanz erreicht. Die Streuung ist in dieser Dimension erhöht.
-
+\noindent
+Der bereinigte Gesamtvergleich (siehe \autoref{fig:fragebogen_gesamt}) zeigt eine leichte, aber signifikante Verbesserung zugunsten von V2.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.7\textwidth]{Ergebnisse Fragebogen - Gesamtvergleich.png}
-    \caption{Gesamtvergleich beider Versionen (bereinigt)}
+    \caption{Gesamtvergleich beider Versionen auf Basis der Expertenfragebögen}
     \label{fig:fragebogen_gesamt}
 
 \vspace{2mm}
 \textbf{Legende:} Orange Markierungen repräsentieren V1, blaue Markierungen V2. Punkte kennzeichnen die Mittelwerte ($\mu$), helle Balken die Standardabweichung ($\sigma$) und dunkle Balken das 95\,\%-Konfidenzintervall. Die Hypothesentests umfassen paarweise gerichtete t-Tests ($t$) und Wilcoxon-Tests ($W$) mit $\alpha = 0{.}05$.
 \end{figure}
 
-Der bereinigte Gesamtvergleich zeigt eine leichte, aber signifikante Verbesserung zugunsten von V2.
-
-
 \paragraph{Qualitative Ergebnisse (Think-Aloud-Analyse)}
+
+Die Think-Aloud-Daten ergänzen die quantitativen Fragebogenergebnisse um verbale Begründungen und Bewertungskommentare der Experten. Wichtige Kategorien sowie deren Bewertung durch Experten und untersützende Zitate sind in \autoref{fig:thinkaloud_tabelle} dargestellt.
+
+Im Bereich \textit{Didaktik} wurde V2 deutlich positiver wahrgenommen. Experten beschrieben V2 als stärker lernunterstützend und verwendeten teilweise die Bezeichnung „sokratischer Lernassistent". Es wurden Hinweise auf metakognitive Elemente genannt. Im Bereich \textit{UX und Transparenz} (Streaming, Fußnoten, Darstellung) wurde insbesondere die verbesserte Linkdarstellung und das sichtbare Streaming positiv hervorgehoben. Experten erwähnten, dass die Textveränderung während der Generierung sichtbar macht, dass „noch gerechnet wird". Hinsichtlich der \textit{Antwortqualität} wurde V1 teilweise als liefernd von \glqq High-Level-Antworten\grqq beschrieben, während V2 nach Expertenaussagen stärker kursbezogenen Kontext integriert. Der Unterschied wurde als Differenz im Abstraktionsniveau und in der Kontexttiefe beschrieben. Im Bereich \textit{Sprache} wurde V2 teilweise kritisch gesehen. Englische Promptstrukturen führten zu wahrgenommener Inkonsistenz und „Verunsicherung“. Sprachliche Kohärenz erweist sich hier als sensibler Qualitätsindikator, der im quantitativen Rating weniger stark differenziert, qualitativ jedoch klar sichtbar wird. Bei den \textit{Referenzen} wurden beide Systeme als vergleichbar eingeschätzt. Es ergab sich kein klarer Vorsprung für eine Version. Die \textit{Latenz} wurde konsistent zugunsten von V1 bewertet. V1 wurde als schneller wahrgenommen.
 
 \begin{figure}[H]
     \centering
@@ -115,30 +97,7 @@ Der bereinigte Gesamtvergleich zeigt eine leichte, aber signifikante Verbesserun
 Die Bilanz ergibt sich aus der Gegenüberstellung der Anzahl positiver und negativer Segmente je System und Kategorie. Kategorien mit ähnlich vielen positiven und negativen Zuschreibungen wurden als ausgeglichen (±) klassifiziert 
 \end{figure}
 
-Die Think-Aloud-Daten ergänzen die quantitativen Fragebogenergebnisse um verbale Begründungen und Bewertungskommentare der Experten.
-
-Im Bereich \textbf{Didaktik} wurde V2 deutlich positiver wahrgenommen. Experten beschrieben V2 als stärker lernunterstützend und verwendeten teilweise die Bezeichnung „sokratischer Lernassistent". Es wurden Hinweise auf metakognitive Elemente genannt.
-
-Im Bereich \textbf{UX und Transparenz} (Streaming, Fußnoten, Darstellung) wurde insbesondere die verbesserte Linkdarstellung und das sichtbare Streaming positiv hervorgehoben. Experten erwähnten, dass die Textveränderung während der Generierung sichtbar macht, dass „noch gerechnet wird".
-
-Hinsichtlich der \textbf{Antwortqualität} wurde V1 teilweise als liefernd von „High-Level-Antworten" beschrieben, während V2 nach Expertenaussagen stärker kursbezogenen Kontext integriert. Der Unterschied wurde als Differenz im Abstraktionsniveau und in der Kontexttiefe beschrieben.
-
-Im Bereich \textbf{Sprache} wurde V2 teilweise kritisch gesehen. Englische Promptstrukturen führten zu wahrgenommener Inkonsistenz und „Verunsicherung“. Sprachliche Kohärenz erweist sich hier als sensibler Qualitätsindikator, der im quantitativen Rating weniger stark differenziert, qualitativ jedoch klar sichtbar wird.
-
-Bei den \textbf{Referenzen} wurden beide Systeme als vergleichbar eingeschätzt. Es ergab sich kein klarer Vorsprung für eine Version.
-
-Die \textbf{Latenz} wurde konsistent zugunsten von V1 bewertet. V1 wurde als schneller wahrgenommen.
-
-% ÜBERNEHME ICH IN DISKUSSION
-%\paragraph{Einordnung}
-
-%Die Think-Aloud-Analyse zeigt, dass die Weiterentwicklung von V1 zu V2 nicht primär eine Verbesserung der faktischen Richtigkeit darstellt, sondern eine qualitative Verschiebung hin zu stärkerer Didaktisierung, Kontextintegration und Transparenz. Gleichzeitig entstehen funktionale Trade-offs, insbesondere hinsichtlich Geschwindigkeit und sprachlicher Konsistenz.
-
-%Die signifikanten Effekte im Fragebogen sind somit nicht isoliert zu interpretieren: Die quantitative Verbesserung im Lernmodus ist qualitativ klar erklärbar, während die Verschlechterung im Support-Kontext funktional bedingt ist. Die Expertenevaluation macht damit nicht nur Unterschiede in Scores sichtbar, sondern legt die zugrunde liegenden Qualitätsdimensionen offen – ein zentraler Mehrwert der kombinierten quantitativen und qualitativen Methodik.
-
 \section{Kosten}
-
-
 Die RAGAS-Evaluation (vgl. \autoref{sec:ergebnisse_ragas}) diente nicht nur der Qualitätsbewertung, sondern ermöglichte parallel eine präzise Erfassung der Betriebskosten beider Chatbot-Versionen. Gemessen wurden Latenzzeiten (Time-to-First-Token (TTFT); Gesamtzeit) sowie Tokenverbrauch (Input/Output), aggregiert über 60 Fragen à fünf Wiederholungen. Die monetäre Bewertung basierte auf den Azure-Preisen für gpt-4o (2024-05-13): 4,18621 €/Mio. Input-Token und 13,8145 €/Mio. Output-Token (vgl. \autoref{sec:methodik_kosten}).
 
 \begin{table}[H] 
@@ -175,7 +134,7 @@ Reranking-Output-Token & - & 58 & neu \\
 
 \end{tabular}
 \end{table}
-
+\noindent
 \autoref{fig:cost_analysis_result} visualisiert diese Ergebnisse und hebt das neu eingeführte Reranking in V2 hervor. Während V1 eine effiziente Latenz von 3,24 Sekunden bei moderatem Tokenverbrauch aufweist, führt die erweiterte Pipeline in V2 – insbesondere das Reranking via gpt-4o-API – zu signifikanten Mehrkosten. Während in V2 ein Anstieg der Gesamtzeit bis zu einer vollständigen Antwort um 92\% zu verzeichnen ist, konnte dieser Anstieg durch die Einführung des Token-Streaming etwas relativiert werden, die Zeit bis zum ersten Token stieg nur noch um ca. 78\%. Die Zeit bis zum ersten Token (TTFT) ist für den Anwender maßgeblich, da schon beim ersten Token anfangen werden kann zu lesen.  Der Input-Token-Anstieg (+269\%) ist primär auf Reranking (6.330 Token) und die komplexere Multi-Hop-Verarbeitung zurückzuführen.
 
 \begin{figure}[htbp]
