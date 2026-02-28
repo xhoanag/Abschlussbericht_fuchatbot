@@ -140,11 +140,11 @@ Im Bildungskontext erweitert sich die Evaluationsperspektive um pädagogische Zi
 
 Neben Qualitäts- und Akzeptanzdimensionen gewinnt zunehmend auch Nachhaltigkeitsaspekte an Relevanz. Neben den offensichtlichen wissenschaftlichen Metriken, wie der Skalierbarkeit, Antwortgeschwindigkeit und dem Tokenverbrauch \cite{Neumann2024MoodleBot, Li2025RAGEducationSurvey}, wird auch das Einbeziehen okölogischer und sozialer Faktoren gefordert \cite{DanielBuch}.
 
-\begin{table}[p]
+\begin{table}[H]
 \centering
 \caption{Beiträge zur Evaluation von RAG-Systemen in der Literatur}
 \label{tab:rag_eval_literatur}
-\begin{tabular}{>{\raggedright\arraybackslash}p{10.5cm} >{\raggedright\arraybackslash}p{4cm}}
+\begin{tabular}{p{10.5cm} p{4cm}}
 \hline
 \textbf{Thema und Schwerpunkt} & \textbf{Quelle} \\
 \hline
@@ -257,25 +257,31 @@ Der projektspezifische Ablauf der automatisierten RAGAS-Evaluation ist in \autor
 \end{figure}
 
 \subsubsection{Blindtest: Nutzer - Chatbot Arena}
-Die Chatbot-Arena wurde als kontrollierte Evaluationsplattform für paarweise Modellvergleiche konzipiert. Methodisch orientiert sich das Design am Prinzip der LMSYS Chatbot Arena \cite{Zheng2023LMSYSArena}. Ziel des Arena-Konzeptes ist nicht die freie Interaktion mit dem Chatbot, sondern die standardisierte Qualitätsbewertung von Antworten unter kontrollierten Bedingungen. Methodisch steht ein Blind-A/B-Setup im Vordergrund: Pro Vergleich sehen Teilnehmende zwei Antworten zur identischen Frage und entscheiden zwischen \textit{A}, \textit{B}, \textit{tie} oder \textit{both\_bad}. Paarweise Präferenzvergleiche gelten als robuste Form der Qualitätsbeurteilung, da relative Urteile kognitiv konsistenter sind als absolute Ratingskalen \cite{Thurstone1927ComparativeJudgment,BradleyTerry1952PairedComparisons}. Dieses Verfahren erzeugt ein aggregierbares Präferenzsignal, das statistisch ausgewertet und zur Modellbewertung herangezogen werden kann.
-
-Architektonisch besteht das System aus drei Ebenen. Erstens übernimmt ein Nginx-Reverse-Proxy den externen Zugriff und leitet Anfragen intern an Application Programming Interface (API) und User Interface (UI) weiter, welches in \autoref{fig:arena-nutzer-ui} dargestellt wird. Zweitens bildet die Arena-API das Backend für Vergleichserzeugung, Voting, Statistik und Session-bezogene Endpunkte. Drittens stellt die Voting-UI das Web-Frontend bereit, über das Teilnehmende abstimmen und Ergebnisse einsehen. Die Persistenz erfolgt schlank über JavaScript Object Notation Lines (JSONL)-Dateien, was für Forschungsprototypen eine transparente und leicht auditierbare Datenhaltung ermöglicht. Für den Betrieb der Arena wurde die Anwendung vollständig containerisiert und als Docker-Stack auf einer dedizierten Virtual Machine (VM) ausgerollt.
+Die Chatbot-Arena wurde als kontrollierte Evaluationsplattform für paarweise Modellvergleiche konzipiert. Methodisch orientiert sich das Design am Prinzip der LMSYS Chatbot Arena \cite{Zheng2023LMSYSArena} und dient der Triangulation der Ergebnisse aus qualitativen Experteninterviews sowie der automatisierten Evaluation mittels der RAGAS-Library \cite{es2025ragas}. Die Kombination unterschiedlicher Evaluationsmethoden folgt dem Prinzip der Methodentriangulation zur Erhöhung der internen Validität und Robustheit der Befunde \cite{Denzin1978ResearchAct,Flick2018QualitativeResearch}. Ziel des Arena-Konzeptes ist nicht die freie Interaktion mit dem Chatbot, sondern die standardisierte Qualitätsbewertung von Antworten unter kontrollierten Bedingungen. Methodisch steht ein Blind-A/B-Setup im Vordergrund: Pro Vergleich sehen Teilnehmende zwei Antworten zur identischen Frage und entscheiden zwischen \textit{A}, \textit{B}, \textit{tie} oder \textit{both\_bad}. Paarweise Präferenzvergleiche gelten als robuste Form der Qualitätsbeurteilung, da relative Urteile kognitiv konsistenter sind als absolute Ratingskalen \cite{Thurstone1927ComparativeJudgment,BradleyTerry1952PairedComparisons}. Dieses Verfahren erzeugt ein aggregierbares Präferenzsignal, das statistisch ausgewertet und zur Modellbewertung herangezogen werden kann.
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.9\textwidth]{bilder/chatbot_arena_nutzerinterface.jpg}
+    \includegraphics[width=0.95\textwidth]{bilder/chatbot_arena_nutzerinterface.jpg}
     \caption{Voting-Interface der Nutzer-Arena mit paarweiser Antwortdarstellung (A/B) und standardisierten Abstimmoptionen.}
     \label{fig:arena-nutzer-ui}
 \end{figure}
 
-Zur experimentellen Kontrolle wurden die 60 Fragen der RAGAS-Evaluation in vier Subsets aufgeteilt. Die Antworten werden für jede User-Session neu generiert, was realistische Testbedingungen geschaffen und die Aussagekraft der Ergebnisse gegenüber einer deterministischen Antwortgenerierung erhöht \cite{Holtzman2020Degeneration}. Die Zuweisung erfolgt balanciert im Round-Robin-Verfahren, um Lastverteilung und Stichprobenrepräsentation gleichmäßig zu gestalten. Gleichzeitig dient die Aufteilung der Reduktion von Ermüdungseffekten, die die Qualität von Bewertungen in Online-Erhebungen beeinträchtigen können \cite{Dillman2014TailoredDesign,Tourangeau2000SurveyResponse}. Pro Person werden etwa 15 Fragen bewertet. Zusätzlich wurde die Position der jeweiligen Chatbot-Antwort (links/rechts) zufällig variiert, um Positions- und Präsentationsbias zu minimieren. Randomisierung gilt als zentrales Prinzip kontrollierter Online-Experimente zur Sicherstellung interner Validität \cite{Kohavi2020TrustworthyExperiments,Joachims2017UnbiasedLTR}.
+Architektonisch besteht das System aus drei Ebenen. Erstens übernimmt ein Nginx-Reverse-Proxy den externen Zugriff (inklusive Transport Layer Security (TLS)-Terminierung) und leitet Anfragen intern an Application Programming Interface (API) und User Interface (UI) weiter. Zweitens bildet die Arena-API (FastAPI, Port 8001) das Backend für Vergleichserzeugung, Voting, Statistik und Session-bezogene Endpunkte. Drittens stellt die Voting-UI (FastAPI, Port 8002) das Web-Frontend bereit, über das Teilnehmende abstimmen und Ergebnisse einsehen. Die Persistenz erfolgt schlank über JavaScript Object Notation Lines (JSONL)-Dateien (append-orientiert), was für Forschungsprototypen eine transparente und leicht auditierbare Datenhaltung ermöglicht.
 
-\paragraph{Hinweis zur Durchführbarkeit}
+Für den quantitativen Massentest wurde ein Korpus vorgegebener Fragen genutzt (RAGAS-Fragenset), dessen Antworten jedoch für jede User-Session neu generiert werden. Durch die Variation der generierten Antworten werden realistische Testbedingungen geschaffen und die Aussagekraft der Ergebnisse gegenüber einer deterministischen Antwortgenerierung erhöht \cite{Holtzman2020Degeneration}. Jedes Comparison-Objekt enthält unter anderem Frage, Antwort A/B, Modellmetadaten, Subset-Zuordnung und Zeitstempel. Ergänzend wird die Stimmabgabe inklusive Session-Referenz protokolliert, sodass Mehrfachvoten nachvollziehbar bleiben und Auswertungen pro Nutzer-Session möglich sind.
+
+Zur experimentellen Kontrolle wurden 60 Fragen in vier Subsets aufgeteilt. Die Zuweisung erfolgt balanciert im Round-Robin-Verfahren, um Lastverteilung und Stichprobenrepräsentation gleichmäßig zu gestalten. Gleichzeitig dient die Aufteilung der Reduktion von Ermüdungseffekten, die die Qualität von Bewertungen in Online-Erhebungen beeinträchtigen können \cite{Dillman2014TailoredDesign,Tourangeau2000SurveyResponse}. Pro Person werden etwa 15 Fragen bewertet. Zusätzlich wurde die Position der jeweiligen Chatbot-Antwort (links/rechts) zufällig variiert, um Positions- und Präsentationsbias zu minimieren. Randomisierung gilt als zentrales Prinzip kontrollierter Online-Experimente zur Sicherstellung interner Validität \cite{Kohavi2020TrustworthyExperiments,Joachims2017UnbiasedLTR}.
+
+Im Betrieb sichern Session-IDs, Cross-Site Request Forgery (CSRF)-Token, Request-Limits und Validierungen die Integrität der Datenerhebung und bieten Schutz vor externen Störungen wie Bot-Angriffen. Über Statistik-Endpunkte werden Kennzahlen wie Anzahl bewerteter Vergleiche, Verteilung der Vote-Klassen und Win-Rates bereitgestellt; das Dashboard erlaubt Filterung nach Subsets sowie Exportfunktionen. Insgesamt verbindet die Arena damit wissenschaftliche Vergleichbarkeit mit produktionsnaher Web-Architektur und eignet sich gut für belastbare, quantitative Modell-Evaluation im Hochschulkontext.
+
+Für den Betrieb der Arena wurde die Anwendung vollständig containerisiert und als Docker-Stack auf einer dedizierten Virtual Machine (VM) ausgerollt.
+
+\paragraph{Hinweis zur Datengrundlage}
 Entgegen der ursprünglichen Planung ist die aktuelle Instanz zum Zeitpunkt dieses Berichts nur aus dem FU-internen Netz erreichbar und noch nicht wie vorgesehen öffentlich über das Internet verfügbar. Die geplante breite Distribution (unter anderem über KI-Campus-Kanäle wie Newsletter und Banner) konnte daher bislang nicht umgesetzt werden. Entsprechend konnte keine wissenschaftlich belastbare Stichprobenzahl an Teilnehmenden generiert werden. Aus diesem Grund wird im Ergebnisteil dieses Projektberichts auf eine Auswertung der Ergebnisse aus der Chatbot-Arena-Evaluation verzichtet. Die Datenerhebung und Auswertung werden nach Herstellung der Public-Reachability der VM nachgeholt; die Ergebnisse werden in einem anschließenden wissenschaftlichen Paper dokumentiert.
 
 \subsubsection{Blindtest: Experten}
 
-Zur vergleichenden Evaluation der beiden RAG-Systeme wurde ein expertenbasierter Blindtest im A/B-Design durchgeführt. Die Experten erhielten vom Interviewer kuratierte Prompts und sahen pro Prompt zwei Antworten (A/B) im identischen Interface, ohne Kenntnis der zugrunde liegenden Systemversion. Das Vorgehen orientiert sich am Arena-Prinzip und reduziert Erwartungs- sowie Confirmation-Bias bei der Beurteilung generativer Systeme.
+Zur vergleichenden Evaluation der beiden RAG-Systeme wurde ein expertenbasierter Blindtest im A/B-Design durchgeführt. Methodisch orientiert sich das Vorgehen am Arena-Prinzip, bei dem zwei Systemantworten auf denselben Prompt parallel präsentiert werden, ohne dass die Bewertenden wissen, welches System welche Antwort erzeugt hat. Dieses Design reduziert Erwartungs- und Confirmation-Bias und ist insbesondere für generative Systeme geeignet, deren Qualität nicht ausschließlich anhand einer eindeutig definierten Ground Truth beurteilt werden kann. Während automatisierte Metriken wie \emph{Faithfulness} oder faktische Korrektheit die kontextuelle Stützung und inhaltliche Konsistenz quantifizieren \cite{Roychowdhury2024RAGAS}, erlaubt ein Blindvergleich die Bewertung wahrgenommener Gesamtqualität im direkten Systemvergleich.
 
 \begin{figure}[htbp]
     \centering
@@ -284,24 +290,15 @@ Zur vergleichenden Evaluation der beiden RAG-Systeme wurde ein expertenbasierter
     \label{fig:arena}
 \end{figure}
 
-Die Untersuchung wurde als moderiertes Einzelinterview durchgeführt (30--60 Minuten pro Person). Insgesamt nahmen 14 Experten teil, darunter Autoren von E-Learning-Inhalten, Lehrkräfte sowie Fachpersonen aus dem KI-Campus-Umfeld, aus der angewandten Forschung (Fraunhofer) und aus dem universitären Kontext (Freie Universität Berlin).
+Die Untersuchung wurde als moderiertes Einzelinterview durchgeführt (30--60 Minuten pro Person). Insgesamt nahmen 14 Experten teil, darunter Autoren von E-Learning-Inhalten, Lehrkräfte sowie Fachpersonen aus dem KI-Campus-Umfeld, aus der angewandten Forschung (Fraunhofer) und aus dem universitären Kontext (Freie Universität Berlin). Diese Zusammensetzung gewährleistet sowohl fachliche als auch didaktische Expertise und erlaubt eine fundierte Beurteilung inhaltlicher Korrektheit, Kontextintegration und Lernförderlichkeit. Die Relevanz solcher mehrdimensionaler Qualitätskriterien im Bildungskontext wird auch in der Literatur zu RAG in Educational Settings hervorgehoben \cite{Li2025RAGEducationSurvey,Swacha2025RAGEducation}. Zudem zeigen Studien zur Nutzung generativer KI im Unterricht, dass didaktische Angemessenheit und die Förderung kritischer Bewertungskompetenz zentrale Qualitätsdimensionen darstellen \cite{Oates2025ChatGPTClassroom}.
 
-Die Durchführung folgte einem standardisierten Ablauf:
-\begin{enumerate}
-    \item Vorstellung des Testsettings und kurze Einweisung in die Bewertungslogik.
-    \item Präsentation eines Use Cases (s. Kapitel \ref{sec:use_cases}) mit vorgegebenen Prompts (Grundlage: Historische Prompts aus der Datenbank des KI-Campus).
-    \item Anzeige der beiden Systemoutputs (A/B) in randomisierter Reihenfolge.
-    \item Bewertung beider Antworten entlang der Kriterien in \autoref{tab:experten_kriterien} auf einer Likert-Skala (1 = trifft nicht zu, 5 = trifft voll zu).
-    \item Verbale Begründung der Bewertung im Think-Aloud-Format; die Aussagen wurden transkribiert und für die qualitative Auswertung aufbereitet.
-\end{enumerate}
-
-Die Bewertungsdimensionen wurden wie folgt operationalisiert:
+Die Evaluation erfolgte mittels standardisiertem Fragebogen (Likert-Skala, 1 = trifft nicht zu, 5 = trifft voll zu) sowie begleitender Think-Aloud-Methode. Die Bewertungsdimensionen wurden wie folgt operationalisiert:
 
 \begin{table}[htbp]
 \centering
 \caption{Bewertungsdimensionen des Experten-Blindtests}
 \label{tab:experten_kriterien}
-\begin{tabular}{>{\raggedright\arraybackslash}p{1.5cm} >{\raggedright\arraybackslash}p{3.5cm} >{\raggedright\arraybackslash}p{7cm}}
+\begin{tabular}{p{1cm} p{3.5cm} p{7cm}}
 \hline
 \textbf{Kürzel} & \textbf{Dimension} & \textbf{Bewertungsstatement} \\
 \hline
@@ -315,7 +312,9 @@ I6 & Lernförderlichkeit / Didaktik & Die Antwort unterstützt das Verständnis 
 \end{tabular}
 \end{table}
 
-Die Kombination aus quantitativer Likert-Bewertung und qualitativem Think-Aloud-Transkript ermöglicht eine differenzierte Analyse der Antwortqualität. Während die Skalenwerte einen systematischen Vergleich der beiden Systeme über alle Kriterien erlauben, machen die Transkripte Entscheidungslogiken, Unsicherheiten und didaktische Bewertungen der Experten nachvollziehbar.
+Die Kombination aus quantitativer Skalenbewertung und qualitativer Think-Aloud-Methode ermöglicht eine differenzierte Analyse. Während die Likert-Skalen systematische Vergleiche der beiden Systeme über mehrere Qualitätsdimensionen hinweg erlauben, liefert die verbale Begleitreflexion Einblick in Entscheidungslogiken, Unsicherheiten und Bewertungsmaßstäbe der Experten. Gerade im Bildungskontext ist diese Kombination bedeutsam, da generative KI-Systeme nicht allein anhand faktischer Richtigkeit bewertet werden, sondern insbesondere hinsichtlich ihrer didaktischen Angemessenheit, Strukturierungsleistung und Unterstützung reflektierter Wissensaneignung \cite{Oates2025ChatGPTClassroom,Neumann2024MoodleBot}.
+
+Der Experten-Blindtest ergänzt somit automatisierte RAG-Metriken um eine fachlich-didaktische Validierungsebene. Während quantitative Scores Aussagen über Kontexttreue und faktische Konsistenz erlauben \cite{Roychowdhury2024RAGAS}, erfasst das Arena-Design die wahrgenommene Gesamtqualität im direkten Vergleich – eine zentrale Voraussetzung für die Bewertung konkurrierender RAG-Systeme im Bildungsbereich.
 
 \subsubsection{Kosten}
 \label{sec:methodik_kosten}
@@ -343,12 +342,12 @@ Ein möglicher Lösungsansatz der Literatur für personalisiertes Lernen ist der
 
 In mehreren Arbeiten wird LangChain bzw. seine Weiterentwicklung LangGraph als gutes Framework für die Implementierung von RAG-Systemen hervorgehoben \cite{HybridUndMultihop1,BenchmarkRAG,ScalaBot6}.
 
-\begin{table}[htbp]
+\begin{table}[h]
 \centering
 \caption{Weiterentwicklungen von RAG-Systemen in der Literatur}
 \label{tab:lit_rag}
 
-\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{0.25\textwidth} *{6}{>{\centering\arraybackslash}X}}
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{0.27\textwidth} *{6}{>{\centering\arraybackslash}X}}
 \toprule
 \textbf{Literatur} & \textbf{Retrieval} & \textbf{Reranker} & \textbf{Logik} & \textbf{RLHF} & \textbf{Kosten} & \textbf{Prototyp} \\
 \midrule
@@ -408,13 +407,13 @@ Diese festgestellten Defizite wurden im nächsten Schritt in konkrete Stakeholde
 \end{figure}
 
 \subsection{Auswahl der Implementierungen}
-Aufgrund der zeitlichen Begrenzung der Projektarbeit konnten nicht alle identifizierten Systemanforderungen auch mittels technischer Implementierungen umgesetzt werden. In diesem Kapitel wird beschrieben, welche Anforderungen technisch umgestzt wurden.
+Aufgrund der zeitlichen Begrenzung der Projektarbeit konnten nicht alle identifizierten Systemanforderungen umgesetzt werden. In diesem Kapitel wird beschrieben, welche Anforderungen technisch umgestzt wurden.
 
-Grundlage jedlicher Implementierungen ist die bestehende Codebasis, welche im GitHub Repository \textit{kic-web-assistant} \cite{kic_version1} nachvollzogen werden kann. Im Folgenden wird der Code und der dazugehörige Chatbot als Version 1 (V1) bezeichnet. Um bestehende Schwächen sowie Ansatzpunkte für das Umsetzen der Systemanforderungen zu identifizieren, wurde der vorliegende Code analysiert. Hierbei fällt direkt auf, dass Version 1 keine standardisierten Frameworks für die Implementierung nutzt. Jegliche Abläufe sind eigenständig codiert, was die Flexibilität erhöht, aber auch die Wartbarkeit und Erweiterbarkeit erschwert. Zudem ist dies unter anderem dafür verantwortlich, dass die aktuelle Persistenz komplett im Frontend der Anwendung liegt. Ein weiterer auffälliger Punkt ist die limitierte Ingestion-Pipeline, die nur einen Bruchteil der vorhandenen textbasierten Daten in Moodle verarbeitet. Des Weiteren sind viele der Systemprompts veraltet und beinhalten keine bildungsspezifischen Anweisungen. Die kritisierte No-Answer Logik ist zudem keine Schwäche des verwendeten LLM, sondern hardcodiert in den Workflow des Chatbots. Für eine multimodale Verarbeitung fehlen ebenfalls jegliche Schnittstellen, sodass Kommunikation auf Text limitiert ist. Schließlich konnten verschiedene kleinere Bugs identifiziert werden, die im Laufe der Implementierungen behoben werden können.
+Grundlage jeglicher Implementierungen ist die originale Codebasis \textit{kic-web-assistant} \cite{kic_version1}. Im Folgenden wird diese Version des RAG-Systems und sein Code als \textit{Version 1} (V1) bezeichnet. Zunächst wurde V1 analysiert, um bestehende Schwächen sowie Ansatzpunkte zum Umsetzen der Systemanforderungen zu identifizieren. Hierbei fiel auf, dass V1 keine standardisierten Frameworks nutzt. Jegliche Abläufe sind eigenständig codiert, was die Flexibilität erhöht, aber auch die Wartbarkeit und Erweiterbarkeit erschwert. Zudem liegt in V1 die Persistenz des Chatverlaufs mit dem Chatbot ausschließlich im Frontend der Anwendung. Ein weiterer auffälliger Punkt ist die limitierte Ingestion-Pipeline, die nur einen Bruchteil der vorhandenen textbasierten Daten in Moodle verarbeitet. Des Weiteren sind viele der Systemprompts in V1 veraltet und beinhalten keine bildungsspezifischen Anweisungen. Die von den Stakeholdern kritisierte No-Answer-Logik ist hardcodiert in den Workflow von V1. Für eine multimodale Verarbeitung fehlen ebenfalls jegliche Schnittstellen, sodass Kommunikation auf Text limitiert ist. Schließlich wurden verschiedene kleinere Bugs identifiziert, die im Laufe der Implementierungen behoben werden können.
 
-Abbildung \ref{fig:auswahl_implementierungen} stellt aus den identifizierten Systemanforderungen ausgewählten Implementierungen dar. Eine Änderung der jeweiligen Modelle (LLM und Embedding) wird außer Acht gelassen, um eine Vergleichbarkeit der zwei Versionen bezüglich der getätigten Implementierungen zuzulassen. Bezüglich der Wissensbasis wird der Ausbau der Vektordatenbank vorangetrieben. In der Codeanalyse wurde die limitierte Vektordatenbank erkannt und soll im Rahmen der Implementierungen erweitert werden. Dafür sollen zum einen deutlich mehr textbasierte Daten eingelesen werden. Zum anderen wird ein multimodaler Support eingebaut, der vorerst nur Audiodateien umfasst. Eine breitere Verarbeitung von Bildern und Videos ist technisch aufwendig und wurde im Rahmen dieses Projekts nicht priorisiert. Dies gilt auch für das Einbinden von Feedback, was für die unmittelbar folgende Implementierung erstmal keinen Mehrwert bietet und daher ebenfalls nicht priorisiert wurde. Für die Vertrauensdimension spielt die Zitation eine zentrale Rolle. Diese wird vor allem in Blick auf die Transparenz verbessert, während eine Umstellung der Logik die Rollen des Chatbots klarer kommuniziert. In Bezug auf die Konversationsqualität soll vor allem die Umstellung der Logik die Anforderungen erfüllen, wobei auch das Anpassen der Systemprompts eine wichtige, wenn auch untergeordnete Rolle spielt. Im Bezug auf die technische Performance soll die Antwortgeschwindigkeit durch die Implementierung von Streaming verbessert werden. Streaming bedeutet, dass die Antwort bereits während der Generierung an den Nutzer zurückgegeben wird, anstatt erst nach vollständiger Generierung. Dies kann die wahrgenommene Antwortlatenz erheblich reduzieren. Die Persistenz im Backend soll durch die Umstellung der Logik sichergestellt werden. Der mehrsprachige Support, obwohl für eine europäische Organisation wie den KI-Campus sehr wichtig, wurde in Absprache mit diesem erstmal nicht priorisiert, unter anderem auch weil die meisten Nutzer der Plattform Deutsch sprechen. Schließlich wurden Änderungen am User Interface weggelassen, weil das Frontend durch einen weiteren Serviceanbieter (LOOM GmbH) verwaltet wird, die nicht Teil des Projekts sind.
+\autoref{fig:auswahl_implementierungen} stellt aus den identifizierten Systemanforderungen (vgl. \autoref{fig:systemanforderungen}) abgeleitete Implementierungen dar. Eine Änderung der jeweiligen Modelle (LLM und Embedding) wird abgelehnt, um eine Vergleichbarkeit beider Versionen bezüglich der getätigten Implementierungen zuzulassen. In der Codeanalyse wurde die limitierte Wissensbasis in der Vektordatenbank erkannt und soll im Rahmen der Implementierungen erweitert werden. Dafür sollen deutlich mehr textbasierte Daten eingelesen sowie ein multimodaler Support eingebaut werden, der vorerst nur Audiodateien umfasst. Eine breitere Verarbeitung von Bildern und Videos ist technisch aufwändig und wurde im Rahmen dieses Projekts nicht priorisiert. Dies gilt auch für das Einbinden von Anwenderfeedback, da es für die unmittelbar folgende Implementierung keinen Mehrwert bietet. Für die Vertrauensdimension wird die Zitation mit Blick auf die Transparenz verbessert, während eine Umstellung der Logik für eine klarere Kommunikation der Rollen des Chatbots sorgt. Hinsichtlich Konversationsqualität soll vor allem die Umstellung der Logik die Anforderungen erfüllen, wobei auch das Anpassen der Systemprompts eine wichtige, wenn auch untergeordnete Rolle spielt. Im sinne besserer technischer Leistungsfähigkeit soll die Antwortgeschwindigkeit durch die Implementierung von Streaming verbessert werden. Streaming bedeutet, dass die Antwort während ihrer Generierung tokenweise an den Nutzer zurückgegeben wird, anstatt erst nach vollständiger Generierung. Dies kann die wahrgenommene Antwortlatenz erheblich reduzieren. Die Persistenz im Backend soll durch die Umstellung der Logik sichergestellt werden. Trotz hoher Wichtigkeit für eine europäische Organisation wie den KI-Campus wurde der mehrsprachige Support in Absprache mit dem KI-Campus wegen der Deutschprachigkeit der meisten Chatbotnutzer als niedrig priorisiert. Schließlich wurden Änderungen am User Interface weggelassen, weil das Frontend durch einen externen Serviceanbieter (LOOM GmbH) verwaltet wird, welcher am Projekt unbeteiligt ist.
 
-Der Stand der Implementierungen zu Projektabschluss kann im GitHub Repository \textit{FU\_Chatbot} \cite{kic_version2} nachvollzogen werden, welches die Version 2 (V2) des Chatbots beinhaltet.
+Der Stand der Implementierungen zu Projektabschluss (\textit{FU\_Chatbot} \cite{kic_version2}) wird im Folgenden als \textit{Version 2} (V2) bezeichnet.
 
 \begin{figure}[htbp]
     \centering
@@ -427,6 +426,8 @@ Der Stand der Implementierungen zu Projektabschluss kann im GitHub Repository \t
 \label{sec:technische_umsetzung}
 
 \subsubsection{Erweiterung der Ingestion-Pipeline}
+% Evtl. Abbildung aus der Präsi nutzen?
+%--> Fließtext schon besser, oder? Abbildung sagt ja nur genau dasselbe aus nur weniger verständlich 
 Die Ingestion-Pipeline stellt einen kritischen Bestandteil jedes RAG-Systems dar, da sie die Qualität und Vollständigkeit des indexierten Wissensbestands direkt beeinflusst. Im Rahmen der Optimierung des KI-CampusRAG-Chatbots wurde die bestehende Pipeline aus Version V1 grundlegend überarbeitet, um eine umfassendere Abdeckung der Plattforminhalte zu erreichen und die Retrieval-Präzision zu steigern. Die Erweiterungen umfassten sowohl die Erweiterung der Quellenvielfalt als auch die Verbesserung der technischen Robustheit.
 
 In V1 beschränkte sich die Drupal-Ingestion auf grundlegende Inhaltsarten: Kurslandingpages, normale Seiten, Blogposts und die „About us“-Seite. Für V2 wurde die Pipeline umfassend erweitert, indem zusätzlich alle per Drupal-API verfügbaren Metainformationen extrahiert wurden. Dazu zählen Sprache, Schwierigkeitsgrad, Autoren, Institutionen der Autoren, Zielgruppen sowie weitere kontextrelevante Attribute für jede Seite. Diese Metadaten werden nicht nur als separate Felder gespeichert, sondern auch in die semantische Repräsentation der Chunks integriert, was die kontextuelle Relevanz bei nutzerspezifischen Abfragen (z. B. „Kurse für Anfänger auf Deutsch“) erheblich verbessern sollte. Die API-basierte Zugriffsmethode gewährleistet eine vollständige und konsistente Erfassung, unabhängig von der Seitenstruktur.
