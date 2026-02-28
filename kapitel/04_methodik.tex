@@ -2,11 +2,10 @@
 \label{sec:daten_methodik}
 \section{Identifizierung von Use Cases}
 
-Die Optimierung des RAG-Chatbot-Systems basierte auf einer systematischen Analyse realer Nutzungsdaten aus dem Produktivbetrieb des KI-Campus. Hierzu wurden rund 13.000 Prompts aus dem Monitoring-Tool \textit{Langfuse} hiert und automatisiert vorverarbeitet. Ziel war es, dominante Nutzungsmuster datenbasiert zu identifizieren und daraus evaluierbare Use Cases abzuleiten. Die Datenaufbereitung und Analyse erfolgte mehrstufig und ist in Abbildung~\ref{fig:prozessfluss} schematisch dargestellt. Auf der linken Seite erscheint der jeweilige Prozesschritt, auf der rechten Seite die jeweils verbleibende Datenmenge.
+Die Datengrundlage für die Evaluation und Optimierung des Chatbots basierte auf einer systematischen Analyse realer Nutzungsdaten aus dem Produktivbetrieb des KI-Campus. Hierzu wurden alle verfügbaren Prompts aus dem Monitoring-Tool \textit{Langfuse} verarbeitet. Ziel war es, dominante Nutzungsmuster datenbasiert zu identifizieren und daraus evaluierbare Use Cases abzuleiten. Die Datenaufbereitung und Analyse erfolgte mehrstufig und ist in \autoref{fig:prozessfluss} schematisch dargestellt. Auf der linken Seite erscheint der jeweilige Prozesschritt, auf der rechten Seite die jeweils verbleibende Datenmenge.
 
 \begin{figure}[htbp]
 \centering
-
 \begin{tikzpicture}[
 box/.style={
 draw,
@@ -67,26 +66,28 @@ dichtebasiertes Clustering};
 {69 Cluster + Outlier};
 
 \node[nlabel, right=2cm of manual]
-{3 Use Case Kategorien};
+{7 Überkategorien};
 
 \end{tikzpicture}
-
 \caption{Prozess der datengetriebenen Use-Case-Identifikation}
 \label{fig:prozessfluss}
-
 \end{figure}
+\noindent
+Im Rahmen der Vorfilterung der 13.000 erhaltenen Prompts wurden irrelevante oder störende Eingaben entfernt, darunter reine Höflichkeitsfloskeln („Hallo“, „Danke“), Testanfragen („Was kannst du?“), potenziell missbräuchliche Inhalte sowie leere oder sehr kurze Prompts. Zudem wurden Duplikate entfernt, wonach 11.778 inhaltlich relevante Anfragen verbleiben. Diese wurden mithilfe eines multilingualen Embedding-Modells in einen semantischen Vektorraum projiziert und anschließend mittels dimensionsreduzierter, dichtebasierter Clusterverfahren gruppiert. Das Verfahren identifizierte 69 thematisch kohärente Cluster mit mindestens 30 Prompts sowie eine Menge an Ausreißern. Die Cluster wurden anschließend manuell zu übergeordneten Nutzungskategorien aggregiert. Die Ergebnisse dieser manuellen Aggregation sind in \autoref{fig:ergebnis_cluster} dargestellt.
 
-Im Rahmen der Vorfilterung wurden irrelevante oder störende Eingaben entfernt, darunter reine Höflichkeitsfloskeln („Hallo“, „Danke“), Testanfragen („Was kannst du?“), potenziell missbräuchliche Inhalte sowie leere oder sehr kurze Prompts. Nach Eliminierung von Duplikaten verblieben 11.778 inhaltlich relevante Anfragen.
-
-Diese wurden mithilfe eines multilingualen Embedding-Modells in einen semantischen Vektorraum projiziert und anschließend mittels dimensionsreduzierter, dichtebasierter Clusterverfahren gruppiert. Das Verfahren identifizierte 69 thematisch kohärente Cluster mit mindestens 30 Prompts sowie eine Menge an Ausreißern. Die Cluster wurden anschließend manuell zu übergeordneten Nutzungskategorien aggregiert.
-
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{clustering_result.png}
+    \caption{Ergebnis der Clustering-Analyse}
+    \label{fig:ergebnis_cluster}
+\end{figure}
+\noindent
 Die Verteilung zeigte drei dominante Interaktionsbereiche:
 \begin{itemize}
     \item Technischer Support (40\,\%)
     \item Wissen allgemein \& kursbezogen (31\,\%)
     \item Kursmodalitäten (20\,\%)
 \end{itemize}
-
 Die empirische Struktur der Anfragen bildet die Grundlage für die Definition der evaluativen Use Cases. Ziel war es, reale Nutzungsmuster systematisch zu abstrahieren und in klar unterscheidbare Testszenarien zu überführen.
 
 \paragraph{Use Case 1: Technischer Support}
