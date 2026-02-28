@@ -465,7 +465,7 @@ Neben der Erweiterung der Ingestion-Pipeline und der Umstellung der Logik wurden
 
 Dies ist zum einen die \textbf{Anpassung der Systemprompts}: Diese orientierte sich an einem standardisierten Prompt-Engineering-Framework, das zentrale, in der Hochschulforschung etablierte Strukturprinzipien integriert \cite{Lee2025PromptEngineering}. Ziel war es, keine isolierten Einzelprompts zu formulieren, sondern ein konsistentes, modular anpassbares Prompt-Design zu implementieren.
 
-Das zugrunde liegende Framework umfasste fünf im Wesentlichen fünf Kernkomponenten:
+Das zugrunde liegende Framework umfasste fünf Kernkomponenten:
 
 \begin{enumerate}
     \item \textbf{Rollenfestlegung (Role Assignment):} 
@@ -481,11 +481,11 @@ Das zugrunde liegende Framework umfasste fünf im Wesentlichen fünf Kernkompone
     Formatvorgaben (z.\,B. strukturierte Abschnitte, schrittweise Argumentation oder gezielte Rückfragen statt direkter Lösungen im sokratischen Modus) dienten der Konsistenz und Vergleichbarkeit der Systemantworten.
     
     \item \textbf{Iterative Steuerung (Feedback \& Iteration):} 
-    Insbesondere im Lernmodus wurden mehrstufige Prompt-Sequenzen implementiert, die adaptiv auf den Interaktionsstand reagieren. Dieses Prinzip folgt der in der Literatur hervorgehobenen Bedeutung iterativer Promptanpassung und dialogischer Feinsteuerung \cite{Lee2025PromptEngineering}.
+    Insbesondere im Lernmodus wurden mehrstufige Prompt-Sequenzen implementiert, die adaptiv auf den Interaktionsstand reagieren.
 \end{enumerate}
 
-Durch diese standardisierte Struktur konnten sowohl funktionale Betriebsmodi als auch didaktisch orientierte Interaktionsformen innerhalb eines konsistenten Designrahmens realisiert werden. Unterschiede zwischen einzelnen Promptvarianten ergeben sich somit nicht aus ad-hoc-Formulierungen, sondern aus systematisch variierten Parametern innerhalb desselben Frameworks.
+Durch diese standardisierte Struktur wurden sowohl funktionale Betriebsmodi als auch didaktisch orientierte Interaktionsformen realisiert. Unterschiede zwischen einzelnen Promptvarianten ergeben sich somit nicht aus ad-hoc-Formulierungen, sondern aus systematisch variierten Parametern innerhalb desselben Frameworks.
 
-Zum anderen gibt es ein \textbf{Anpassen der Zitation} mit dem Hauptziel die verwendeten Quellen transparenter darzustellen. Anstatt in der Antwort einfach nur eine Zahl stehen zu haben (\textit{[1]}) wird der Titel es jeweiligen Moodle-Moduls angezeigt (\textit{[Titel der Quelle]}). Besonders durch den starken Anstieg der eingelesenen Module und damit verbunden deutlich mehr möglichen Quellen ermöglicht dies bereits in der Antwort abschätzen zu können, ob eine Quelle sinnvoll ist und nicht erst dem verfügbaren Link folgen zu müssen. Der implementierte Reranker sorgt zudem dafür, dass die Qualität der zurückgegebenen Quellen verbessert wird, was die Zitation zusätzlich verbessert.
+Zum anderen gibt es ein \textbf{Anpassen der Zitation} mit dem Hauptziel, die verwendeten Quellen transparenter darzustellen. Anstatt in der Antwort nur eine Zahl stehen zu haben (\textit{[1]}) wird der Titel es jeweiligen Moodle-Moduls angezeigt (\textit{[Titel der Quelle]}). Besonders durch den starken Zuwachs der eingelesenen Module als mögliche Quellen ermöglicht dies, bereits in der Antwort abschätzen zu können, ob eine Quelle sinnvoll ist, ohne dem verfügbaren Link folgen zu müssen.
 
-Abschließend wurde die \textbf{Implementierung von Streaming} durchgeführt. Hierfür wird jeder Token direkt bei der Generierung an das Frontend zurückgegeben und damit direkt für den Nutzer sichtbar gemacht. Nach Abschluss der Antwortgenerierung greift das Postprocessing trotzdem und erstellt wie gehabt die verwendeten Quellen, um diese am Ende der Antwort anzuzeigen.
+Abschließend wurde die \textbf{Implementierung von Streaming} durchgeführt. Hierfür wird jeder generierte Token an das Frontend zurückgegeben und dort für den Nutzer dargestellt. Nach Abschluss der Antwortgenerierung wird trotzdem das Postprocessing durchgeführt und erstellt wie gehabt die verwendeten Quellen, um diese am Ende der Antwort anzuzeigen.
