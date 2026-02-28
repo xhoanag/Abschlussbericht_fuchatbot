@@ -7,11 +7,9 @@ Zum Start der Ausführungen werden die zentralen Komponenten des KI-Campus-Chatb
 
 Zentraler Bestandteil des Systems ist eine externe Wissensbasis, die Inhalte aus dem Lernmanagementsystem (Moodle) sowie der Landingpage (Drupal) des KI-Campus integriert. Eine Ingestion-Pipeline extrahiert die Daten, transformiert diese in Vektoren und speichert sie in einer Vektordatenbank (Qdrant). Die Inhalte umfassen Kursbeschreibungen, Lernmaterialien, Informationsseiten und weitere textbasierte Ressourcen. Die Repräsentation als Vektor erlaubt es mittels Ähnlichkeitsmaßen relevante Informationen für Nutzeranfragen zu identifizieren.
 
-Die zweite zentrale Komponente ist die Logik des Chatbots, die auf Retrieval-Augmented Generation basiert. Das Retrieval-System holt relevante Informationen aus der Wissensbasis (1), während die Generierungskomponente, die ein klassisches Large Language Model nutzt (2), die Nutzeranfrage gemeinsam mit den abgerufenen Kontextinformationen verarbeitet. Durch diese Kombination wird sichergestellt, dass Antworten nicht ausschließlich auf dem Trainingswissen des Modells beruhen, sondern auf der spezifischen Wissensbasis des KI-Campus aufbauen. Die Nutzenden erhalten die Antwort dann im Frontend.
-
-Die Systemarchitektur ist somit durch drei zentrale Komponenten geprägt:
+Die zweite zentrale Komponente ist die Logik des Chatbots, die auf Retrieval-Augmented Generation basiert. Das Retrieval-System holt relevante Informationen aus der Wissensbasis (1), während die Generierungskomponente, die ein klassisches Large Language Model nutzt (2), die Nutzeranfrage gemeinsam mit den abgerufenen Kontextinformationen verarbeitet. Durch diese Kombination wird sichergestellt, dass Antworten nicht ausschließlich auf dem Trainingswissen des Modells beruhen, sondern auf der spezifischen Wissensbasis des KI-Campus aufbauen. Die generierte Antwort wird im Frontend ausgegeben. Die Systemarchitektur ist somit durch drei zentrale Komponenten geprägt:
 \begin{itemize}
-    \item eine strukturierte Wissensbasis,
+    \item eine vektorbasierte Wissensbasis,
     \item ein Retrieval-System und
     \item eine generative Sprachmodellkomponente.
 \end{itemize}
@@ -32,13 +30,13 @@ Die erste Komponente ist ein Contextualizer, der eine eingehende Nutzeranfrage r
 
 Hierauf folgt das Retrieval-System. Der KI-Campus-Chatbot nutzt ein semantisches Retrieval, dass auf Basis der semantischen Ähnlichkeit zwischen der Nutzeranfrage und den in der Wissensbasis gespeicherten Dokumenten relevante Informationen identifiziert. Hierbei werden die fünf relevantesten Dokumentausschnitte abgerufen.
 
-Diese dienen dann als Kontext für die Generierungskomponente, die ein klassisches LLM nutzt. Kontext, Chathistorie und Systemanweisungen in Form eines Systemprompts erlauben dann die Formulierung einer grundierte Antwort. Das System ist so konzipiert, dass es bei unzureichendem Kontext auf vordefinierte Antwortstrategien zurückgreift, um die Verbreitung von Fehlinformationen zu vermeiden.
+Diese dienen dann als Kontext für die Generierungskomponente, die ein klassisches LLM nutzt. Kontext, Chathistorie und Systemanweisungen in Form eines Systemprompts erlauben die Formulierung einer grundierten Antwort. Das System ist so konzipiert, dass es bei unzureichendem Kontext auf vordefinierte Antwortstrategien zurückgreift, um die Verbreitung von Fehlinformationen zu vermeiden.
 
-Die letzte Komponente ist das Postprocessing, bei dem die generierte Antwort um die verwendeten Quellen angereichert wird, um eine hohe Transparenz und Nachvollziehbarkeit der Informationen zu gewährleisten. Diese Antwort wird schließlich im Frontend der Lernplattform ausgegeben.
+Die letzte Komponente ist das Postprocessing, bei dem die generierte Antwort um die verwendeten Quellen angereichert wird, um eine hohe Transparenz und Nachvollziehbarkeit der Informationen zu gewährleisten. Die beiden Dokumente mit der höchsten semantischen Ähnlichkeit werden als Quelle angegeben.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.9\textwidth]{workflow_kic_org.png}
-    \caption{Konzeptioneller Workflow des KI-Campus-Chatbots.}
+    \caption{Konzeptioneller Workflow des KI-Campus-Chatbots}
     \label{fig:kic-workflow}
 \end{figure}

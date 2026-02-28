@@ -1,9 +1,7 @@
 \chapter{Projektdesign}
 \label{sec:projektdesign}
 
-Das Projekt folgte einem strukturierten, iterativen Vorgehen, das Analyse, Entwicklung, Evaluation und Dokumentation miteinander verband. Um flexibel auf neue Erkenntnisse reagieren und kontinuierliche Verbesserungen ermöglichen zu können, wurde das Projekt entlang agiler Projektmanagementprinzipien organisiert.
-
-Die Projektstruktur gliederte sich in fünf aufeinander aufbauende Phasen:
+Das Projekt folgte einem strukturierten, iterativen Vorgehen, das Analyse, Entwicklung, Evaluation und Dokumentation miteinander verband. Um flexibel auf neue Erkenntnisse reagieren und kontinuierliche Verbesserungen ermöglichen zu können, wurde das Projekt entlang agiler Projektmanagementprinzipien organisiert. Die Projektstruktur gliederte sich in fünf aufeinander aufbauende Phasen:
 \begin{enumerate}
     \item Onboarding
     \item Ideation \& Scoping
@@ -11,17 +9,17 @@ Die Projektstruktur gliederte sich in fünf aufeinander aufbauende Phasen:
     \item Evaluation
     \item Research Documentation
 \end{enumerate}
-In der Onboarding-Phase erfolgten die Einarbeitung in die bestehende Systemarchitektur sowie eine erste Markt- und Literaturanalyse; außerdem wurde die Forschungsfrage konkretisiert.
+In der Onboarding-Phase erfolgten die Einarbeitung in die bestehende Systemarchitektur, das Identifizieren von Projektzielen sowie das Konkretisieren der Forschungsfrage. Zudem legten eine Marktanalyse und zwei Literaturrecherchen die wissensschaftliche Fundierung der Arbeit.
 
-Die Phase Ideation \& Scoping diente der systematischen Identifikation von Verbesserungspotenzialen. Hierzu wurden reale Chatinteraktionen analysiert und typische Nutzungsszenarien herausgearbeitet. Auf Basis dieser Erkenntnisse wurden repräsentative Use Cases definiert, die als Grundlage für die Weiterentwicklung und Evaluation dienten.
+Die Phase Ideation \& Scoping diente der systematischen Identifikation von Verbesserungspotenzialen. Hierzu wurden reale Chatinteraktionen analysiert und typische Nutzungsszenarien herausgearbeitet. Auf Basis dieser Erkenntnisse wurden repräsentative Use Cases definiert, die als Grundlage für die Weiterentwicklung und Evaluation dienten. In dieser Phase wurden kreative Kollaborationstechniken wie Brainstorming und Gruppendiskussionen eingesetzt.
 
-In der Development-Phase erfolgten strukturelle und funktionale Anpassungen des Systems, darunter Erweiterungen der Datenpipeline, Optimierungen der Retrieval- und Generierungslogik sowie Anpassungen der Systemprompts. Die Weiterentwicklung erfolgte iterativ in Subaufgaben (Arbeitspaketen).
+In der Development-Phase erfolgten strukturelle und funktionale Anpassungen des Systems, darunter Erweiterungen der Ingestion-Pipeline, Weiterentwicklung der Logik des Chatbots sowie weitere kleinere Anpassungen. Die Weiterentwicklung erfolgte iterativ in Subaufgaben (Arbeitspaketen) und wurde mittels der Plattform GitHub koordiniert.
 
-Die Evaluation-Phase umfasste die systematische Bewertung der ursprünglichen und weiterentwickelten Systemversion. Abschließend wurden die Ergebnisse im Rahmen der Research Documentation konsolidiert und in Form des Projektberichts, eines Posters sowie einer Abschlusspräsentation aufbereitet.
+Die Evaluation-Phase umfasste die systematische Bewertung der ursprünglichen und weiterentwickelten Systemversion. Hierfür wurde das erarbeite Evaluationskonzept umgesetzt. Abschließend wurden die Ergebnisse im Rahmen der Research Documentation konsolidiert und in Form des Projektberichts, eines Posters sowie einer Abschlusspräsentation aufbereitet.
 
-Die operative Umsetzung der Entwicklungs- und Evaluationsschritte erfolgte auf Basis eines Kanban-Boards (siehe \autoref{anhang:b}), auf dem Arbeitspakete strukturiert und priorisiert wurden. Regelmäßige zweiwöchentliche Meetings dienten als Sprint Reviews, in denen Zwischenergebnisse präsentiert, technische Entscheidungen reflektiert und neue Aufgaben priorisiert wurden. Dieses Vorgehen ermöglichte eine adaptive Projektsteuerung in Reaktion auf Erkenntnisse aus Analyse- und Evaluationszyklen. Durch diese iterative Arbeitsweise konnten Entwicklungs- und Evaluationszyklen mehrfach durchlaufen und schrittweise optimiert werden.
+Die operative Umsetzung der Entwicklungs- und Evaluationsschritte erfolgte auf Basis eines Kanban-Boards (siehe \autoref{anhang:b}), auf dem Arbeitspakete strukturiert und priorisiert wurden. Ein umfassendes und strukturiertes Miro-Board diente als zentrale Plattform für die Dokumentation und Visualisierung von Wissen und Projektfortschritten. Regelmäßige zweiwöchentliche Meetings fungierten als Sprint Reviews, in denen Zwischenergebnisse präsentiert, technische Entscheidungen reflektiert und neue Aufgaben priorisiert wurden. Dieses Vorgehen ermöglichte eine adaptive Projektsteuerung in Reaktion auf Erkenntnisse aus Analyse- und Evaluationszyklen. Durch diese iterative Arbeitsweise konnten Entwicklungs- und Evaluationszyklen mehrfach durchlaufen und schrittweise optimiert werden.
 
-Die Projektrollen waren klar verteilt: Max Landefeld (Projektleitung) verantwortete Planung, Koordination sowie das Prompt-Engineering und die Konzeption der Blindtests mit den Experten. Xhoana Garipi (Dokumentation) implementierte RAGAS, dokumentierte Ergebnisse und unterstützte Code- und Pipeline-Anpassungen. Maximilian Wilk (Research Lead) übernahm Recherche, Benchmarking und die technische Weiterentwicklung der Pipeline- und ETL-Logik. Zitho Cifire (Kommunikation) koordinierte externe Abstimmungen und entwickelte die Chatbot-Arena für das Blindtesting mit Nutzern. Veit Weber (Qualitätssicherung) verantwortete Code Reviews, Bug-Fixing sowie Optimierungen der ETL-Pipeline.
+Die Projektrollen waren klar verteilt: Max Landefeld (Projektleitung) verantwortete Planung, Koordination sowie das Prompt-Engineering und die Konzeption der Blindtests mit den Experten. Xhoana Garipi (Dokumentation) implementierte RAGAS, dokumentierte Ergebnisse und unterstützte Code- und Pipeline-Anpassungen. Maximilian Wilk (Research Lead) übernahm Recherche und die technische Weiterentwicklung der Logik des Chatbots. Zitho Cifire (Kommunikation) koordinierte externe Abstimmungen und entwickelte die Chatbot-Arena für das Blindtesting mit Nutzern. Veit Weber (Qualitätssicherung) verantwortete Code Reviews, Bug-Fixing sowie Optimierungen der Ingestion-Pipeline.
 
 Inhaltlich orientierte sich das Projekt an zwei übergeordneten Zielsetzungen: Erstens der Entwicklung einer wissenschaftlich fundierten Methode zur strukturierten Bewertung von Qualitätsunterschieden in RAG-basierten Systemen. Zweitens der Ableitung und Implementierung konkret messbarer Qualitätsverbesserungen auf Basis dieser Methodik.
 
