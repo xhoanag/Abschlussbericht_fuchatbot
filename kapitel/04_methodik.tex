@@ -140,11 +140,11 @@ Im Bildungskontext erweitert sich die Evaluationsperspektive um pädagogische Zi
 
 Neben Qualitäts- und Akzeptanzdimensionen gewinnt zunehmend auch Nachhaltigkeitsaspekte an Relevanz. Neben den offensichtlichen wissenschaftlichen Metriken, wie der Skalierbarkeit, Antwortgeschwindigkeit und dem Tokenverbrauch \cite{Neumann2024MoodleBot, Li2025RAGEducationSurvey}, wird auch das Einbeziehen okölogischer und sozialer Faktoren gefordert \cite{DanielBuch}.
 
-\begin{table}[H]
+\begin{table}[p]
 \centering
 \caption{Beiträge zur Evaluation von RAG-Systemen in der Literatur}
 \label{tab:rag_eval_literatur}
-\begin{tabular}{p{10.5cm} p{4cm}}
+\begin{tabular}{>{\raggedright\arraybackslash}p{10.5cm} >{\raggedright\arraybackslash}p{4cm}}
 \hline
 \textbf{Thema und Schwerpunkt} & \textbf{Quelle} \\
 \hline
@@ -257,26 +257,20 @@ Der projektspezifische Ablauf der automatisierten RAGAS-Evaluation ist in \autor
 \end{figure}
 
 \subsubsection{Blindtest: Nutzer - Chatbot Arena}
-Die Chatbot-Arena wurde als kontrollierte Evaluationsplattform für paarweise Modellvergleiche konzipiert. Methodisch orientiert sich das Design am Prinzip der LMSYS Chatbot Arena \cite{Zheng2023LMSYSArena} und dient der Triangulation der Ergebnisse aus qualitativen Experteninterviews sowie der automatisierten Evaluation mittels der RAGAS-Library \cite{es2025ragas}. Die Kombination unterschiedlicher Evaluationsmethoden folgt dem Prinzip der Methodentriangulation zur Erhöhung der internen Validität und Robustheit der Befunde \cite{Denzin1978ResearchAct,Flick2018QualitativeResearch}. Ziel des Arena-Konzeptes ist nicht die freie Interaktion mit dem Chatbot, sondern die standardisierte Qualitätsbewertung von Antworten unter kontrollierten Bedingungen. Methodisch steht ein Blind-A/B-Setup im Vordergrund: Pro Vergleich sehen Teilnehmende zwei Antworten zur identischen Frage und entscheiden zwischen \textit{A}, \textit{B}, \textit{tie} oder \textit{both\_bad}. Paarweise Präferenzvergleiche gelten als robuste Form der Qualitätsbeurteilung, da relative Urteile kognitiv konsistenter sind als absolute Ratingskalen \cite{Thurstone1927ComparativeJudgment,BradleyTerry1952PairedComparisons}. Dieses Verfahren erzeugt ein aggregierbares Präferenzsignal, das statistisch ausgewertet und zur Modellbewertung herangezogen werden kann.
+Die Chatbot-Arena wurde als kontrollierte Evaluationsplattform für paarweise Modellvergleiche konzipiert. Methodisch orientiert sich das Design am Prinzip der LMSYS Chatbot Arena \cite{Zheng2023LMSYSArena}. Ziel des Arena-Konzeptes ist nicht die freie Interaktion mit dem Chatbot, sondern die standardisierte Qualitätsbewertung von Antworten unter kontrollierten Bedingungen. Methodisch steht ein Blind-A/B-Setup im Vordergrund: Pro Vergleich sehen Teilnehmende zwei Antworten zur identischen Frage und entscheiden zwischen \textit{A}, \textit{B}, \textit{tie} oder \textit{both\_bad}. Paarweise Präferenzvergleiche gelten als robuste Form der Qualitätsbeurteilung, da relative Urteile kognitiv konsistenter sind als absolute Ratingskalen \cite{Thurstone1927ComparativeJudgment,BradleyTerry1952PairedComparisons}. Dieses Verfahren erzeugt ein aggregierbares Präferenzsignal, das statistisch ausgewertet und zur Modellbewertung herangezogen werden kann.
+
+Architektonisch besteht das System aus drei Ebenen. Erstens übernimmt ein Nginx-Reverse-Proxy den externen Zugriff und leitet Anfragen intern an Application Programming Interface (API) und User Interface (UI) weiter, welches in \autoref{fig:arena-nutzer-ui} dargestellt wird. Zweitens bildet die Arena-API das Backend für Vergleichserzeugung, Voting, Statistik und Session-bezogene Endpunkte. Drittens stellt die Voting-UI das Web-Frontend bereit, über das Teilnehmende abstimmen und Ergebnisse einsehen. Die Persistenz erfolgt schlank über JavaScript Object Notation Lines (JSONL)-Dateien, was für Forschungsprototypen eine transparente und leicht auditierbare Datenhaltung ermöglicht. Für den Betrieb der Arena wurde die Anwendung vollständig containerisiert und als Docker-Stack auf einer dedizierten Virtual Machine (VM) ausgerollt.
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.95\textwidth]{bilder/chatbot_arena_nutzerinterface.jpg}
+    \includegraphics[width=0.9\textwidth]{bilder/chatbot_arena_nutzerinterface.jpg}
     \caption{Voting-Interface der Nutzer-Arena mit paarweiser Antwortdarstellung (A/B) und standardisierten Abstimmoptionen.}
     \label{fig:arena-nutzer-ui}
 \end{figure}
 
-Architektonisch besteht das System aus drei Ebenen. Erstens übernimmt ein Nginx-Reverse-Proxy den externen Zugriff (inklusive Transport Layer Security (TLS)-Terminierung) und leitet Anfragen intern an Application Programming Interface (API) und User Interface (UI) weiter. Zweitens bildet die Arena-API (FastAPI, Port 8001) das Backend für Vergleichserzeugung, Voting, Statistik und Session-bezogene Endpunkte. Drittens stellt die Voting-UI (FastAPI, Port 8002) das Web-Frontend bereit, über das Teilnehmende abstimmen und Ergebnisse einsehen. Die Persistenz erfolgt schlank über JavaScript Object Notation Lines (JSONL)-Dateien (append-orientiert), was für Forschungsprototypen eine transparente und leicht auditierbare Datenhaltung ermöglicht.
+Zur experimentellen Kontrolle wurden die 60 Fragen der RAGAS-Evaluation in vier Subsets aufgeteilt. Die Antworten werden für jede User-Session neu generiert, was realistische Testbedingungen geschaffen und die Aussagekraft der Ergebnisse gegenüber einer deterministischen Antwortgenerierung erhöht \cite{Holtzman2020Degeneration}. Die Zuweisung erfolgt balanciert im Round-Robin-Verfahren, um Lastverteilung und Stichprobenrepräsentation gleichmäßig zu gestalten. Gleichzeitig dient die Aufteilung der Reduktion von Ermüdungseffekten, die die Qualität von Bewertungen in Online-Erhebungen beeinträchtigen können \cite{Dillman2014TailoredDesign,Tourangeau2000SurveyResponse}. Pro Person werden etwa 15 Fragen bewertet. Zusätzlich wurde die Position der jeweiligen Chatbot-Antwort (links/rechts) zufällig variiert, um Positions- und Präsentationsbias zu minimieren. Randomisierung gilt als zentrales Prinzip kontrollierter Online-Experimente zur Sicherstellung interner Validität \cite{Kohavi2020TrustworthyExperiments,Joachims2017UnbiasedLTR}.
 
-Für den quantitativen Massentest wurde ein Korpus vorgegebener Fragen genutzt (RAGAS-Fragenset), dessen Antworten jedoch für jede User-Session neu generiert werden. Durch die Variation der generierten Antworten werden realistische Testbedingungen geschaffen und die Aussagekraft der Ergebnisse gegenüber einer deterministischen Antwortgenerierung erhöht \cite{Holtzman2020Degeneration}. Jedes Comparison-Objekt enthält unter anderem Frage, Antwort A/B, Modellmetadaten, Subset-Zuordnung und Zeitstempel. Ergänzend wird die Stimmabgabe inklusive Session-Referenz protokolliert, sodass Mehrfachvoten nachvollziehbar bleiben und Auswertungen pro Nutzer-Session möglich sind.
-
-Zur experimentellen Kontrolle wurden 60 Fragen in vier Subsets aufgeteilt. Die Zuweisung erfolgt balanciert im Round-Robin-Verfahren, um Lastverteilung und Stichprobenrepräsentation gleichmäßig zu gestalten. Gleichzeitig dient die Aufteilung der Reduktion von Ermüdungseffekten, die die Qualität von Bewertungen in Online-Erhebungen beeinträchtigen können \cite{Dillman2014TailoredDesign,Tourangeau2000SurveyResponse}. Pro Person werden etwa 15 Fragen bewertet. Zusätzlich wurde die Position der jeweiligen Chatbot-Antwort (links/rechts) zufällig variiert, um Positions- und Präsentationsbias zu minimieren. Randomisierung gilt als zentrales Prinzip kontrollierter Online-Experimente zur Sicherstellung interner Validität \cite{Kohavi2020TrustworthyExperiments,Joachims2017UnbiasedLTR}.
-
-Im Betrieb sichern Session-IDs, Cross-Site Request Forgery (CSRF)-Token, Request-Limits und Validierungen die Integrität der Datenerhebung und bieten Schutz vor externen Störungen wie Bot-Angriffen. Über Statistik-Endpunkte werden Kennzahlen wie Anzahl bewerteter Vergleiche, Verteilung der Vote-Klassen und Win-Rates bereitgestellt; das Dashboard erlaubt Filterung nach Subsets sowie Exportfunktionen. Insgesamt verbindet die Arena damit wissenschaftliche Vergleichbarkeit mit produktionsnaher Web-Architektur und eignet sich gut für belastbare, quantitative Modell-Evaluation im Hochschulkontext.
-
-Für den Betrieb der Arena wurde die Anwendung vollständig containerisiert und als Docker-Stack auf einer dedizierten Virtual Machine (VM) ausgerollt.
-
-\paragraph{Hinweis zur Datengrundlage}
+\paragraph{Hinweis zur Durchführbarkeit}
 Entgegen der ursprünglichen Planung ist die aktuelle Instanz zum Zeitpunkt dieses Berichts nur aus dem FU-internen Netz erreichbar und noch nicht wie vorgesehen öffentlich über das Internet verfügbar. Die geplante breite Distribution (unter anderem über KI-Campus-Kanäle wie Newsletter und Banner) konnte daher bislang nicht umgesetzt werden. Entsprechend konnte keine wissenschaftlich belastbare Stichprobenzahl an Teilnehmenden generiert werden. Aus diesem Grund wird im Ergebnisteil dieses Projektberichts auf eine Auswertung der Ergebnisse aus der Chatbot-Arena-Evaluation verzichtet. Die Datenerhebung und Auswertung werden nach Herstellung der Public-Reachability der VM nachgeholt; die Ergebnisse werden in einem anschließenden wissenschaftlichen Paper dokumentiert.
 
 \subsubsection{Blindtest: Experten}
@@ -307,7 +301,7 @@ Die Bewertungsdimensionen wurden wie folgt operationalisiert:
 \centering
 \caption{Bewertungsdimensionen des Experten-Blindtests}
 \label{tab:experten_kriterien}
-\begin{tabular}{p{1cm} p{3.5cm} p{7cm}}
+\begin{tabular}{>{\raggedright\arraybackslash}p{1.5cm} >{\raggedright\arraybackslash}p{3.5cm} >{\raggedright\arraybackslash}p{7cm}}
 \hline
 \textbf{Kürzel} & \textbf{Dimension} & \textbf{Bewertungsstatement} \\
 \hline
@@ -349,12 +343,12 @@ Ein möglicher Lösungsansatz der Literatur für personalisiertes Lernen ist der
 
 In mehreren Arbeiten wird LangChain bzw. seine Weiterentwicklung LangGraph als gutes Framework für die Implementierung von RAG-Systemen hervorgehoben \cite{HybridUndMultihop1,BenchmarkRAG,ScalaBot6}.
 
-\begin{table}[h]
+\begin{table}[htbp]
 \centering
 \caption{Weiterentwicklungen von RAG-Systemen in der Literatur}
 \label{tab:lit_rag}
 
-\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{0.27\textwidth} *{6}{>{\centering\arraybackslash}X}}
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{0.25\textwidth} *{6}{>{\centering\arraybackslash}X}}
 \toprule
 \textbf{Literatur} & \textbf{Retrieval} & \textbf{Reranker} & \textbf{Logik} & \textbf{RLHF} & \textbf{Kosten} & \textbf{Prototyp} \\
 \midrule
@@ -371,13 +365,13 @@ In mehreren Arbeiten wird LangChain bzw. seine Weiterentwicklung LangGraph als g
 \end{table}
 
 \subsubsection{Stakeholder}
-Neben den technischen Anforderungen sollten auch die zentralen Stakeholder des Chatbots berücksichtigt werden. Die Identifizierung fachlicher Anforderungen der Stakeholder erfolgte primär durch das Auswerten einer ersten Phase von User Tests. Diese wurden im November 2024 durch den KI-Campus durchgeführt und folgten den Think-Aloud Protokoll. Interviewed wurden sowohl Mitarbeiter des KI-Campus als auch Projektpartner, die als Nutzer des Chatbots eingestuft werden können. Final gesammelt wurden dabei die Defizite der aktuellen Chatbotversion, welche nach Relevanz kategorisiert wurden. Diese Erkenntnisse wurden durch die Autoren in Oberkategorien synthetisiert, welche in Tabelle \ref{tab:usertests} ersichtlich sind.
+Neben den technischen Anforderungen wurden auch die zentralen Anforderungen der Stakeholder des Chatbots berücksichtigt werden. Deren Identifizierung erfolgte primär durch das Auswerten einer ersten Iteration von User Tests. Diese wurden im November 2024 durch den KI-Campus durchgeführt und folgte dem Think-Aloud Protokoll. Testnutzer waren sowohl Mitarbeiter des KI-Campus als auch Projektpartner. Die resultierenden Erkenntnisse wurden durch die Autoren nach Relevanz sortiert in Oberkategorien synthetisiert, vgl. \autoref{tab:usertests}.
 
-Im Bereich hoher Relevanz dominieren funkionale Defizite, wie die Antwortlatenz, die Qualität der zurückgegebenen Antworten sowie die Persistenz der Konversationen. Darüber hinaus gibt es Schwierigkeiten im Bereich der Mehrsprachigkeit sowie Bedenken über eine unzureichende Wissensbasis, die eventuell auf externe Wissensquellen durch das Model Context Protocol (MCP) zugreifen sollte. Des weiteren werden Möglichkeiten des Reinforcement Learning from Human Feedback (RLHF) nicht genutzt.
+Im Bereich hoher Relevanz dominieren funktionale Defizite (Antwortlatenz, Antwortqualität, Persistenz der Konversationen). Außerdem wurden Schwierigkeiten mit Mehrsprachigkeit identifiziert und Bedenken über eine unzureichende Wissensbasis geäußert, die durch externe Wissensquellen mittels \textit{Model Context Protocol} (MCP) erweitert werden könnte. Ein weiterer Punkt war, dass Möglichkeiten des RLHF nicht genutzt werden.
 
 Defizite mittlerer Relevanz betreffen vor allem die Bearbeitbarkeit von Chatanfragen, mangelnde Unterstützung informeller Lernprozesse und die fehlende Fähigkeit für Smalltalk. Zudem fehlen multimodale Integrationen. 
 
-Im Bereich niedriger Relevanz werden neben einem zu simplen Interface, das nicht klar die Funktionalität des Chatbots kommuniziert, vor allem das Fehlen erweiterter Funktionen wie eine Exportfunktion oder das Einbeziehen von Community-Informationen kritisiert.
+Im Bereich niedriger Relevanz werden neben einem zu simplen Interface, das nicht klar die Funktionalität des Chatbots kommuniziert, vor allem das Fehlen erweiterter Funktionen (Exportfunktion, Einbeziehen von Community-Informationen) kritisiert.
 
 \begin{table}[htbp]
 \centering
@@ -402,9 +396,9 @@ Follow-up Fragen fehlen &  &  \\
 \end{tabular}
 \end{table}
 
-Diese festgestellten Defizite wurden im nächsten Schritt in konkrete Stakeholderanforderungen systemtisiert. Abbildung \ref{fig:systemanforderungen} gibt einen Überblick der abgeleiteten Verbesserungspotenziale und stellt konkrete Handlungsdimensionen für die Weiterentwicklung des RAG-basierten Chatbots dar. Dazu gehören die Wissensbasis, Vertrauen, Konversationsqualität und Technische Performance. 
+Diese festgestellten Defizite wurden im nächsten Schritt in konkrete Stakeholderanforderungen systemisiert. \autoref{fig:systemanforderungen} gibt einen Überblick über abgeleitete Verbesserungspotenziale und stellt konkrete Handlungsdimensionen für die Weiterentwicklung des RAG-basierten Chatbots dar. 
 
-Die Wissensbasis umfasst die Erweiterung des verfügbaren Kontexts des RAG-Systems mittels einen Ausbau der Vektordatenbank und die Erweiterung um multimodale Inhalte sowie das Integrieren von Feedback-Mechanismen (bspw. RLHF). Vertrauen umfasst den im Bildungskontext besonders relevanten Aspekt der Transparenz, der eine nachvollziehbare Zitation und eine klare Rollenbeschreibung des Systems beinhaltet. Die Konversationsqualität umfasst vor allem die Verbesserung der Antwortqualität und der Interaktionsfähigkeit des Chatbots. Hierbei geht es nicht nur darum das einfache "Questions an Answers" (Q\&A) zu verbessern, sondern auch eine stärkere Kontextintegration, die Fähigkeit zu Follow-up-Fragen und die Einbindung von Beispielen und Use Cases als auch die Möglichkeit korrekt zu Smalltalk zu reagieren. Die technische Performance umfasst drei wichtige Kategorien. Die Antwortgeschwindigkeit, die technisch korrekte Funktion des Chatbots, wozu Konversationsperistenz sowie mehrspracheriger Support gehören, und die Verbesserung der User Experience (UX), die vor allem mit einer Verbesserung des User Interface (UI) korrepsondiert.
+\textit{Wissensbasis} umfasst den Ausbau der zugrundeliegenden Vektordatenbank des RAG-Systems, ihre Erweiterung um multimodale Inhalte sowie das Integrieren von Feedback-Mechanismen (bspw. RLHF). \textit{Vertrauen} umfasst den im Bildungskontext besonders relevanten Aspekt der Transparenz und beinhaltet eine nachvollziehbare Zitation und eine klare Rollenbeschreibung des Systems. \textit{Konversationsqualität} umfasst vor allem die Verbesserung der Antwortqualität und der Interaktionsfähigkeit des Chatbots. Hierbei geht es auch um eine stärkere Kontextintegration, die Fähigkeit zu Follow-up-Fragen, die Einbindung von Beispielen und Use Cases und um die Möglichkeit, Smalltalk zu behandeln. \textit{Technische Performance} umfasst Antwortgeschwindigkeit, technisch korrekte Funktionalität des Chatbots (inkl. Konversationsperistenz und mehrsprachigem Support) und die Verbesserung der \textit{User Experience} (UX), die mit einer Verbesserung des \textit{User Interface} (UI) einhergeht.
 
 \begin{figure}[htbp]
     \centering
@@ -433,8 +427,6 @@ Der Stand der Implementierungen zu Projektabschluss kann im GitHub Repository \t
 \label{sec:technische_umsetzung}
 
 \subsubsection{Erweiterung der Ingestion-Pipeline}
-% Evtl. Abbildung aus der Präsi nutzen?
-%--> Fließtext schon besser, oder? Abbildung sagt ja nur genau dasselbe aus nur weniger verständlich 
 Die Ingestion-Pipeline stellt einen kritischen Bestandteil jedes RAG-Systems dar, da sie die Qualität und Vollständigkeit des indexierten Wissensbestands direkt beeinflusst. Im Rahmen der Optimierung des KI-CampusRAG-Chatbots wurde die bestehende Pipeline aus Version V1 grundlegend überarbeitet, um eine umfassendere Abdeckung der Plattforminhalte zu erreichen und die Retrieval-Präzision zu steigern. Die Erweiterungen umfassten sowohl die Erweiterung der Quellenvielfalt als auch die Verbesserung der technischen Robustheit.
 
 In V1 beschränkte sich die Drupal-Ingestion auf grundlegende Inhaltsarten: Kurslandingpages, normale Seiten, Blogposts und die „About us“-Seite. Für V2 wurde die Pipeline umfassend erweitert, indem zusätzlich alle per Drupal-API verfügbaren Metainformationen extrahiert wurden. Dazu zählen Sprache, Schwierigkeitsgrad, Autoren, Institutionen der Autoren, Zielgruppen sowie weitere kontextrelevante Attribute für jede Seite. Diese Metadaten werden nicht nur als separate Felder gespeichert, sondern auch in die semantische Repräsentation der Chunks integriert, was die kontextuelle Relevanz bei nutzerspezifischen Abfragen (z. B. „Kurse für Anfänger auf Deutsch“) erheblich verbessern sollte. Die API-basierte Zugriffsmethode gewährleistet eine vollständige und konsistente Erfassung, unabhängig von der Seitenstruktur.
