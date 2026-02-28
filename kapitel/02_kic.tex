@@ -32,7 +32,7 @@ Die erste Komponente ist ein Contextualizer, der eine eingehende Nutzeranfrage r
 
 Hierauf folgt das Retrieval-System. Der KI-Campus-Chatbot nutzt ein semantisches Retrieval, dass auf Basis der semantischen Ähnlichkeit zwischen der Nutzeranfrage und den in der Wissensbasis gespeicherten Dokumenten relevante Informationen identifiziert. Hierbei werden die fünf relevantesten Dokumentausschnitte abgerufen.
 
-Diese Abschnitte dienen dann als Kontext für die Generierungskomponente, die ein klassisches LLM nutzt. Kontext, Chathistorie und Systemanweisungen in Form eines Systemprompts werden von diesem LLM genutzt, um eine grundierte Antwort zu generieren. Das System ist so konzipiert, dass es bei unzureichendem Kontext auf vordefinierte Antwortstrategien zurückgreift, um die Verbreitung von Fehlinformationen zu vermeiden.
+Diese dienen dann als Kontext für die Generierungskomponente, die ein klassisches LLM nutzt. Kontext, Chathistorie und Systemanweisungen in Form eines Systemprompts erlauben dann die Formulierung einer grundierte Antwort. Das System ist so konzipiert, dass es bei unzureichendem Kontext auf vordefinierte Antwortstrategien zurückgreift, um die Verbreitung von Fehlinformationen zu vermeiden.
 
 Die letzte Komponente ist das Postprocessing, bei dem die generierte Antwort um die verwendeten Quellen angereichert wird, um eine hohe Transparenz und Nachvollziehbarkeit der Informationen zu gewährleisten. Diese Antwort wird schließlich im Frontend der Lernplattform ausgegeben.
 
