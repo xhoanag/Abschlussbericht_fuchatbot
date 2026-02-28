@@ -5,22 +5,73 @@
 
 \subsection{Weiterentwicklungen im Bildungskontext}
 
-Aus der Diskussion der Ergebnisse ergeben sich mehrer Implikationen für die Weiterentwicklung von RAG-basierten Chatbots im Bildungskontext. Das deutlichste Spannungsfeld das neben der Litertur auch in den Ergebnisse deutlich wird, ist der Trade-off zwischen dem Versprechen höhere Antwortqualität durch komplexere Implementierungen sowie dem damit einhergehenden Anstieg der Kosten. Dies startet bereits bei der grundlegenden Entscheidung bezüglich der Logik aber zieht sich durch bis zu den Entscheidungen bezüglich Retrieval-Logik. Die Ergebnisse dieser Arbeit zeigen, dass für unterschiedliche Workflows unterschiedliche Implementierungen sinnvoll sind. Grundlegend scheint das Routing als zentraler Steuerungsmechnismus sinnvoll. Es ermöglicht die klare Rollenbenennung des verwendeten Chatbots, was auch in V2 durch eine Anzeige im User Interface (UI) noch deutlicher gemacht werden kann. Zudem erlaubt es die präzise Verarbeitung von Anfragen, was bei konversationalen Chatanfragen einen hohen Mehrwert bieitet, weil ein Retrieval vermieden werden kann. Gleichzeitig ermöglicht es hier die Balance zwischen Kosten und Qualität. Ein agentenbasierter Chatbot ist zwar flexibler aber trägt die Gefahr zu viele Loops zu durchlaufen, was die Kosten in die Höhe treibt. Bei einfachen Chatanfragen, wie sie in der Realität häufig vorkommen, ist das schlichtweg nicht notwendig. Hier kommt es auch stark auf den Kontext an. Wenn Informationen verstreut zwischen verschiedenen Dokumenten liegen, ist ein Multi Hop Ansatz sinnvoll. Im Bildungskontext mit hochwertigen Quellen, bei denen Informationen hoch verdichtet vorliegen, ist dies jedoch nicht unbedingt notwendig. Eine Betrachtung der Wissensbasis ist jedoch zwingend notwendig, um zu entscheiden, welche Retrieval-Strategien sinnvoll sind. Ein komplexeres Retrieval garantiert jedoch nicht automatisch eine bessere Antwortqualität. Ein anderes Bild zeichnet der sokratische Lernassistent. Das Routing ist hier aufgrund der verschiedenen Modi deutlich komplizierter und führt durch teilweise starre Abläufe zu schlechteren Ergebnissen. Besonders der Lernassitent scheint prädestiniert für eine agentenbasierte Logik, da diese das flexible Eingehen auf die Bedürfnisse der Lernenden ermöglicht. Hier lohnt sich auch die Investition in eine komplexere Retrieval-Logik, weil eine Fundierung im Kontext den Lernenden einen echten Mehrwert bietet. Dies bleibt aber auch dem Motto, wer höhere Qualität, in diesem Fall bezüglichd er Didaktik, erreichen möchte, muss bereit sein, die höheren Kosten zu tragen. Der Bildungskontext zeigt dabei eindeutig, dass die Tiefe der Implementierung stark von dem Einsatzszenario abhängt. Die modernen Ansätze bieten zwar das Potenzial die Qualität der Antworten zu erhöhen, aber dies kommt meist zu bestimmten Kosten in Form von Tokenverbrauch und Antwortzeit.
+Aus der Diskussion der Ergebnisse ergeben sich mehrere Implikationen für die Weiterentwicklung von RAG-basierten Chatbots im Bildungskontext.
+Das deutlichste Spannungsfeld, das neben der Literatur auch in den Ergebnisse deutlich wird, ist der Trade-off zwischen dem Versprechen höherer Antwortqualität durch komplexere Implementierungen sowie dem damit einhergehenden Anstieg der Kosten.
+Dies startet bereits bei der grundlegenden Entscheidung bezüglich der Logik, aber zieht sich durch bis zu den Entscheidungen bezüglich der Retrieval-Logik.
+Die Ergebnisse dieser Arbeit zeigen, dass für unterschiedliche Workflows unterschiedliche Implementierungen sinnvoll sind.
+Grundlegend scheint das Routing als zentraler Steuerungsmechnismus sinnvoll.
+Es ermöglicht die klare Rollenbenennung des verwendeten Chatbots, was auch in V2 durch eine Anzeige im User Interface noch deutlicher gemacht werden kann.
+Zudem erlaubt es die präzise Verarbeitung von Anfragen, was bei konversationalen Chatanfragen einen hohen Mehrwert bieitet, weil ein Retrieval vermieden werden kann.
+Gleichzeitig ermöglicht es hier die Balance zwischen Kosten und Qualität.
+Ein agentenbasierter Chatbot ist zwar flexibler, aber trägt die Gefahr, zu viele Schleifen zu durchlaufen, was die Kosten in die Höhe treibt.
+Bei einfachen Chatanfragen, wie sie in der Realität häufig vorkommen, ist das schlichtweg nicht notwendig.
+Hier kommt es auch stark auf den Kontext an.
+Wenn Informationen verstreut zwischen verschiedenen Dokumenten liegen, ist ein Multi-Hop-Ansatz sinnvoll.
+Im Bildungskontext mit hochwertigen Quellen, bei denen Informationen hoch verdichtet vorliegen, ist dies jedoch nicht unbedingt notwendig.
+Eine Betrachtung der Wissensbasis ist jedoch zwingend notwendig, um zu entscheiden, welche Retrieval-Strategien sinnvoll sind.
+Ein komplexeres Retrieval garantiert jedoch nicht automatisch eine bessere Antwortqualität.
+Ein anderes Bild zeichnet der sokratische Lernassistent.
+Das Routing ist hier aufgrund der verschiedenen Modi deutlich komplizierter und führt durch teilweise starre Abläufe zu schlechteren Ergebnissen.
+Besonders der Lernassitent scheint prädestiniert für eine agentenbasierte Logik, da diese das flexible Eingehen auf die Bedürfnisse der Lernenden ermöglicht.
+Hier lohnt sich auch die Investition in eine komplexere Retrieval-Logik, weil eine Fundierung im Kontext den Lernenden einen echten Mehrwert bietet.
+Dies entspricht dem Grundsatz, wer höhere Qualität, in diesem Fall bezüglich der Didaktik, erreichen möchte, muss bereit sein, die höheren Kosten zu tragen.
+Der Bildungskontext zeigt dabei eindeutig, dass die Tiefe der Implementierung stark von dem Einsatzszenario abhängt.
+Die modernen Ansätze bieten zwar das Potenzial, die Qualität der Antworten zu erhöhen, aber damit gehen meist bestimmte Kosten in Form von Tokenverbrauch und Antwortzeit einher.
 
-Neben dieser situativen Entscheidung über die Implementierungstiefe gibt es einige eindeutige Implikationen aus dieser Arbeit. Zum einen sollten moderne Chatbots ein bestehendes Framework für die Orchestrierung nutzen. LangGraph ist hierfür prädestiniert und auch in der Literatur weit verbreitet. Die Vorteile der besseren Wartbarkeit, Übersicht und Erweiterbarkeit können durch die getätigten Implementierungen bestätigt werden. Zudem sollte eine Erweiterung der Ingestion-Pipeline bei Möglichkeit durchgeführt werden, weil es klare Vorteile bezüglich der Kontextfundierung gibt. Es ist jedoch wichtig, dass die Erweiterung nicht nur auf die Menge der Daten abzielt, sondern auch auf die Struktur der Wissensbasis. Denn nur eine ordentliche Datengrundlage verbessert das Retrieval. Im Bildungskontext erscheint es zudem sinnvoll, das Einbinden von MCP für externe Wissensquellen zu unterbinden, um steuern zu können, welcher Inhalt vermittelt wird. Aber hier muss natürlich nach Use Case unterschieden werden, sodass didaktisch gesicherte Quellen einbezogen werden können. Verbesserte Zitierlogik und transparente Quellenangaben sind ebenfalls Garanten für eine bessere Antwortqualität, da sie das Vertrauen der Nutzer stärken und eine bessere User Experience ermöglichen. Hier zählt auch das Streaming hinein, das zudem die Time to first Token reduziert und somit einen lecihten Mehrwert bietet. Für europäische Anbieter wie den KI-Campus ist zudem die Mehrsprachigkeit zentral. Dies ist in dieser Arbeit etwas kürzer gekommen, was die Ergebnisse deutlich widerspiegeln aber sollte bei Implementierungen unbedingt berücksichtigt werden.
+Neben dieser situativen Entscheidung über die Implementierungstiefe gibt es einige eindeutige Implikationen aus dieser Arbeit.
+Zum einen sollten moderne Chatbots ein etabliertes Framework für die Orchestrierung nutzen.
+LangGraph ist hierfür prädestiniert und auch in der Literatur weit verbreitet.
+Die Vorteile der besseren Wartbarkeit, Übersicht und Erweiterbarkeit können durch die getätigten Implementierungen bestätigt werden.
+Zudem sollte eine Erweiterung der Ingestion-Pipeline bei Möglichkeit durchgeführt werden, weil sich hieraus klare Vorteile bezüglich der Kontextfundierung ergeben.
+Es ist jedoch wichtig, dass die Erweiterung nicht nur auf die Menge der Daten abzielt, sondern auch auf die Struktur der Wissensbasis, da nur eine ordentliche Datengrundlage das Retrieval verbessert.
+Im Bildungskontext erscheint es zudem sinnvoll, das Einbinden von MCP für externe Wissensquellen zu unterbinden, um steuern zu können, welcher Inhalt vermittelt wird.
+Aber hier muss natürlich nach Use Case unterschieden werden, sodass didaktisch gesicherte Quellen einbezogen werden können.
+Verbesserte Zitierlogik und transparente Quellenangaben sind ebenfalls Garanten für eine bessere Antwortqualität, da sie das Vertrauen der Nutzer stärken und eine bessere User Experience ermöglichen.
+Für eine bessere User Experience ist auch das Streaming relevant, das zudem die Time to first Token reduziert und somit einen lecihten Mehrwert bietet.
+Für europäische Anbieter wie den KI-Campus ist zudem die Mehrsprachigkeit zentral.
+Dies ist in dieser Arbeit etwas kürzer gekommen, was die Ergebnisse deutlich widerspiegeln, aber sollte bei Implementierungen unbedingt berücksichtigt werden.
 
 \subsection{Implikationen für die Evaluation von RAG-Systemen}
 
-Die durchgeführte Evaluation unterstreicht die Schwierigkeit RAG-basierte Chatbots eindeutig zu bewerten. Die unterschiedlichen Herangehenweisen in der Literatur haben allesamt ihre Berechtigung, denn keine einzelne Methode, selbst bei den zugeschnittenen Frameworks, kann die Qualität eines RAG-Systems vollständig abbilden. Die vorliegende Arbeit lässt Aussagen bezüglich drei Evaluationsansätzen zu.
+Die durchgeführte Evaluation unterstreicht die Schwierigkeit, RAG-basierte Chatbots eindeutig zu bewerten.
+Die unterschiedlichen Herangehenweisen in der Literatur haben allesamt ihre Berechtigung, denn keine einzelne Methode, selbst bei den zugeschnittenen Frameworks, kann die Qualität eines RAG-Systems vollständig abbilden.
+Die vorliegende Arbeit lässt Aussagen bezüglich drei Evaluationsansätzen zu.
 
-Eine automatisierte Evaluation via einem Framework wie RAGAS ist eine starke Komponenete jeder Evaluation. Hierbei müssen die Limitationen aber klar beachtet werden. Für belastbare Metriken sollte entweder das Bewertungs-LLM einem Finetuning unterzogen oder eine Ground Truth sollte verwendet werden. Die Ground Truth ist hierbei zu bevorzugen aber auch mit dem höchsten Arbeitsaufwand verbunden. Was automatisierte Frameworks jedoch nicht leisten können, ist die Evaluierung über Q\&A-Interaktionen heraus. Hier leistet die Expertenevaluation eine wichtige Ergänzung, da so komplexere Verfahren wie die Lernassistenz bewertet werden können. Zudem sind die Kommentare eine valide Quelle für Verbesserungen. Um neben der Qualität auch die Kosten nicht aus den Augen zu verlieren, sollte eine wirtschaftliche Evaluation durchgeführt werden. Nur so kann das Spannungsfeld aus Qualität und Kosten adequat abgebildet werden.
+Eine automatisierte Evaluation via einem Framework wie RAGAS ist eine starke Komponenete jeder Evaluation.
+Hierbei müssen die Limitationen aber klar beachtet werden.
+Für belastbare Metriken ist entweder ein Finetuning des Bewertungs-LLM oder das Verwenden einer Ground Truth anzuraten.
+Die Ground Truth ist hierbei zu bevorzugen, aber auch mit dem höchsten Arbeitsaufwand verbunden.
+Was automatisierte Frameworks jedoch nicht leisten können, ist die Evaluierung über Q\&A-Interaktionen heraus.
+Hier leistet die Expertenevaluation eine wichtige Ergänzung, da so komplexere Verfahren wie die Lernassistenz bewertet werden können.
+Zudem sind die Kommentare eine valide Quelle für Verbesserungen.
+Um neben der Qualität auch die Kosten nicht aus den Augen zu verlieren, sollte eine wirtschaftliche Evaluation durchgeführt werden.
+Nur so kann das Spannungsfeld aus Qualität und Kosten adequat abgebildet werden.
 
-Dies zeigt, dass eine mehrdimensionale Evaluation notwendig ist, um die Qualität von RAG-basierten Chatbots angemessen zu beurteilen. Hierbei spielt jedoch wieder der Kontext eine Rolle, denn nicht zwingend muss jede Komponente bewertet werden. Je nach Anwendung genügen teilweise auch simplere Ansätze, die jedoch mit starken Einschränkungen bezüglich der Aussagen zum Gesamtsystem kommen.
+Dies zeigt, dass eine mehrdimensionale Evaluation notwendig ist, um die Qualität von RAG-basierten Chatbots angemessen zu beurteilen.
+Hierbei spielt jedoch wieder der Kontext eine Rolle, denn nicht jede Komponente muss zwingend bewertet werden.
+Je nach Anwendung genügen teilweise auch simplere Ansätze, die jedoch mit starken Einschränkungen bezüglich der Aussagen zum Gesamtsystem kommen.
 
 \section{Praktische Handlungsempfehlungen}
 
-Für die Weiterentwicklung des Systems empfiehlt sich zunächst die Übernahme der bestehenden ETL-Pipeline, da eine breitere Wissensbasis die Kontextualisierung der Antworten deutlich verbessert. Darüber hinaus sollte der sokratische Lernassistent priorisiert weiterentwickelt werden. Dieser Ansatz erscheint didaktisch besonders vielversprechend, befindet sich jedoch derzeit noch im Stadium eines Proof of Concept und erfordert daher weitere Forschung und technische Ausarbeitung, bevor ein produktiver Einsatz möglich ist.
+Für die Weiterentwicklung des Systems empfiehlt sich zunächst die Übernahme der bestehenden ETL-Pipeline, da eine breitere Wissensbasis die Kontextualisierung der Antworten deutlich verbessert.
+Darüber hinaus sollte der sokratische Lernassistent priorisiert weiterentwickelt werden.
+Dieser Ansatz erscheint didaktisch besonders vielversprechend, befindet sich jedoch derzeit noch im Stadium eines Proof of Concept und erfordert daher weitere Forschung und technische Ausarbeitung, bevor ein produktiver Einsatz möglich ist.
 
-Zudem sollte die bestehende Systemlogik gezielt angepasst werden. Insbesondere bietet es sich an, den Verarbeitungspfad ohne Retrieval zu übernehmen, während bei einfachen Frage-Antwort-Szenarien auf den Einsatz eines Rerankers verzichtet werden kann. Die Orchestrierung über LangGraph hat sich als geeignet erwiesen und sollte daher beibehalten werden. Gleichzeitig besteht Optimierungspotenzial beim Reranker, insbesondere im Hinblick auf die Betriebskosten, die durch den Einsatz eines dedizierten Reranker-Services reduziert werden könnten.
+Zudem sollte die bestehende Systemlogik gezielt angepasst werden.
+Insbesondere bietet es sich an, den Verarbeitungspfad ohne Retrieval zu übernehmen, während bei einfachen Frage-Antwort-Szenarien auf den Einsatz eines Rerankers verzichtet werden kann.
+Die Orchestrierung über LangGraph hat sich als geeignet erwiesen und sollte daher beibehalten werden.
+Gleichzeitig besteht Optimierungspotenzial beim Reranker, insbesondere im Hinblick auf die Betriebskosten, die durch den Einsatz eines dedizierten Reranker-Services reduziert werden könnten.
 
-Kurzfristig lassen sich außerdem Verbesserungen durch die Einführung überarbeiteter UI-Elemente erzielen. Insbesondere optimierte Zitationsmechanismen und Streaming-Funktionalitäten ermöglichen schnell messbare Qualitätssteigerungen bei vergleichsweise geringem Implementierungsaufwand. Schließlich sollte die Mehrsprachigkeit überarbeitet werden, da die derzeit begrenzte Sprachrobustheit die Antwortqualität in beiden Systemvarianten spürbar einschränkt.
+Kurzfristig lassen sich außerdem Verbesserungen durch die Einführung überarbeiteter UI-Elemente erzielen.
+Insbesondere optimierte Zitationsmechanismen und Streaming-Funktionalitäten ermöglichen schnell messbare Qualitätssteigerungen bei vergleichsweise geringem Implementierungsaufwand.
+Schließlich sollte die Mehrsprachigkeit überarbeitet werden, da die derzeit begrenzte Sprachrobustheit die Antwortqualität in beiden Systemvarianten spürbar einschränkt.
