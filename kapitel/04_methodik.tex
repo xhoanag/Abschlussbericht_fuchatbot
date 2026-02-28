@@ -102,7 +102,7 @@ Hier steht die korrekte und präzise Bereitstellung statischer, administrativer 
 
 \paragraph{Use Case 2: Kursbezogene Fragen}
 
-Der zweite Use Case leitet sich aus der zweitgrößten Cluster-Gruppe ab (31\,\%, \textit{Wissen allgemein \& kursbezogen}) und adressiert fachliche Anfragen innerhalb einer aktiven Lernsituation. Nutzer*innen befinden sich dabei im Kontext eines konkreten Kurses in moodle. Beispielhafte Prompts sind:
+Der zweite Use Case leitet sich aus der zweitgrößten Cluster-Gruppe ab (31\,\%, \textit{Wissen allgemein \& kursbezogen}) und adressiert fachliche Anfragen innerhalb einer aktiven Lernsituation. Nutzer befinden sich dabei im Kontext eines konkreten Kurses in moodle. Beispielhafte Prompts sind:
 
 \begin{itemize}
     \item „Wie funktioniert ein LLM?“
@@ -284,7 +284,7 @@ Zur vergleichenden Evaluation der beiden RAG-Systeme wurde ein expertenbasierter
     \label{fig:arena}
 \end{figure}
 
-Die Untersuchung wurde als moderiertes Einzelinterview durchgeführt (30--60 Minuten pro Person). Insgesamt nahmen 14 Expert*innen teil, darunter Autor*innen von E-Learning-Inhalten, Lehrkräfte sowie Fachpersonen aus dem KI-Campus-Umfeld, aus der angewandten Forschung (Fraunhofer) und aus dem universitären Kontext (Freie Universität Berlin). Diese Zusammensetzung gewährleistet sowohl fachliche als auch didaktische Expertise und erlaubt eine fundierte Beurteilung inhaltlicher Korrektheit, Kontextintegration und Lernförderlichkeit. Die Relevanz solcher mehrdimensionaler Qualitätskriterien im Bildungskontext wird auch in der Literatur zu RAG in Educational Settings hervorgehoben \cite{Li2025RAGEducationSurvey,Swacha2025RAGEducation}. Zudem zeigen Studien zur Nutzung generativer KI im Unterricht, dass didaktische Angemessenheit und die Förderung kritischer Bewertungskompetenz zentrale Qualitätsdimensionen darstellen \cite{Oates2025ChatGPTClassroom}.
+Die Untersuchung wurde als moderiertes Einzelinterview durchgeführt (30--60 Minuten pro Person). Insgesamt nahmen 14 Experten teil, darunter Autoren von E-Learning-Inhalten, Lehrkräfte sowie Fachpersonen aus dem KI-Campus-Umfeld, aus der angewandten Forschung (Fraunhofer) und aus dem universitären Kontext (Freie Universität Berlin). Diese Zusammensetzung gewährleistet sowohl fachliche als auch didaktische Expertise und erlaubt eine fundierte Beurteilung inhaltlicher Korrektheit, Kontextintegration und Lernförderlichkeit. Die Relevanz solcher mehrdimensionaler Qualitätskriterien im Bildungskontext wird auch in der Literatur zu RAG in Educational Settings hervorgehoben \cite{Li2025RAGEducationSurvey,Swacha2025RAGEducation}. Zudem zeigen Studien zur Nutzung generativer KI im Unterricht, dass didaktische Angemessenheit und die Förderung kritischer Bewertungskompetenz zentrale Qualitätsdimensionen darstellen \cite{Oates2025ChatGPTClassroom}.
 
 Die Evaluation erfolgte mittels standardisiertem Fragebogen (Likert-Skala, 1 = trifft nicht zu, 5 = trifft voll zu) sowie begleitender Think-Aloud-Methode. Die Bewertungsdimensionen wurden wie folgt operationalisiert:
 
@@ -306,7 +306,7 @@ I6 & Lernförderlichkeit / Didaktik & Die Antwort unterstützt das Verständnis 
 \end{tabular}
 \end{table}
 
-Die Kombination aus quantitativer Skalenbewertung und qualitativer Think-Aloud-Methode ermöglicht eine differenzierte Analyse. Während die Likert-Skalen systematische Vergleiche der beiden Systeme über mehrere Qualitätsdimensionen hinweg erlauben, liefert die verbale Begleitreflexion Einblick in Entscheidungslogiken, Unsicherheiten und Bewertungsmaßstäbe der Expert*innen. Gerade im Bildungskontext ist diese Kombination bedeutsam, da generative KI-Systeme nicht allein anhand faktischer Richtigkeit bewertet werden, sondern insbesondere hinsichtlich ihrer didaktischen Angemessenheit, Strukturierungsleistung und Unterstützung reflektierter Wissensaneignung \cite{Oates2025ChatGPTClassroom,Neumann2024MoodleBot}.
+Die Kombination aus quantitativer Skalenbewertung und qualitativer Think-Aloud-Methode ermöglicht eine differenzierte Analyse. Während die Likert-Skalen systematische Vergleiche der beiden Systeme über mehrere Qualitätsdimensionen hinweg erlauben, liefert die verbale Begleitreflexion Einblick in Entscheidungslogiken, Unsicherheiten und Bewertungsmaßstäbe der Experten. Gerade im Bildungskontext ist diese Kombination bedeutsam, da generative KI-Systeme nicht allein anhand faktischer Richtigkeit bewertet werden, sondern insbesondere hinsichtlich ihrer didaktischen Angemessenheit, Strukturierungsleistung und Unterstützung reflektierter Wissensaneignung \cite{Oates2025ChatGPTClassroom,Neumann2024MoodleBot}.
 
 Der Experten-Blindtest ergänzt somit automatisierte RAG-Metriken um eine fachlich-didaktische Validierungsebene. Während quantitative Scores Aussagen über Kontexttreue und faktische Konsistenz erlauben \cite{Roychowdhury2024RAGAS}, erfasst das Arena-Design die wahrgenommene Gesamtqualität im direkten Vergleich – eine zentrale Voraussetzung für die Bewertung konkurrierender RAG-Systeme im Bildungsbereich.
 
@@ -358,13 +358,13 @@ In mehreren Arbeiten wird LangChain bzw. seine Weiterentwicklung LangGraph als g
 \end{table}
 
 \subsubsection{Stakeholder}
-Neben den technischen Anforderungen sollten auch die zentralen Stakeholder des Chatbots berücksichtigt werden. Die Identifizierung fachlicher Anforderungen der Stakeholder erfolgte primär durch das Auswerten einer ersten Phase von User Tests. Diese wurden im November 2024 durch den KI-Campus durchgeführt und folgten den Think-Aloud Protokoll. Interviewed wurden sowohl Mitarbeiter des KI-Campus als auch Projektpartner, die als Nutzer des Chatbots eingestuft werden können. Final gesammelt wurden dabei die Defizite der aktuellen Chatbotversion, welche nach Relevanz kategorisiert wurden. Diese Erkenntnisse wurden durch die Autoren in Oberkategorien synthetisiert, welche in Tabelle \ref{tab:usertests} ersichtlich sind.
+Neben den technischen Anforderungen wurden auch die zentralen Anforderungen der Stakeholder des Chatbots berücksichtigt werden. Deren Identifizierung erfolgte primär durch das Auswerten einer ersten Iteration von User Tests. Diese wurden im November 2024 durch den KI-Campus durchgeführt und folgte dem Think-Aloud Protokoll. Testnutzer waren sowohl Mitarbeiter des KI-Campus als auch Projektpartner. Die resultierenden Erkenntnisse wurden durch die Autoren nach Relevanz sortiert in Oberkategorien synthetisiert, vgl. \autoref{tab:usertests}.
 
-Im Bereich hoher Relevanz dominieren funkionale Defizite, wie die Antwortlatenz, die Qualität der zurückgegebenen Antworten sowie die Persistenz der Konversationen. Darüber hinaus gibt es Schwierigkeiten im Bereich der Mehrsprachigkeit sowie Bedenken über eine unzureichende Wissensbasis, die eventuell auf externe Wissensquellen durch das Model Context Protocol (MCP) zugreifen sollte. Des weiteren werden Möglichkeiten des Reinforcement Learning from Human Feedback (RLHF) nicht genutzt.
+Im Bereich hoher Relevanz dominieren funktionale Defizite (Antwortlatenz, Antwortqualität, Persistenz der Konversationen). Außerdem wurden Schwierigkeiten mit Mehrsprachigkeit identifiziert und Bedenken über eine unzureichende Wissensbasis geäußert, die durch externe Wissensquellen mittels \textit{Model Context Protocol} (MCP) erweitert werden könnte. Ein weiterer Punkt war, dass Möglichkeiten des RLHF nicht genutzt werden.
 
 Defizite mittlerer Relevanz betreffen vor allem die Bearbeitbarkeit von Chatanfragen, mangelnde Unterstützung informeller Lernprozesse und die fehlende Fähigkeit für Smalltalk. Zudem fehlen multimodale Integrationen. 
 
-Im Bereich niedriger Relevanz werden neben einem zu simplen Interface, das nicht klar die Funktionalität des Chatbots kommuniziert, vor allem das Fehlen erweiterter Funktionen wie eine Exportfunktion oder das Einbeziehen von Community-Informationen kritisiert.
+Im Bereich niedriger Relevanz werden neben einem zu simplen Interface, das nicht klar die Funktionalität des Chatbots kommuniziert, vor allem das Fehlen erweiterter Funktionen (Exportfunktion, Einbeziehen von Community-Informationen) kritisiert.
 
 \begin{table}[htbp]
 \centering
@@ -389,9 +389,9 @@ Follow-up Fragen fehlen &  &  \\
 \end{tabular}
 \end{table}
 
-Diese festgestellten Defizite wurden im nächsten Schritt in konkrete Stakeholderanforderungen systemtisiert. Abbildung \ref{fig:systemanforderungen} gibt einen Überblick der abgeleiteten Verbesserungspotenziale und stellt konkrete Handlungsdimensionen für die Weiterentwicklung des RAG-basierten Chatbots dar. Dazu gehören die Wissensbasis, Vertrauen, Konversationsqualität und Technische Performance. 
+Diese festgestellten Defizite wurden im nächsten Schritt in konkrete Stakeholderanforderungen systemisiert. \autoref{fig:systemanforderungen} gibt einen Überblick über abgeleitete Verbesserungspotenziale und stellt konkrete Handlungsdimensionen für die Weiterentwicklung des RAG-basierten Chatbots dar. 
 
-Die Wissensbasis umfasst die Erweiterung des verfügbaren Kontexts des RAG-Systems mittels einen Ausbau der Vektordatenbank und die Erweiterung um multimodale Inhalte sowie das Integrieren von Feedback-Mechanismen (bspw. RLHF). Vertrauen umfasst den im Bildungskontext besonders relevanten Aspekt der Transparenz, der eine nachvollziehbare Zitation und eine klare Rollenbeschreibung des Systems beinhaltet. Die Konversationsqualität umfasst vor allem die Verbesserung der Antwortqualität und der Interaktionsfähigkeit des Chatbots. Hierbei geht es nicht nur darum das einfache "Questions an Answers" (Q\&A) zu verbessern, sondern auch eine stärkere Kontextintegration, die Fähigkeit zu Follow-up-Fragen und die Einbindung von Beispielen und Use Cases als auch die Möglichkeit korrekt zu Smalltalk zu reagieren. Die technische Performance umfasst drei wichtige Kategorien. Die Antwortgeschwindigkeit, die technisch korrekte Funktion des Chatbots, wozu Konversationsperistenz sowie mehrspracheriger Support gehören, und die Verbesserung der User Experience (UX), die vor allem mit einer Verbesserung des User Interface (UI) korrepsondiert.
+\textit{Wissensbasis} umfasst den Ausbau der zugrundeliegenden Vektordatenbank des RAG-Systems, ihre Erweiterung um multimodale Inhalte sowie das Integrieren von Feedback-Mechanismen (bspw. RLHF). \textit{Vertrauen} umfasst den im Bildungskontext besonders relevanten Aspekt der Transparenz und beinhaltet eine nachvollziehbare Zitation und eine klare Rollenbeschreibung des Systems. \textit{Konversationsqualität} umfasst vor allem die Verbesserung der Antwortqualität und der Interaktionsfähigkeit des Chatbots. Hierbei geht es auch um eine stärkere Kontextintegration, die Fähigkeit zu Follow-up-Fragen, die Einbindung von Beispielen und Use Cases und um die Möglichkeit, Smalltalk zu behandeln. \textit{Technische Performance} umfasst Antwortgeschwindigkeit, technisch korrekte Funktionalität des Chatbots (inkl. Konversationsperistenz und mehrsprachigem Support) und die Verbesserung der \textit{User Experience} (UX), die mit einer Verbesserung des \textit{User Interface} (UI) einhergeht.
 
 \begin{figure}[htbp]
     \centering
