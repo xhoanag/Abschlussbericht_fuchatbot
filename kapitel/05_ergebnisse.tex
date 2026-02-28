@@ -3,27 +3,20 @@
 % Hier wird im Text häufig bereits wertend gesprochen! Dieses Kapitel dient nur der reinen Darstellung der Ergebnisse. alles wertende sollte in die Diskussion.
 \section{RAGAS}
 \label{sec:ergebnisse_ragas}
-
-Zur quantitativen Bewertung der beiden Systemversionen (V1 und V2) wurden die drei RAGAS-Metriken \textit{Answer Relevancy}, \textit{Context Relevance} und \textit{Faithfulness} herangezogen. Die Analyse basiert auf 60 kuratierten Evaluationsfragen ($n = 60$), wobei jede Frage fünfmal ausgeführt und anschließend aggregiert wurde. Die Signifikanzprüfung erfolgte mittels einseitigem gepaartem t-Test sowie ergänzendem Wilcoxon-Test auf einem Signifikanzniveau von $\alpha = 0{,}05$.
-
 \paragraph{Deskriptive Ergebnisse}
 
-Abbildung~\ref{fig:ragas1} zeigt die aggregierten Mittelwerte, Standardabweichungen sowie 95\,\%-Konfidenzintervalle beider Versionen. Die Punkte markieren die jeweiligen Mittelwerte ($\mu$). Die hell dargestellten vertikalen Balken repräsentieren die Standardabweichung (SD), die dunklen Balken das 95\,\%-Konfidenzintervall (CI).
+\autoref{fig:ragas1} zeigt die aggregierten Mittelwerte, Standardabweichungen sowie 95\,\%-Konfidenzintervalle der verwendeten Metriken (Answer Relevancy, Context Relevance, Faithfulness) beider Versionen. Die Punkte markieren die jeweiligen Mittelwerte ($\mu$). Die hell dargestellten vertikalen Balken repräsentieren die Standardabweichung (SD) und die dunklen Balken das 95\,\%-Konfidenzintervall (CI).
 
-Für \textit{Answer Relevancy} erzielt V1 einen höheren Mittelwert ($\mu = 0{,}805$, $\sigma = 0{,}138$) als V2 ($\mu = 0{,}750$, $\sigma = 0{,}119$). Die Konfidenzintervalle liegen klar getrennt.
-
-Im Bereich \textit{Context Relevance} ergibt sich ein umgekehrtes Muster: V2 erreicht einen höheren Mittelwert ($\mu = 0{,}812$, $\sigma = 0{,}336$) als V1 ($\mu = 0{,}758$, $\sigma = 0{,}373$). Die Streuung fällt in beiden Versionen höher aus als bei \textit{Answer Relevancy}.
-
-Für \textit{Faithfulness} liegen die Mittelwerte nahe beieinander (V1: $\mu = 0{,}880$, $\sigma = 0{,}203$; V2: $\mu = 0{,}855$, $\sigma = 0{,}228$). Die Konfidenzintervalle überlappen deutlich.
+Für \textit{Answer Relevancy} erzielt V1 einen höheren Mittelwert ($\mu = 0{,}805$, $\sigma = 0{,}138$) als V2 ($\mu = 0{,}750$, $\sigma = 0{,}119$). Die Konfidenzintervalle liegen klar getrennt. Im Bereich \textit{Context Relevance} ergibt sich ein umgekehrtes Muster: V2 erreicht einen höheren Mittelwert ($\mu = 0{,}812$, $\sigma = 0{,}336$) als V1 ($\mu = 0{,}758$, $\sigma = 0{,}373$). Die Streuung fällt in beiden Versionen höher aus als bei \textit{Answer Relevancy}. Für \textit{Faithfulness} liegen die Mittelwerte nahe beieinander (V1: $\mu = 0{,}880$, $\sigma = 0{,}203$; V2: $\mu = 0{,}855$, $\sigma = 0{,}228$). Die Konfidenzintervalle überlappen deutlich.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{ragas1.jpg}
-\caption{RAGAS-Metriken: Mittelwert mit Standardabweichung (hell) und 95\,\%-Konfidenzintervall (dunkel)}
+\caption{Deskriptive Übersicht und Hypothesentest der RAGAS-Metriken}
 \label{fig:ragas1}
 
 \vspace{2mm}
-\textbf{Legende:} Orange Markierungen repräsentieren Version~1 (V1), blaue Markierungen Version~2 (V2). Punkte kennzeichnen die Mittelwerte ($\mu$). Helle Balken zeigen die Standardabweichung (SD), dunkle Balken das 95\,\%-Konfidenzintervall (CI).
+\textbf{Legende:} Orange Markierungen repräsentieren V1, blaue Markierungen V2. Punkte kennzeichnen die Mittelwerte ($\mu$), helle Balken die Standardabweichung ($\sigma$) und dunkle Balken das 95\,\%-Konfidenzintervall. Die Hypothesentests umfassen paarweise gerichtete t-Tests ($t$) und Wilcoxon-Tests ($W$) mit $\alpha = 0{,}05$ und $n = 60$.
 \end{figure}
 
 \paragraph{Gepaarte Differenzen und Signifikanztests}
@@ -57,7 +50,6 @@ Die Expertenevaluation liefert ein differenziertes Gesamtbild der beiden Systemv
 Ein Experteninterview zum Kurs \textit{KI praktisch anwenden - Step by Step zu deinem Chatbot!} wurde von der Auswertung ausgeschlossen, da wesentliche zugrunde liegende Kursvektoren als technische Ausreißer in der Vektordatenbank isoliert lagen und somit über das verwendete HNSW‑Indexverfahren nicht erreichbar waren. Dadurch konnten relevante Chunks im Retrieval nicht gefunden werden, was zu systematisch verfälschten, nicht mit den übrigen Fällen vergleichbaren Ergebnissen geführt hätte.
 
 \paragraph{Quantitative Ergebnisse (Fragebogen)}
-% FALSCHES BILD FÜR USE CASE VERGLEICH
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=1.0\textwidth]{Ergebnisse Fragebogen – Use Case Vergleich 2.png}
@@ -81,7 +73,7 @@ Am deutlichsten fällt die Verbesserung im \emph{Lernmodus} aus ($p < 0.001$). H
     \label{fig:dimensionen_vergleich}
 
 \vspace{2mm}
-\textbf{Legende:} Orange Markierungen repräsentieren Version~1 (V1), blaue Markierungen Version~2 (V2). Punkte kennzeichnen die Mittelwerte ($\mu$). Helle Balken zeigen die Standardabweichung (SD), dunkle Balken das 95\,\%-Konfidenzintervall (CI).
+\textbf{Legende:} Orange Markierungen repräsentieren V1, blaue Markierungen V2. Punkte kennzeichnen die Mittelwerte ($\mu$), helle Balken die Standardabweichung ($\sigma$) und dunkle Balken das 95\,\%-Konfidenzintervall. Die Hypothesentests umfassen paarweise gerichtete t-Tests ($t$) und Wilcoxon-Tests ($W$) mit $\alpha = 0{,}05$.
 \end{figure}
 
 Die differenzierte Betrachtung der einzelnen Bewertungsdimensionen (Abb.~\ref{fig:dimensionen_vergleich}) präzisiert die zuvor dargestellten Use-Case-Ergebnisse und erlaubt eine inhaltliche Einordnung der beobachteten Unterschiede zwischen V1 und V2.
@@ -105,7 +97,7 @@ Insgesamt zeigt die dimensionsspezifische Analyse, dass sich die Weiterentwicklu
     \label{fig:fragebogen_gesamt}
 
 \vspace{2mm}
-\textbf{Legende:} Orange Markierungen repräsentieren Version~1 (V1), blaue Markierungen Version~2 (V2). Punkte kennzeichnen die Mittelwerte ($\mu$). Helle Balken zeigen die Standardabweichung (SD), dunkle Balken das 95\,\%-Konfidenzintervall (CI).
+\textbf{Legende:} Orange Markierungen repräsentieren V1, blaue Markierungen V2. Punkte kennzeichnen die Mittelwerte ($\mu$), helle Balken die Standardabweichung ($\sigma$) und dunkle Balken das 95\,\%-Konfidenzintervall. Die Hypothesentests umfassen paarweise gerichtete t-Tests ($t$) und Wilcoxon-Tests ($W$) mit $\alpha = 0{,}05$.
 \end{figure}
 
 Der bereinigte Gesamtvergleich bestätigt insgesamt eine leichte, aber signifikante Verbesserung zugunsten von V2. Die Qualitätssteigerung ist somit statistisch nachweisbar, variiert jedoch je nach Nutzungskontext.
@@ -115,7 +107,7 @@ Der bereinigte Gesamtvergleich bestätigt insgesamt eine leichte, aber signifika
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=1.1\textwidth]{Ergebnisse Think Aloud_2.png}
+    \includegraphics[width=\textwidth]{Ergebnisse Think Aloud_2.png}
     \caption{Ergebnisse der Think-Aloud-Analyse im Experten-Blindtest.} 
     \label{fig:thinkaloud_tabelle}
 
@@ -189,7 +181,7 @@ Reranking-Output-Token & - & 58 & neu \\
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=1.1\textwidth]{cost_analysis_result.png}
+    \includegraphics[width=\textwidth]{cost_analysis_result.png}
     \caption{Ergebnisse der Kostenanalyse}
     \label{fig:cost_analysis_result}
 \end{figure}
