@@ -41,7 +41,7 @@ Keine Aussage zur Didaktik \\
 \hline
 \end{tabular}
 \end{table}
-
+\noindent
 Abschließend werden kurz die widersprüchlichen Ergebnisse  bezüglich der Answer Relevancy (RAGAS, signifikant schlechter bei V2, vgl. \autoref{fig:ragas1}) bzw. Relevanz (Expertenevaluation, signifikant besser bei V2, vgl. \autoref{fig:dimensionen_vergleich}) diskutiert. Beide Metriken beziehen sich darauf, dass die angegebene Antwort relevant für die gestellte Frage ist, aber zeigen unterschiedliche Ergebnisse. Eine mögliche Begründung ist die geringere Validität der Answer Relevancy von RAGAS. Zum einen bewertet die Answer Relevancy nur die semantische Nähe. Es ist möglich, dass die Antworten der V2 zwar semantisch weniger nah an der Frage liegen, aber dennoch als relevanter wahrgenommen werden, weil sie didaktisch besser aufbereitet sind oder mehr Kontextinformationen enthalten, die für das Verständnis der Antwort wichtig sind. Verständlichkeit und Didaktik sind beides Metriken, die bei V2 ebenfalls verbessert von den Experten wahrgenommen wurden (vgl. \autoref{fig:dimensionen_vergleich}), die fachlich oder didaktisch sinnvollen Zusatzinformationen können jedoch von RAGAS penalisiert werden. Hier spielt auch das fehlende Domänenwissen von RAGAS eine Rolle, weil die Embeddings gewisser Fachbegriffe eventuell nicht optimal gewichtet sind. Zudem bezieht sich die Answer Relevancy lediglich auf Q\&A-Interaktionen, während die Relevanz beim Expertenevaluation auch bei den sehr gut bewerteten Lernassistenz-Interaktionen erhoben wurde. 
 
 \section{Einfluss der Implementierungen}
