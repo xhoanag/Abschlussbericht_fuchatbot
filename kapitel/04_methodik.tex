@@ -98,7 +98,6 @@ Mit einem Anteil von 40\,\% stellte der technische Support die größte Cluster-
     \item „Wo finde ich Teilnahmebescheinigungen?“
     \item „Wer sind die Ansprechpartner?“
 \end{itemize}
-
 Hier steht die korrekte und präzise Bereitstellung statischer, administrativer Informationen im Vordergrund. Die Bewertung fokussiert auf faktische Korrektheit, Präzision und Klarheit der Antwort. Kontextintegration spielt eine untergeordnete Rolle, da die Antworten primär auf fest definierten Informationen basieren. Dieser Use Case repräsentiert die grundlegende Funktion eines RAG-Systems: die Bereitstellung von Faktenwissen.
 
 \paragraph{Use Case 2: Kursbezogene Fragen}
@@ -110,7 +109,6 @@ Der zweite Use Case leitet sich aus der zweitgrößten Cluster-Gruppe ab (31\,\%
     \item „Was ist sklearn?“
     \item „Wie unterscheiden sich Deep Learning und Machine Learning?“
 \end{itemize}
-
 Im Unterschied zum technischen Support erfordert dieser Use Case eine stärkere Kontextintegration. Das System muss kursinterne Materialien semantisch korrekt identifizieren und fachlich kohärent aufbereiten.
 
 \paragraph{Use Case 3: Lernpartner / Lernunterstützung}
@@ -123,7 +121,6 @@ Dieser Use Case prüft insbesondere:
     \item Verständlichkeit und Adaptivität,
     \item dialogische Lernunterstützung.
 \end{itemize}
-
 Zusammenfassend differenzieren sich die drei Use Cases entlang der Informationsart (administrativ, fachlich, lernprozessunterstützend) sowie der jeweiligen Generationsanforderung (faktisch-präzise, kontextintegrierend, didaktisch-strukturierend) und strukturieren damit die Evaluation.
 
 \section{Evaluation eines Retrieval-Augmented-Generation-Chatbots}
@@ -131,7 +128,7 @@ Zusammenfassend differenzieren sich die drei Use Cases entlang der Informationsa
 \subsection{Stand der Forschung}
 \label{sec:lit_eval}
 
-Der Stand der Forschung zur Evaluation von RAG ist durch eine zunehmende methodische Ausdifferenzierung geprägt, die technische Qualitätsdimensionen ebenso einbezieht wie nutzerbezogene und domänenspezifische Anforderungen. Ausgangspunkt ist die RAG-Architektur, die parametrisierte Sprachmodelle mit externem, nicht-parametrischem Wissen koppelt, um faktische Genauigkeit zu erhöhen und Halluzinationen zu reduzieren. Diese Hybridität erzwingt eine doppelte Evaluationslogik: Einerseits ist die Qualität des Retrievals zu beurteilen (z.\,B. ob relevante Evidenz gefunden und bereitgestellt wird), andererseits die Generationsleistung unter Nutzung des bereitgestellten Kontexts (z.\,B. ob Antworten korrekt, vollständig und im Kontext verankert sind) \cite{Lewis2021RAG}.
+Der Stand der Forschung zur Evaluation von RAG ist durch eine zunehmende methodische Ausdifferenzierung geprägt, die technische Qualitätsdimensionen ebenso einbezieht wie nutzerbezogene und domänenspezifische Anforderungen. Ausgangspunkt ist die RAG-Architektur, die LLMs mit einer externen Wissensbasis koppelt, um faktische Genauigkeit zu erhöhen und Halluzinationen zu reduzieren. Diese Hybridität erzwingt eine doppelte Evaluationslogik: Einerseits ist die Qualität des Retrievals zu beurteilen (z.\,B. ob relevante Evidenz gefunden und bereitgestellt wird), andererseits die Generationsleistung unter Nutzung des bereitgestellten Kontexts (z.\,B. ob Antworten korrekt, vollständig und im Kontext verankert sind) \cite{Lewis2021RAG}.
 
 Eine zentrale Herausforderung besteht darin, dass RAG-Systeme hybride Fehlerquellen besitzen: Fehler können durch irrelevante oder falsche Dokumente im Retrieval entstehen, durch unzureichende Integration mehrerer Passagen oder durch Halluzinationen trotz verfügbarer Evidenz. Entsprechend argumentieren neuere Survey-Arbeiten, dass Evaluation entlang der Pipeline-Phasen strukturiert werden sollte, um die Schnittstellen zwischen Retrieval und Generation explizit zu berücksichtigen \cite{Yu2025SurveyRAG}.
 
