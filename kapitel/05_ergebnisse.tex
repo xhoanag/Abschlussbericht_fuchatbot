@@ -7,7 +7,7 @@
 
 \autoref{fig:ragas1} zeigt die aggregierten Mittelwerte, Standardabweichungen sowie 95\,\%-Konfidenzintervalle der verwendeten Metriken (Answer Relevancy, Context Relevance, Faithfulness) beider Versionen. Die Punkte markieren die jeweiligen Mittelwerte ($\mu$). Die hell dargestellten vertikalen Balken repräsentieren die Standardabweichung (SD) und die dunklen Balken das 95\,\%-Konfidenzintervall (CI).
 
-Für \textit{Answer Relevancy} erzielt V1 einen höheren Mittelwert ($\mu = 0{,}805$, $\sigma = 0{,}138$) als V2 ($\mu = 0{,}750$, $\sigma = 0{,}119$). Die Konfidenzintervalle liegen klar getrennt. Im Bereich \textit{Context Relevance} ergibt sich ein umgekehrtes Muster: V2 erreicht einen höheren Mittelwert ($\mu = 0{,}812$, $\sigma = 0{,}336$) als V1 ($\mu = 0{,}758$, $\sigma = 0{,}373$). Die Streuung fällt in beiden Versionen höher aus als bei \textit{Answer Relevancy}. Für \textit{Faithfulness} liegen die Mittelwerte nahe beieinander (V1: $\mu = 0{,}880$, $\sigma = 0{,}203$; V2: $\mu = 0{,}855$, $\sigma = 0{,}228$). Die Konfidenzintervalle überlappen deutlich.
+Für \textit{Answer Relevancy} erzielt V1 einen höheren Mittelwert ($\mu = 0{.}805$, $\sigma = 0{.}138$) als V2 ($\mu = 0{.}750$, $\sigma = 0{.}119$). Die Konfidenzintervalle liegen klar getrennt. Im Bereich \textit{Context Relevance} ergibt sich ein umgekehrtes Muster: V2 erreicht einen höheren Mittelwert ($\mu = 0{.}812$, $\sigma = 0{.}336$) als V1 ($\mu = 0{.}758$, $\sigma = 0{.}373$). Die Streuung fällt in beiden Versionen höher aus als bei \textit{Answer Relevancy}. Für \textit{Faithfulness} liegen die Mittelwerte nahe beieinander (V1: $\mu = 0{.}880$, $\sigma = 0{.}203$; V2: $\mu = 0{.}855$, $\sigma = 0{.}228$). Die Konfidenzintervalle überlappen deutlich.
 
 \begin{figure}[H]
 \centering
@@ -16,27 +16,27 @@ Für \textit{Answer Relevancy} erzielt V1 einen höheren Mittelwert ($\mu = 0{,}
 \label{fig:ragas1}
 
 \vspace{2mm}
-\textbf{Legende:} Orange Markierungen repräsentieren V1, blaue Markierungen V2. Punkte kennzeichnen die Mittelwerte ($\mu$), helle Balken die Standardabweichung ($\sigma$) und dunkle Balken das 95\,\%-Konfidenzintervall. Die Hypothesentests umfassen paarweise gerichtete t-Tests ($t$) und Wilcoxon-Tests ($W$) mit $\alpha = 0{,}05$ und $n = 60$.
+\textbf{Legende:} Orange Markierungen repräsentieren V1, blaue Markierungen V2. Punkte kennzeichnen die Mittelwerte ($\mu$), helle Balken die Standardabweichung ($\sigma$) und dunkle Balken das 95\,\%-Konfidenzintervall. Die Hypothesentests umfassen paarweise gerichtete t-Tests ($t$) und Wilcoxon-Tests ($W$) mit $\alpha = 0{.}05$ und $n = 60$.
 \end{figure}
 
 \paragraph{Gepaarte Differenzen und Signifikanztests}
 
 Abbildung~\ref{fig:ragas2} stellt die gepaarten Mittelwertsdifferenzen (V2$-$V1) dar. Positive Werte sprechen für V2, negative Werte für V1. Die vertikalen Balken zeigen das 95\,\%-Konfidenzintervall der Differenz; die horizontale Linie bei Null markiert das Ausbleiben eines Effekts. Ein Stern kennzeichnet statistisch signifikante Unterschiede.
 
-Für \textit{Answer Relevancy} beträgt die mittlere Differenz $-0{,}055$. Das Konfidenzintervall liegt vollständig unterhalb von Null. Der Unterschied ist signifikant (einseitiger gepaarter t-Test: $t = 4{,}285$, $p < 0{,}001$; Wilcoxon-Test ebenfalls signifikant). V2 weist somit signifikant niedrigere Werte in der \textit{Answer Relevancy} auf.
+Für \textit{Answer Relevancy} beträgt die mittlere Differenz $-0{.}055$. Das Konfidenzintervall liegt vollständig unterhalb von Null. Der Unterschied ist signifikant (einseitiger gepaarter t-Test: $t = 4{.}285$, $p < 0{.}001$; Wilcoxon-Test ebenfalls signifikant). V2 weist somit signifikant niedrigere Werte in der \textit{Answer Relevancy} auf.
 
-Für \textit{Context Relevance} ergibt sich eine mittlere Differenz von $+0{,}053$. Das Konfidenzintervall liegt vollständig oberhalb von Null. Der Unterschied ist signifikant ($t = 2{,}088$, $p = 0{,}021$; Wilcoxon-Test signifikant). V2 erzielt in dieser Dimension höhere Werte in der \textit{Context Relevance}.
+Für \textit{Context Relevance} ergibt sich eine mittlere Differenz von $+0{.}053$. Das Konfidenzintervall liegt vollständig oberhalb von Null. Der Unterschied ist signifikant ($t = 2{.}088$, $p = 0{.}021$; Wilcoxon-Test signifikant). V2 erzielt in dieser Dimension höhere Werte in der \textit{Context Relevance}.
 
-Für \textit{Faithfulness} beträgt die Differenz $-0{,}025$. Das Konfidenzintervall schneidet die Null, und der Unterschied ist nicht signifikant ($t = 1{,}031$, $p = 0{,}153$; Wilcoxon-Test nicht signifikant).
+Für \textit{Faithfulness} beträgt die Differenz $-0{.}025$. Das Konfidenzintervall schneidet die Null, und der Unterschied ist nicht signifikant ($t = 1{.}031$, $p = 0{.}153$; Wilcoxon-Test nicht signifikant).
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{ragas2.png}
-\caption{Paired Difference Plot: Mittelwert der Differenz (V2--V1) mit 95\,\%-Konfidenz\-intervall ($\ast$ = signifikant, $\alpha = 0{,}05$, $n = 60$)}
+\caption{Paired Difference Plot der mittleren Differenzen (V2 -- V1)}
 \label{fig:ragas2}
 
 \vspace{2mm}
-\textbf{Legende:} Punkte markieren die gepaarte Mittelwertsdifferenz je Metrik. Vertikale Balken zeigen das 95\,\%-Konfidenzintervall. Die horizontale Linie bei 0 kennzeichnet die Null-Differenz. Ein Stern (*) markiert signifikante Unterschiede gemäß einseitigem gepaartem t-Test und Wilcoxon-Test.
+\textbf{Legende:} Punkte markieren die gepaarte Mittelwertsdifferenz je Metrik. Vertikale Balken zeigen das 95\,\%-Konfidenzintervall. Die horizontale Linie bei 0 kennzeichnet die Null-Differenz. Ein Stern (*) markiert signifikante Unterschiede gemäß einseitigem gepaartem t-Test und Wilcoxon-Test ($\alpha = 0{.}05$, $n = 60$).
 \end{figure}
 
 %\paragraph{Zusammenfassende Einordnung}
@@ -57,7 +57,7 @@ Ein Experteninterview zum Kurs \textit{KI praktisch anwenden - Step by Step zu d
     \label{fig:fragebogen_usecases}
 
 \vspace{2mm}
-\textbf{Legende:} Orange Markierungen repräsentieren Version~1 (V1), blaue Markierungen Version~2 (V2). Punkte kennzeichnen die Mittelwerte ($\mu$). Helle Balken zeigen die Standardabweichung (SD), dunkle Balken das 95\,\%-Konfidenzintervall (CI).
+\textbf{Legende:} Orange Markierungen repräsentieren V1, blaue Markierungen V2. Punkte kennzeichnen die Mittelwerte ($\mu$), helle Balken die Standardabweichung ($\sigma$) und dunkle Balken das 95\,\%-Konfidenzintervall. Die Hypothesentests umfassen paarweise gerichtete t-Tests ($t$) und Wilcoxon-Tests ($W$) mit $\alpha = 0{.}05$.
 \end{figure}
 
 Im Use Case \emph{Technischer Support} zeigt sich eine signifikante Verschlechterung von V2 gegenüber V1 ($p = 0.002$). Experten bewerteten V1 hier als überlegen, was insbesondere auf die wahrgenommene höhere Reaktionsgeschwindigkeit zurückgeführt wurde. Geschwindigkeit fungiert im Support-Kontext als dominantes Qualitätskriterium, wodurch kleinere inhaltliche Unterschiede weniger stark ins Gewicht fallen.
@@ -73,7 +73,7 @@ Am deutlichsten fällt die Verbesserung im \emph{Lernmodus} aus ($p < 0.001$). H
     \label{fig:dimensionen_vergleich}
 
 \vspace{2mm}
-\textbf{Legende:} Orange Markierungen repräsentieren V1, blaue Markierungen V2. Punkte kennzeichnen die Mittelwerte ($\mu$), helle Balken die Standardabweichung ($\sigma$) und dunkle Balken das 95\,\%-Konfidenzintervall. Die Hypothesentests umfassen paarweise gerichtete t-Tests ($t$) und Wilcoxon-Tests ($W$) mit $\alpha = 0{,}05$.
+\textbf{Legende:} Orange Markierungen repräsentieren V1, blaue Markierungen V2. Punkte kennzeichnen die Mittelwerte ($\mu$), helle Balken die Standardabweichung ($\sigma$) und dunkle Balken das 95\,\%-Konfidenzintervall. Die Hypothesentests umfassen paarweise gerichtete t-Tests ($t$) und Wilcoxon-Tests ($W$) mit $\alpha = 0{.}05$.
 \end{figure}
 
 Die differenzierte Betrachtung der einzelnen Bewertungsdimensionen (Abb.~\ref{fig:dimensionen_vergleich}) präzisiert die zuvor dargestellten Use-Case-Ergebnisse und erlaubt eine inhaltliche Einordnung der beobachteten Unterschiede zwischen V1 und V2.
@@ -97,7 +97,7 @@ Insgesamt zeigt die dimensionsspezifische Analyse, dass sich die Weiterentwicklu
     \label{fig:fragebogen_gesamt}
 
 \vspace{2mm}
-\textbf{Legende:} Orange Markierungen repräsentieren V1, blaue Markierungen V2. Punkte kennzeichnen die Mittelwerte ($\mu$), helle Balken die Standardabweichung ($\sigma$) und dunkle Balken das 95\,\%-Konfidenzintervall. Die Hypothesentests umfassen paarweise gerichtete t-Tests ($t$) und Wilcoxon-Tests ($W$) mit $\alpha = 0{,}05$.
+\textbf{Legende:} Orange Markierungen repräsentieren V1, blaue Markierungen V2. Punkte kennzeichnen die Mittelwerte ($\mu$), helle Balken die Standardabweichung ($\sigma$) und dunkle Balken das 95\,\%-Konfidenzintervall. Die Hypothesentests umfassen paarweise gerichtete t-Tests ($t$) und Wilcoxon-Tests ($W$) mit $\alpha = 0{.}05$.
 \end{figure}
 
 Der bereinigte Gesamtvergleich bestätigt insgesamt eine leichte, aber signifikante Verbesserung zugunsten von V2. Die Qualitätssteigerung ist somit statistisch nachweisbar, variiert jedoch je nach Nutzungskontext.
